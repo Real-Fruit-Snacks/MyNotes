@@ -25,12 +25,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/Training/HackSmarter/OSCP Path.md",
+                "file": "docs/Windows/File Transfer.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "OSCP Path"
+              "title": "File Transfer"
             }
           }
         ],
@@ -186,13 +186,14 @@
   },
   "active": "ba62af066a906f44",
   "lastOpenFiles": [
+    "docs/stylesheets/catppuccin.css.tmp.20168.1777340256315",
+    "docs/Training/HackSmarter/OSCP Path.md",
     "docs/stylesheets/catppuccin.css.tmp.20168.1777340001875",
     "Side Note/Convert to Gitlab.md",
     "docs/Windows/File Transfer.md",
     "Side Note",
     "docs/Web/Shell/PHP.md",
     "docs/Web/File Uploads/Bypass Client-Side Controls.md",
-    "docs/Training/HackSmarter/OSCP Path.md",
     "docs/Tools/Listeners.md",
     "docs/OS/Kali.md",
     "docs/Attachments",
@@ -206,7 +207,6 @@
     "docs/Windows",
     "docs/Web/File Uploads/Bypass Server-Side Inspection.md",
     "docs/Web/Shell",
-    "docs/Web/File Uploads",
     "Web/File Uploads/Bypass Client-Side Controls.md",
     "Web/File Uploads/Bypass MIME Checks.md",
     "Web/File Uploads/Bypass Server-Side Inspection.md",

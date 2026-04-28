@@ -57,6 +57,41 @@
   color: var(--ctp-mauve);
 }
 
+/* Top-level section colors - rotate Catppuccin palette per section.
+   Each top-level nav item gets a --nav-section-color via :nth-child rotation.
+   Children inherit it for active/hover states. */
+[data-md-color-scheme="catppuccin-mocha"] .md-nav--primary > .md-nav__list > .md-nav__item:nth-child(7n+1) { --nav-section-color: var(--ctp-mauve); }
+[data-md-color-scheme="catppuccin-mocha"] .md-nav--primary > .md-nav__list > .md-nav__item:nth-child(7n+2) { --nav-section-color: var(--ctp-blue); }
+[data-md-color-scheme="catppuccin-mocha"] .md-nav--primary > .md-nav__list > .md-nav__item:nth-child(7n+3) { --nav-section-color: var(--ctp-green); }
+[data-md-color-scheme="catppuccin-mocha"] .md-nav--primary > .md-nav__list > .md-nav__item:nth-child(7n+4) { --nav-section-color: var(--ctp-peach); }
+[data-md-color-scheme="catppuccin-mocha"] .md-nav--primary > .md-nav__list > .md-nav__item:nth-child(7n+5) { --nav-section-color: var(--ctp-teal); }
+[data-md-color-scheme="catppuccin-mocha"] .md-nav--primary > .md-nav__list > .md-nav__item:nth-child(7n+6) { --nav-section-color: var(--ctp-pink); }
+[data-md-color-scheme="catppuccin-mocha"] .md-nav--primary > .md-nav__list > .md-nav__item:nth-child(7n) { --nav-section-color: var(--ctp-yellow); }
+
+/* Apply section color to the section's label */
+[data-md-color-scheme="catppuccin-mocha"] .md-nav--primary > .md-nav__list > .md-nav__item > .md-nav__link,
+[data-md-color-scheme="catppuccin-mocha"] .md-nav--primary > .md-nav__list > .md-nav__item > label {
+  color: var(--nav-section-color);
+  font-weight: 500;
+}
+
+/* Section expand/collapse arrow matches section color */
+[data-md-color-scheme="catppuccin-mocha"] .md-nav--primary > .md-nav__list > .md-nav__item > .md-nav__link .md-nav__icon,
+[data-md-color-scheme="catppuccin-mocha"] .md-nav--primary > .md-nav__list > .md-nav__item > label .md-nav__icon {
+  color: var(--nav-section-color);
+}
+
+/* Active item within a section adopts the section's color */
+[data-md-color-scheme="catppuccin-mocha"] .md-nav--primary > .md-nav__list > .md-nav__item .md-nav__link--active {
+  color: var(--nav-section-color);
+  font-weight: 600;
+}
+
+/* Hovering a child lifts it toward the section color */
+[data-md-color-scheme="catppuccin-mocha"] .md-nav--primary > .md-nav__list > .md-nav__item .md-nav .md-nav__link:hover {
+  color: var(--nav-section-color);
+}
+
 [data-md-color-scheme="catppuccin-mocha"] .md-header {
   background-color: var(--ctp-crust);
 }
@@ -314,6 +349,21 @@
   background-color: var(--ctp-mantle);
   border: 1px solid var(--ctp-surface0);
   border-radius: 6px;
+}
+
+/* Always wrap code - no horizontal scroll. Wraps at whitespace where possible,
+   breaks long unbreakable tokens (URLs, base64) anywhere they fit. */
+[data-md-color-scheme="catppuccin-mocha"] .md-typeset pre > code,
+[data-md-color-scheme="catppuccin-mocha"] .md-typeset .highlight pre,
+[data-md-color-scheme="catppuccin-mocha"] .md-typeset .highlight code {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+[data-md-color-scheme="catppuccin-mocha"] .md-typeset pre,
+[data-md-color-scheme="catppuccin-mocha"] .md-typeset .highlight {
+  overflow-x: visible;
 }
 
 /* Linenos column subtle separation */
