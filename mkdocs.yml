@@ -1,11 +1,15 @@
 ﻿site_name: My Notes
 theme:
   name: material
+  favicon: images/favicon.svg
+  icon:
+    logo: material/shield-lock
   palette:
     scheme: catppuccin-mocha
     primary: custom
     accent: custom
   font:
+    text: Inter
     code: JetBrains Mono
   features:
     - content.code.copy

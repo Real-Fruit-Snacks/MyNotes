@@ -1,0 +1,9 @@
+{
+  "hidden": true,
+  "hiddenList": [
+    "README.md",
+    "docs/assets",
+    "docs/images",
+    "docs/stylesheets"
+  ]
+}

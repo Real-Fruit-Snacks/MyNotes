@@ -1,0 +1,17 @@
+{
+  "openDelimiter": "<",
+  "closeDelimiter": ">",
+  "defaultSeparator": ":",
+  "missingValueText": "[MISSING]",
+  "supportNestedProperties": true,
+  "caseInsensitive": false,
+  "arrayJoinSeparator": ", ",
+  "preserveOriginalOnMissing": true,
+  "notificationLevel": "all",
+  "highlightVariables": true,
+  "highlightColors": {
+    "exists": "",
+    "missing": "",
+    "hasDefault": ""
+  }
+}
