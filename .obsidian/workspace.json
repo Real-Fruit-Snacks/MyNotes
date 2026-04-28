@@ -184,8 +184,9 @@
       "iconic:Open rulebook": true
     }
   },
-  "active": "ba62af066a906f44",
+  "active": "2899620004269225",
   "lastOpenFiles": [
+    "docs/stylesheets/catppuccin.css.tmp.20168.1777341316021",
     "docs/Labs/HackSmarter/BuildingMagic/Machine Walkthrough.md",
     "Side Note/Things to Fix.md",
     "docs/Labs/HackSmarter/ShareThePain/Machine Walkthrough 2.md",
@@ -220,7 +221,6 @@
     "Labs/HackSmarter/ShareThePain/Machine Walkthrough.md",
     "Labs/HackSmarter/ShareThePain/Scope.md",
     "Tools/Listener/Flux.md",
-    "Labs/HackSmarter/BuildingMagic/Machine Walkthrough.md",
-    "Labs/HackSmarter/BuildingMagic/Scope.md"
+    "Labs/HackSmarter/BuildingMagic/Machine Walkthrough.md"
   ]
 }
