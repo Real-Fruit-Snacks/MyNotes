@@ -351,6 +351,14 @@
   border-radius: 6px;
 }
 
+/* Restore spacing between consecutive code blocks (Material collapses by default) */
+[data-md-color-scheme="catppuccin-mocha"] .md-typeset .highlight + .highlight,
+[data-md-color-scheme="catppuccin-mocha"] .md-typeset .highlighttable + .highlighttable,
+[data-md-color-scheme="catppuccin-mocha"] .md-typeset .highlight + .highlighttable,
+[data-md-color-scheme="catppuccin-mocha"] .md-typeset .highlighttable + .highlight {
+  margin-top: 1em;
+}
+
 /* Always wrap code - no horizontal scroll. Wraps at whitespace where possible,
    breaks long unbreakable tokens (URLs, base64) anywhere they fit. */
 [data-md-color-scheme="catppuccin-mocha"] .md-typeset pre > code,

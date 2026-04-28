@@ -33,6 +33,7 @@ cat <File> | base64 -w 0; echo
 | DownloadFileAsync   | Downloads data from a resource to a local file without blocking the calling thread.          |
 | DownloadString      | Downloads a String from a resource and returns a String.                                     |
 | DownloadStringAsync | Downloads a String from a resource without blocking the calling thread.                      |
+
 ### PowerShell DownloadString - Fileless Method
 ```PowerShell
 # Windows (Fileless Method)
