@@ -2,9 +2,7 @@
 
 #Lab #HackSmarter #Scope
 
-* * *
-
-<br>
+---
 
 **Objective:** As a penetration tester on the Hack Smarter Red Team, your objective is to achieve a full compromise of the Active Directory environment.
 

@@ -2,9 +2,7 @@
 
 #Scope #HackSmarter #Lab #ShareThePain
 
-* * *
-
-<br>
+---
 
 ## Scope and Objective
 
