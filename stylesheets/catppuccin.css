@@ -562,6 +562,29 @@
   color: var(--ctp-overlay2);
 }
 
+/* Tag pills (in search results and on pages) - Catppuccin theming */
+[data-md-color-scheme="catppuccin-mocha"] .md-tag {
+  background-color: var(--ctp-surface0);
+  color: var(--ctp-subtext1);
+  border: 1px solid var(--ctp-surface1);
+}
+
+[data-md-color-scheme="catppuccin-mocha"] a.md-tag:hover,
+[data-md-color-scheme="catppuccin-mocha"] a.md-tag:focus {
+  background-color: var(--ctp-surface1);
+  color: var(--ctp-text);
+}
+
+/* Matched search terms inside tag pills - readable on dark pill */
+[data-md-color-scheme="catppuccin-mocha"] .md-tag mark {
+  background-color: transparent;
+  color: var(--ctp-yellow);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--ctp-yellow);
+  text-underline-offset: 2px;
+}
+
 /* Empty state / no results */
 [data-md-color-scheme="catppuccin-mocha"] .md-search-result__meta:only-child {
   color: var(--ctp-subtext1);
