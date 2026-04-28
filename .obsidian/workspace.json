@@ -25,12 +25,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/Windows/File Transfer.md",
+                "file": "Side Note/Things to Fix.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "File Transfer"
+              "title": "Things to Fix"
             }
           }
         ],
@@ -186,11 +186,21 @@
   },
   "active": "ba62af066a906f44",
   "lastOpenFiles": [
+    "docs/Labs/HackSmarter/BuildingMagic/Machine Walkthrough.md",
+    "Side Note/Things to Fix.md",
+    "docs/Labs/HackSmarter/ShareThePain/Machine Walkthrough 2.md",
+    "docs/Labs/HackSmarter/ShareThePain/Scope 2.md",
+    "docs/Windows/File Transfer.md",
+    "docs/Labs/HackSmarter/ShareThePain",
+    "docs/Labs/HackSmarter/BuildingMagic",
+    "docs/stylesheets/catppuccin.css.tmp.20168.1777341069532",
+    "docs/Labs/HackSmarter/BuildingMagic/Scope.md",
+    "docs/Labs/HackSmarter",
+    "docs/Labs",
     "docs/stylesheets/catppuccin.css.tmp.20168.1777340256315",
     "docs/Training/HackSmarter/OSCP Path.md",
     "docs/stylesheets/catppuccin.css.tmp.20168.1777340001875",
     "Side Note/Convert to Gitlab.md",
-    "docs/Windows/File Transfer.md",
     "Side Note",
     "docs/Web/Shell/PHP.md",
     "docs/Web/File Uploads/Bypass Client-Side Controls.md",
@@ -198,15 +208,9 @@
     "docs/OS/Kali.md",
     "docs/Attachments",
     "docs/OS",
-    "docs/Training/HackSmarter",
-    "docs/Training",
-    "docs/Tools",
     "docs/Web/File Uploads/Bypass MIME Checks.md",
     "docs/index.md",
-    "docs/Windows/Untitled",
-    "docs/Windows",
     "docs/Web/File Uploads/Bypass Server-Side Inspection.md",
-    "docs/Web/Shell",
     "Web/File Uploads/Bypass Client-Side Controls.md",
     "Web/File Uploads/Bypass MIME Checks.md",
     "Web/File Uploads/Bypass Server-Side Inspection.md",
@@ -217,10 +221,6 @@
     "Labs/HackSmarter/ShareThePain/Scope.md",
     "Tools/Listener/Flux.md",
     "Labs/HackSmarter/BuildingMagic/Machine Walkthrough.md",
-    "Labs/HackSmarter/BuildingMagic/Scope.md",
-    "Kali/Setup Kali.md",
-    "Kali/Tmux.md",
-    "_Training/HackSmarter/OSCP Path.md",
-    "Kitty.md"
+    "Labs/HackSmarter/BuildingMagic/Scope.md"
   ]
 }
