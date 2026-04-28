@@ -25,12 +25,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/Training/HackSmarter/OSCP Path.md",
+                "file": "docs/Tools/Listeners.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "OSCP Path"
+              "title": "Listeners"
             }
           }
         ],
@@ -75,16 +75,6 @@
               },
               "icon": "lucide-search",
               "title": "Search"
-            }
-          },
-          {
-            "id": "bf17eff5a9407067",
-            "type": "leaf",
-            "state": {
-              "type": "bookmarks",
-              "state": {},
-              "icon": "lucide-bookmark",
-              "title": "Bookmarks"
             }
           }
         ]
@@ -134,21 +124,6 @@
             }
           },
           {
-            "id": "37e6a53ee61751e3",
-            "type": "leaf",
-            "state": {
-              "type": "tag",
-              "state": {
-                "sortOrder": "frequency",
-                "useHierarchy": true,
-                "showSearch": false,
-                "searchQuery": ""
-              },
-              "icon": "lucide-tags",
-              "title": "Tags"
-            }
-          },
-          {
             "id": "1d81a8e1b5287045",
             "type": "leaf",
             "state": {
@@ -187,7 +162,7 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -206,10 +181,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "ba62af066a906f44",
+  "active": "f2ced3885d58d59f",
   "lastOpenFiles": [
-    "docs/OS/Kali.md",
+    "docs/Attachments",
     "docs/Training/HackSmarter/OSCP Path.md",
+    "docs/OS/Kali.md",
     "docs/OS",
     "docs/Tools/Listeners.md",
     "docs/Training/HackSmarter",
@@ -242,7 +218,6 @@
     "Kali/Tmux.md",
     "_Training/HackSmarter/OSCP Path.md",
     "Kitty.md",
-    "_Archive/Active Directory Username Generator.md",
-    "_Archive/Add Windows User.md"
+    "_Archive/Active Directory Username Generator.md"
   ]
 }

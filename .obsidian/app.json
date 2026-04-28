@@ -1,5 +1,8 @@
 {
   "readableLineLength": false,
   "alwaysUpdateLinks": true,
-  "promptDelete": false
+  "promptDelete": false,
+  "attachmentFolderPath": "docs/Attachments",
+  "newLinkFormat": "absolute",
+  "trashOption": "local"
 }
