@@ -25,12 +25,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/index.md",
+                "file": "docs/Training/HackSmarter/OSCP Path.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "index"
+              "title": "OSCP Path"
             }
           }
         ],
@@ -208,15 +208,25 @@
   },
   "active": "ba62af066a906f44",
   "lastOpenFiles": [
-    "docs/Web/Shell/PHP.md",
-    "docs/Web/File Uploads/Bypass Server-Side Inspection.md",
+    "docs/OS/Kali.md",
+    "docs/Training/HackSmarter/OSCP Path.md",
+    "docs/OS",
+    "docs/Tools/Listeners.md",
+    "docs/Training/HackSmarter",
+    "docs/Training",
+    "docs/Windows/File Transfer.md",
+    "docs/Tools",
     "docs/Web/File Uploads/Bypass MIME Checks.md",
     "docs/Web/File Uploads/Bypass Client-Side Controls.md",
+    "docs/index.md",
+    "docs/Windows/Untitled",
+    "docs/Windows",
+    "docs/Web/Shell/PHP.md",
+    "docs/Web/File Uploads/Bypass Server-Side Inspection.md",
     "docs/Web/Shell",
     "docs/Web/File Uploads",
     "docs/Web",
     "docs/Untitled 1",
-    "docs/Untitled",
     "Web/File Uploads/Bypass Client-Side Controls.md",
     "Web/File Uploads/Bypass MIME Checks.md",
     "Web/File Uploads/Bypass Server-Side Inspection.md",
@@ -231,18 +241,8 @@
     "Kali/Setup Kali.md",
     "Kali/Tmux.md",
     "_Training/HackSmarter/OSCP Path.md",
-    "Labs/HackSmarter/ShareThePain",
     "Kitty.md",
-    "Labs/HackSmarter/BuildingMagic",
-    "Labs/HackSmarter",
-    "Labs",
-    "Tools/Listener",
     "_Archive/Active Directory Username Generator.md",
-    "_Archive/Add Windows User.md",
-    "_Archive/Address Resolution Protocol.md",
-    "_Archive/AJP Enumeration.md",
-    "_Archive/AppArmor.md",
-    "_Archive/AV Evasion.md",
-    "_Archive/AWS Enumeration.md"
+    "_Archive/Add Windows User.md"
   ]
 }

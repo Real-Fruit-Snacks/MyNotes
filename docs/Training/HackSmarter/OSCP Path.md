@@ -1,0 +1,26 @@
+---
+tags:
+  - Training
+  - OSCP
+  - HackSmarter
+---
+## Path
+- [ ] What is Hack Smarter?
+- [ ] Guided Lab: File Upload Attacks
+- [ ] Hack With Me: Active Directory (BuildingMagic x ShareThePain)
+- [ ] Hack With Me: Active Directory (Anomaly x Sysco)
+- [ ] Challenge Lab: Ascension
+- [ ] Challenge Lab: Verbose
+- [ ] Challenge Lab: Slayer
+- [ ] Challenge Lab: PivotSmarter
+- [ ] Challenge Lab: Welcome
+- [ ] Challenge Lab: Arasaka
+- [ ] Challenge Lab: BankSmarter
+- [ ] Challenge Lab: Talisman
+- [ ] Challenge Lab: Exception
+- [ ] Challenge Lab: ShareThePain
+- [ ] Challenge Lab: Sysco
+- [ ] Challenge Lab: Anomaly
+- [ ] Challenge Lab: Lumon Industries
+- [ ] Challenge Lab: 404 Bank
+- [ ] Challenge Lab: Odyssey
