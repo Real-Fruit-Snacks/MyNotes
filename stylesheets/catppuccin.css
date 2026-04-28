@@ -146,6 +146,22 @@
   color: var(--nav-section-color);
 }
 
+/* Replace nested-section chevron with folder / folder-open icon (Material Design Icons).
+   The icon inherits its color from the section color rotation above. */
+[data-md-color-scheme="catppuccin-mocha"] .md-nav--primary .md-nav__item--nested .md-nav__icon {
+  transform: none !important;
+}
+
+[data-md-color-scheme="catppuccin-mocha"] .md-nav--primary .md-nav__item--nested > .md-nav__link .md-nav__icon::after {
+  -webkit-mask-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10,4H4C2.89,4 2,4.89 2,6V18C2,19.1 2.89,20 4,20H20C21.1,20 22,19.1 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/></svg>') !important;
+          mask-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10,4H4C2.89,4 2,4.89 2,6V18C2,19.1 2.89,20 4,20H20C21.1,20 22,19.1 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/></svg>') !important;
+}
+
+[data-md-color-scheme="catppuccin-mocha"] .md-nav--primary .md-nav__item--nested > .md-nav__toggle:checked ~ .md-nav__link .md-nav__icon::after {
+  -webkit-mask-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H20A2,2 0 0,1 22,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z"/></svg>') !important;
+          mask-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,20H4C2.89,20 2,19.1 2,18V6C2,4.89 2.89,4 4,4H10L12,6H20A2,2 0 0,1 22,8H21L4,8V18L6.14,10H23.21L20.93,18.5C20.7,19.37 19.92,20 19,20Z"/></svg>') !important;
+}
+
 [data-md-color-scheme="catppuccin-mocha"] .md-header {
   background-color: var(--ctp-crust);
 }

