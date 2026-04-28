@@ -638,24 +638,6 @@
   border-radius: 0;
 }
 
-/* Images - Catppuccin polish */
-[data-md-color-scheme="catppuccin-mocha"] .md-typeset img,
-[data-md-color-scheme="catppuccin-mocha"] .md-typeset svg {
-  border-radius: 6px;
-  border: 1px solid var(--ctp-surface0);
-  max-width: 100%;
-  height: auto;
-}
-
-/* Don't add border to inline icons (emojis, status icons) */
-[data-md-color-scheme="catppuccin-mocha"] .md-typeset .twemoji svg,
-[data-md-color-scheme="catppuccin-mocha"] .md-typeset .emojione,
-[data-md-color-scheme="catppuccin-mocha"] .md-typeset a img.emojione,
-[data-md-color-scheme="catppuccin-mocha"] .md-typeset .admonition svg {
-  border: none;
-  border-radius: 0;
-}
-
 /* Glightbox overlay - match Catppuccin */
 [data-md-color-scheme="catppuccin-mocha"] .gslide-description {
   background-color: var(--ctp-mantle) !important;
