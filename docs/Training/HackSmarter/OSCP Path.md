@@ -5,9 +5,9 @@ tags:
   - HackSmarter
 ---
 ## Path
-- [ ] What is Hack Smarter?
-- [ ] Guided Lab: File Upload Attacks
-- [ ] Hack With Me: Active Directory (BuildingMagic x ShareThePain)
+- [x] What is Hack Smarter?
+- [x] Guided Lab: File Upload Attacks
+- [x] Hack With Me: Active Directory (BuildingMagic x ShareThePain)
 - [ ] Hack With Me: Active Directory (Anomaly x Sysco)
 - [ ] Challenge Lab: Ascension
 - [ ] Challenge Lab: Verbose

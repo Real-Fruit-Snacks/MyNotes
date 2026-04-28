@@ -25,12 +25,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Side Note/Convert to Gitlab.md",
+                "file": "docs/Training/HackSmarter/OSCP Path.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Convert to Gitlab"
+              "title": "OSCP Path"
             }
           }
         ],
@@ -186,8 +186,9 @@
   },
   "active": "ba62af066a906f44",
   "lastOpenFiles": [
-    "docs/Windows/File Transfer.md",
+    "docs/stylesheets/catppuccin.css.tmp.20168.1777340001875",
     "Side Note/Convert to Gitlab.md",
+    "docs/Windows/File Transfer.md",
     "Side Note",
     "docs/Web/Shell/PHP.md",
     "docs/Web/File Uploads/Bypass Client-Side Controls.md",
@@ -220,7 +221,6 @@
     "Kali/Setup Kali.md",
     "Kali/Tmux.md",
     "_Training/HackSmarter/OSCP Path.md",
-    "Kitty.md",
-    "_Archive/Active Directory Username Generator.md"
+    "Kitty.md"
   ]
 }
