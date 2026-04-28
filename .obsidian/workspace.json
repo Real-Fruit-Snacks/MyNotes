@@ -25,12 +25,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/Tools/Listeners.md",
+                "file": "Side Note/Convert to Gitlab.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Listeners"
+              "title": "Convert to Gitlab"
             }
           }
         ],
@@ -178,31 +178,34 @@
       "command-palette:Open command palette": false,
       "bases:Create new base": false,
       "yaml-variable-templater:YAML Variable Templater": false,
-      "obsidian-git:Open Git source control": false
+      "obsidian-git:Open Git source control": false,
+      "notebook-navigator:Notebook Navigator": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": false,
+      "iconic:Open rulebook": true
     }
   },
-  "active": "f2ced3885d58d59f",
+  "active": "ba62af066a906f44",
   "lastOpenFiles": [
-    "docs/Attachments",
+    "docs/Windows/File Transfer.md",
+    "Side Note/Convert to Gitlab.md",
+    "Side Note",
+    "docs/Web/Shell/PHP.md",
+    "docs/Web/File Uploads/Bypass Client-Side Controls.md",
     "docs/Training/HackSmarter/OSCP Path.md",
-    "docs/OS/Kali.md",
-    "docs/OS",
     "docs/Tools/Listeners.md",
+    "docs/OS/Kali.md",
+    "docs/Attachments",
+    "docs/OS",
     "docs/Training/HackSmarter",
     "docs/Training",
-    "docs/Windows/File Transfer.md",
     "docs/Tools",
     "docs/Web/File Uploads/Bypass MIME Checks.md",
-    "docs/Web/File Uploads/Bypass Client-Side Controls.md",
     "docs/index.md",
     "docs/Windows/Untitled",
     "docs/Windows",
-    "docs/Web/Shell/PHP.md",
     "docs/Web/File Uploads/Bypass Server-Side Inspection.md",
     "docs/Web/Shell",
     "docs/Web/File Uploads",
-    "docs/Web",
-    "docs/Untitled 1",
     "Web/File Uploads/Bypass Client-Side Controls.md",
     "Web/File Uploads/Bypass MIME Checks.md",
     "Web/File Uploads/Bypass Server-Side Inspection.md",
