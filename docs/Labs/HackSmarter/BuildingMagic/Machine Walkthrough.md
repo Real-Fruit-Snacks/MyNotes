@@ -82,8 +82,7 @@ Not valid after:  2026-10-15T00:55:51
 
 ```
 
-> \[!warning\] This is a Windows Machine so we need to add information to the /etc/hosts
-> 
+> [!warning] This is a Windows Machine so we need to add information to the /etc/hosts
 > - 10.0.19.80 DC01.hack.smarter
 
 ```bash

@@ -52,6 +52,15 @@
   max-width: 90rem;
 }
 
+/* Hide redundant primary-nav site title on desktop (header already shows it).
+   The drawer breakpoint is 76.25em; below that the title is needed for the
+   mobile drawer header, so leave it visible there. */
+@media screen and (min-width: 76.25em) {
+  .md-nav--primary > .md-nav__title {
+    display: none;
+  }
+}
+
 [data-md-color-scheme="catppuccin-mocha"] .md-typeset {
   color: var(--ctp-text);
 }
