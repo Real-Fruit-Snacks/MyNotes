@@ -129,9 +129,10 @@
   font-weight: 500;
 }
 
-/* Section expand/collapse arrow matches section color */
-[data-md-color-scheme="catppuccin-mocha"] .md-nav--primary > .md-nav__list > .md-nav__item > .md-nav__link .md-nav__icon,
-[data-md-color-scheme="catppuccin-mocha"] .md-nav--primary > .md-nav__list > .md-nav__item > label .md-nav__icon {
+/* Folder icons - all nested sections (top-level + descendants) inherit the
+   section color. --nav-section-color is set on the top-level <li> and cascades
+   down via CSS custom property inheritance. */
+[data-md-color-scheme="catppuccin-mocha"] .md-nav--primary .md-nav__item--nested > .md-nav__link .md-nav__icon {
   color: var(--nav-section-color);
 }
 
