@@ -56,9 +56,19 @@
               "icon": "bookmark",
               "title": "Wellspring"
             }
+          },
+          {
+            "id": "ca0c496c8c952f6e",
+            "type": "leaf",
+            "state": {
+              "type": "todo-pro-view",
+              "state": {},
+              "icon": "check-circle",
+              "title": "Todo Pro"
+            }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -190,7 +200,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 467.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -203,10 +213,11 @@
       "yaml-variable-templater:YAML Variable Templater": false,
       "obsidian-git:Open Git source control": false,
       "table-editor-obsidian:Advanced Tables Toolbar": false,
-      "iconic:Open rulebook": true
+      "iconic:Open rulebook": true,
+      "todo-pro:Open Todo Pro": false
     }
   },
-  "active": "30b1c0967ff74add",
+  "active": "ca0c496c8c952f6e",
   "lastOpenFiles": [
     "Bookmarks/google.md",
     "Bookmarks",
