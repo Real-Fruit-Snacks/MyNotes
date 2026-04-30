@@ -596,6 +596,79 @@ class NewFolderModal extends Modal {
 }
 
 // ============================================================
+//  Rename folder modal
+// ============================================================
+
+class RenameFolderModal extends Modal {
+  constructor(app, plugin, node) {
+    super(app);
+    this.plugin = plugin;
+    this.node = node;
+  }
+
+  onOpen() {
+    const { contentEl, titleEl } = this;
+    titleEl.setText("Rename folder");
+    contentEl.empty();
+
+    let input;
+    new Setting(contentEl)
+      .setName("Name")
+      .setDesc(`Renames "${this.node.path}". You can use "/" to move it under a different parent.`)
+      .addText((t) => {
+        input = t.inputEl;
+        t.setValue(this.node.name);
+      });
+
+    setTimeout(() => { input?.focus(); input?.select(); }, 30);
+
+    const btns = new Setting(contentEl);
+    btns.addButton((b) => b.setButtonText("Cancel").onClick(() => this.close()));
+    btns.addButton((b) =>
+      b.setButtonText("Rename").setCta().onClick(async () => {
+        const newName = (input?.value || "").trim().replace(/^\/+|\/+$/g, "");
+        if (!newName || newName === this.node.name) { this.close(); return; }
+
+        const parent = this.node.path.includes("/")
+          ? this.node.path.slice(0, this.node.path.lastIndexOf("/"))
+          : "";
+        const newRel = newName.includes("/")
+          ? newName
+          : (parent ? `${parent}/${newName}` : newName);
+
+        const baseFolder = this.plugin.settings.folder;
+        const oldFullPath = normalizePath(`${baseFolder}/${this.node.path}`);
+        const newFullPath = normalizePath(`${baseFolder}/${newRel}`);
+
+        const folder = this.plugin.app.vault.getAbstractFileByPath(oldFullPath);
+        if (!folder) { new Notice("Folder not found"); this.close(); return; }
+        if (this.plugin.app.vault.getAbstractFileByPath(newFullPath)) {
+          new Notice("A folder with that path already exists");
+          return;
+        }
+
+        try {
+          await this.plugin.app.fileManager.renameFile(folder, newFullPath);
+          new Notice("Folder renamed");
+          this.close();
+        } catch (e) {
+          new Notice(`Failed: ${e.message}`);
+        }
+      }),
+    );
+
+    contentEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.isComposing) {
+        e.preventDefault();
+        contentEl.querySelector(".mod-cta")?.click();
+      }
+    });
+  }
+
+  onClose() { this.contentEl.empty(); }
+}
+
+// ============================================================
 //  Folder picker modal — used by Move-to-folder and the editor's Folder field
 // ============================================================
 
@@ -1521,7 +1594,9 @@ class WellspringView extends ItemView {
     setIcon(addBtn, "folder-plus");
     addBtn.addEventListener("click", () => {
       new NewFolderModal(this.app, this.plugin, {
+        parent: this.state.folderFilter || "",
         onCreated: (path) => {
+          if (this.state.folderFilter) this.state.expandedFolders.add(this.state.folderFilter);
           this.state.folderFilter = path;
           this.render();
         },
@@ -1573,6 +1648,10 @@ class WellspringView extends ItemView {
         e.preventDefault();
         this.state.folderFilter = node.path;
         this.render();
+      });
+      link.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        this.openFolderMenu(e, node);
       });
       this.attachFolderDrop(link, node.path);
 
@@ -2183,6 +2262,60 @@ class WellspringView extends ItemView {
 
     const cur = items.find((b) => b.file.path === previewPath) || items[0];
     if (cur) renderBookmarkEditor(right, this.plugin, cur, this);
+  }
+
+  // --- folder menu ---------------------------------------------
+
+  openFolderMenu(e, node) {
+    const m = new Menu();
+    m.addItem((it) =>
+      it.setTitle("New subfolder…").setIcon("folder-plus").onClick(() => {
+        new NewFolderModal(this.app, this.plugin, {
+          parent: node.path,
+          onCreated: (path) => {
+            this.state.expandedFolders.add(node.path);
+            this.state.folderFilter = path;
+            this.render();
+          },
+        }).open();
+      }),
+    );
+    m.addItem((it) =>
+      it.setTitle("Rename…").setIcon("pencil").onClick(() => {
+        new RenameFolderModal(this.app, this.plugin, node).open();
+      }),
+    );
+    m.addSeparator();
+    m.addItem((it) =>
+      it.setTitle("Delete folder").setIcon("trash-2").onClick(() => {
+        this.confirmDeleteFolder(node);
+      }),
+    );
+    m.showAtMouseEvent(e);
+  }
+
+  async confirmDeleteFolder(node) {
+    const count = node.bookmarkCount;
+    const msg = count > 0
+      ? `Delete folder "${node.path}" and ${count} bookmark${count === 1 ? "" : "s"} inside? Files move to system trash.`
+      : `Delete empty folder "${node.path}"?`;
+    if (!confirm(msg)) return;
+
+    const fullPath = normalizePath(`${this.plugin.settings.folder}/${node.path}`);
+    const folder = this.app.vault.getAbstractFileByPath(fullPath);
+    if (!folder) { new Notice("Folder not found"); return; }
+
+    try {
+      await this.app.vault.trash(folder, true);
+      const ff = this.state.folderFilter;
+      if (ff === node.path || (ff && ff.startsWith(node.path + "/"))) {
+        this.state.folderFilter = null;
+      }
+      this.state.expandedFolders.delete(node.path);
+      new Notice("Folder deleted");
+    } catch (e) {
+      new Notice(`Failed: ${e.message}`);
+    }
   }
 
   // --- menus ---------------------------------------------------

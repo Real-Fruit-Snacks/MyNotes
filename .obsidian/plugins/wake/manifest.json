@@ -1,0 +1,10 @@
+{
+  "id": "wake",
+  "name": "Wake",
+  "version": "0.4.0",
+  "minAppVersion": "1.5.0",
+  "description": "A keyboard-first task manager. Tasks live inside the plugin and can link to vault notes via [[Note]].",
+  "author": "Real-Fruit-Snacks",
+  "authorUrl": "",
+  "isDesktopOnly": false
+}
