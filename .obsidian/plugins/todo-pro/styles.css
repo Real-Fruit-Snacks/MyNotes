@@ -55,6 +55,17 @@
   border-color: var(--tp-accent);
   color: var(--tp-accent);
 }
+.tp-root .tp-pill-new {
+  background: var(--tp-accent);
+  border-color: var(--tp-accent);
+  color: var(--text-on-accent, #fff);
+  font-weight: 500;
+}
+.tp-root .tp-pill-new:hover {
+  filter: brightness(1.1);
+  color: var(--text-on-accent, #fff);
+  border-color: var(--tp-accent);
+}
 .tp-root .tp-x { color: var(--tp-text-dim); margin-left: 2px; }
 .tp-root .tp-accent { color: var(--tp-accent); }
 .tp-root .tp-spacer { flex: 1; }
@@ -226,8 +237,8 @@
 .tp-root .tp-due-today { color: var(--tp-p3); }
 .tp-root .tp-due-overdue { color: var(--tp-p1); font-weight: 600; }
 
-/* Source */
-.tp-root .tp-source {
+/* Reference (linked vault note) */
+.tp-root .tp-ref {
   font-size: 11px;
   color: var(--tp-text-dim);
   font-family: var(--font-monospace, ui-monospace, monospace);
@@ -235,6 +246,13 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.tp-root .tp-ref-link {
+  color: var(--tp-accent);
+  cursor: pointer;
+}
+.tp-root .tp-ref-link:hover {
+  text-decoration: underline;
 }
 
 /* Peek */

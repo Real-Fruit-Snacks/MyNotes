@@ -817,6 +817,90 @@
 }
 .ws-import-fetch label { color: var(--text-muted); font-size: 12px; }
 
+/* ============== folder tree (sidebar) ============== */
+.ws-folder-link {
+  /* indentation set inline via padding-left */
+}
+.ws-folder-chev {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--text-faint);
+}
+.ws-folder-chev:hover { color: var(--text-normal); }
+.ws-folder-chev .svg-icon { width: 12px; height: 12px; }
+.ws-folder-spacer {
+  display: inline-block;
+  width: 12px;
+  flex-shrink: 0;
+}
+.ws-side-add-folder {
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s;
+}
+.ws-side-h:hover .ws-side-add-folder { opacity: 1; }
+.ws-side-add-folder:hover { color: var(--interactive-accent); }
+
+/* ============== folder edit field (editor) ============== */
+.ws-folder-edit { display: flex; align-items: center; gap: 8px; }
+.ws-folder-current {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-normal);
+  padding: 5px 10px;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+}
+.ws-folder-current-ico { color: var(--text-muted); }
+
+/* ============== folder picker modal ============== */
+.ws-folder-picker-modal { width: min(560px, 92vw); }
+.ws-folder-picker { display: flex; flex-direction: column; gap: 10px; }
+.ws-fp-search {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+.ws-fp-search input {
+  flex: 1; background: transparent; border: 0; outline: 0;
+  color: var(--text-normal); font-size: 14px;
+}
+.ws-fp-search-ico { color: var(--text-muted); display: flex; }
+.ws-fp-list {
+  max-height: 50vh;
+  overflow-y: auto;
+  background: var(--background-secondary);
+  border-radius: 6px;
+  padding: 4px;
+}
+.ws-fp-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--text-normal);
+}
+.ws-fp-item:hover { background: var(--background-modifier-hover); }
+.ws-fp-item.is-active {
+  background: hsla(var(--interactive-accent-hsl), 0.12);
+  color: var(--interactive-accent);
+}
+.ws-fp-item.ws-fp-create {
+  color: var(--interactive-accent);
+  border-bottom: 1px solid var(--background-modifier-border);
+  margin-bottom: 4px;
+  padding-bottom: 8px;
+  border-radius: 4px 4px 0 0;
+}
+
 /* ============== icon picker modal ============== */
 .ws-icon-picker-modal { width: min(720px, 92vw); }
 .ws-icon-picker { display: flex; flex-direction: column; gap: 10px; }

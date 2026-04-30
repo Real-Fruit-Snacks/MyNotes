@@ -386,6 +386,7 @@ class AddBookmarkModal extends Modal {
     this.plugin = plugin;
     this.url = "";
     this.statusOverride = opts.status || null;
+    this.folderOverride = opts.folder || null;
   }
 
   async onOpen() {
@@ -421,7 +422,9 @@ class AddBookmarkModal extends Modal {
         }
         b.setButtonText("Fetching…").setDisabled(true);
         try {
-          const file = await this.plugin.createBookmark(this.url);
+          const createOpts = {};
+          if (this.folderOverride) createOpts.folder = this.folderOverride;
+          const file = await this.plugin.createBookmark(this.url, createOpts);
           if (this.statusOverride) {
             await this.plugin.updateFrontmatter(file, (fm) => { fm.status = this.statusOverride; });
           }
@@ -528,6 +531,163 @@ class ImportModal extends Modal {
         this.close();
       }),
     );
+  }
+
+  onClose() { this.contentEl.empty(); }
+}
+
+// ============================================================
+//  New folder modal
+// ============================================================
+
+class NewFolderModal extends Modal {
+  constructor(app, plugin, opts = {}) {
+    super(app);
+    this.plugin = plugin;
+    this.parentPath = opts.parent || "";
+    this.onCreated = opts.onCreated || (() => {});
+  }
+
+  onOpen() {
+    const { contentEl, titleEl } = this;
+    titleEl.setText("New folder");
+    contentEl.empty();
+
+    let input;
+    new Setting(contentEl)
+      .setName("Name")
+      .setDesc(this.parentPath
+        ? `Created inside "${this.parentPath}". Use "/" for nested folders.`
+        : `Created at the root of your bookmarks folder. Use "/" for nested folders.`)
+      .addText((t) => {
+        input = t.inputEl;
+        t.setPlaceholder("Tech/Databases");
+      });
+
+    setTimeout(() => input?.focus(), 30);
+
+    const btns = new Setting(contentEl);
+    btns.addButton((b) => b.setButtonText("Cancel").onClick(() => this.close()));
+    btns.addButton((b) =>
+      b.setButtonText("Create").setCta().onClick(async () => {
+        const name = (input?.value || "").trim().replace(/^\/+|\/+$/g, "");
+        if (!name) return;
+        const fullRel = this.parentPath ? `${this.parentPath}/${name}` : name;
+        try {
+          await this.plugin.createSubfolder(fullRel);
+          this.onCreated(fullRel);
+          new Notice(`Folder created: ${fullRel}`);
+          this.close();
+        } catch (e) {
+          new Notice(`Failed: ${e.message}`);
+        }
+      }),
+    );
+
+    contentEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.isComposing) {
+        e.preventDefault();
+        contentEl.querySelector(".mod-cta")?.click();
+      }
+    });
+  }
+
+  onClose() { this.contentEl.empty(); }
+}
+
+// ============================================================
+//  Folder picker modal — used by Move-to-folder and the editor's Folder field
+// ============================================================
+
+class FolderPickerModal extends Modal {
+  constructor(app, plugin, opts = {}) {
+    super(app);
+    this.plugin = plugin;
+    this.titleText = opts.title || "Choose folder";
+    this.current = opts.current ?? "";
+    this.onPick = opts.onPick || (() => {});
+  }
+
+  onOpen() {
+    const { contentEl, titleEl, modalEl } = this;
+    titleEl.setText(this.titleText);
+    contentEl.empty();
+    contentEl.addClass("ws-folder-picker");
+    modalEl.addClass("ws-folder-picker-modal");
+
+    const searchRow = contentEl.createDiv({ cls: "ws-fp-search" });
+    setIcon(searchRow.createSpan({ cls: "ws-fp-search-ico" }), "search");
+    const input = searchRow.createEl("input", {
+      attr: { type: "search", placeholder: "Filter or type a new folder path…" },
+    });
+
+    const listEl = contentEl.createDiv({ cls: "ws-fp-list" });
+
+    const items = [{ path: "", display: "(root)" }];
+    const tree = this.plugin.loadFolderTree();
+    if (tree) {
+      const walk = (node) => {
+        for (const child of node.children) {
+          items.push({ path: child.path, display: child.path });
+          walk(child);
+        }
+      };
+      walk(tree);
+    }
+
+    const renderList = (filter) => {
+      listEl.empty();
+      const q = filter.trim();
+      const ql = q.toLowerCase();
+      const matches = ql
+        ? items.filter((i) => i.display.toLowerCase().includes(ql))
+        : items;
+
+      // "Create folder" option if filter is non-empty and not an exact match
+      const exact = items.some((i) => i.display.toLowerCase() === ql);
+      if (q && !exact) {
+        const norm = q.replace(/^\/+|\/+$/g, "");
+        const createBtn = listEl.createDiv({ cls: "ws-fp-item ws-fp-create" });
+        setIcon(createBtn.createSpan(), "folder-plus");
+        createBtn.createSpan({ text: `Create folder "${norm}"` });
+        createBtn.addEventListener("click", async () => {
+          try {
+            await this.plugin.createSubfolder(norm);
+            this.onPick(norm);
+            this.close();
+          } catch (e) {
+            new Notice(`Failed: ${e.message}`);
+          }
+        });
+      }
+
+      for (const item of matches) {
+        const btn = listEl.createDiv({
+          cls: "ws-fp-item" + (item.path === this.current ? " is-active" : ""),
+        });
+        setIcon(btn.createSpan(), item.path === "" ? "home" : "folder");
+        btn.createSpan({ text: item.display });
+        btn.addEventListener("click", () => {
+          this.onPick(item.path);
+          this.close();
+        });
+      }
+    };
+
+    renderList("");
+    input.addEventListener(
+      "input",
+      debounce(() => renderList(input.value), 60, true),
+    );
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.isComposing) {
+        e.preventDefault();
+        // pick the first visible item if there's one; else create
+        const first = listEl.querySelector(".ws-fp-item");
+        if (first) first.click();
+      }
+    });
+    setTimeout(() => input.focus(), 50);
   }
 
   onClose() { this.contentEl.empty(); }
@@ -910,6 +1070,32 @@ function renderBookmarkEditor(host, plugin, b, view) {
     });
   });
 
+  // folder
+  field(host, "Folder", (parent) => {
+    const wrap = parent.createDiv({ cls: "ws-folder-edit" });
+    const display = wrap.createSpan({ cls: "ws-folder-current" });
+    setIcon(display.createSpan({ cls: "ws-folder-current-ico" }), b.folder ? "folder" : "home");
+    display.createSpan({ text: b.folder || "(root)" });
+    const btn = wrap.createEl("button", { cls: "ws-editor-btn" });
+    setIcon(btn.createSpan(), "folder-input");
+    btn.createSpan({ text: "Move…" });
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      new FolderPickerModal(plugin.app, plugin, {
+        title: "Move bookmark to folder",
+        current: b.folder,
+        onPick: async (target) => {
+          try {
+            await plugin.moveBookmark(b.file, target);
+            new Notice(`Moved to ${target || "root"}`);
+          } catch (err) {
+            new Notice(`Failed: ${err.message}`);
+          }
+        },
+      }).open();
+    });
+  });
+
   // custom icon
   field(host, "Custom icon", (parent) => {
     const wrap = parent.createDiv({ cls: "ws-icon-edit" });
@@ -1103,6 +1289,8 @@ class WellspringView extends ItemView {
       search: "",
       statusFilter: "all",
       tagFilters: new Set(),
+      folderFilter: null,       // null = all folders, "" = root only, "Tech" = that folder + subfolders
+      expandedFolders: new Set(),
       sortField: plugin.settings.defaultSort,
       sortDir: plugin.settings.defaultSortDir,
       expanded: new Set(),
@@ -1187,12 +1375,17 @@ class WellspringView extends ItemView {
 
   filtered() {
     const all = this.plugin.loadBookmarks();
-    const { search, statusFilter, tagFilters, sortField, sortDir } = this.state;
+    const { search, statusFilter, tagFilters, folderFilter, sortField, sortDir } = this.state;
     const q = search.trim().toLowerCase();
 
     let xs = all.filter((b) => {
       if (statusFilter && statusFilter !== "all" && b.status !== statusFilter) return false;
       for (const t of tagFilters) if (!b.tags.includes(t)) return false;
+      if (folderFilter !== null) {
+        if (folderFilter === "" && b.folder !== "") return false;
+        if (folderFilter !== "" &&
+            !(b.folder === folderFilter || b.folder.startsWith(folderFilter + "/"))) return false;
+      }
       if (q) {
         const hay = [b.title, b.domain, b.description, b.url, b.tags.join(" ")]
           .join(" ").toLowerCase();
@@ -1292,6 +1485,8 @@ class WellspringView extends ItemView {
       });
     }
 
+    this.renderFoldersSection(side);
+
     if (tags.length > 0) {
       side.createEl("h3", { cls: "ws-side-h", text: "Tags" });
       for (const { tag, count } of tags) {
@@ -1311,6 +1506,80 @@ class WellspringView extends ItemView {
         });
       }
     }
+  }
+
+  renderFoldersSection(side) {
+    const tree = this.plugin.loadFolderTree();
+    if (!tree) return;
+
+    const header = side.createEl("h3", { cls: "ws-side-h" });
+    header.createSpan({ text: "Folders" });
+    const addBtn = header.createSpan({
+      cls: "ws-side-gear ws-side-add-folder",
+      attr: { "aria-label": "New folder", title: "New folder" },
+    });
+    setIcon(addBtn, "folder-plus");
+    addBtn.addEventListener("click", () => {
+      new NewFolderModal(this.app, this.plugin, {
+        onCreated: (path) => {
+          this.state.folderFilter = path;
+          this.render();
+        },
+      }).open();
+    });
+
+    // "All folders" link
+    const allLink = side.createEl("a", {
+      cls: "ws-side-link" + (this.state.folderFilter === null ? " is-active" : ""),
+    });
+    const allLhs = allLink.createSpan({ cls: "ws-side-lhs" });
+    setIcon(allLhs.createSpan(), "folders");
+    allLhs.createSpan({ text: "All folders" });
+    allLink.createSpan({ cls: "ws-side-count", text: String(tree.bookmarkCount) });
+    allLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      this.state.folderFilter = null;
+      this.render();
+    });
+
+    // recursive tree render
+    const renderNode = (node, depth) => {
+      const isActive = this.state.folderFilter === node.path;
+      const isExpanded = this.state.expandedFolders.has(node.path);
+      const link = side.createEl("a", {
+        cls: "ws-side-link ws-folder-link" + (isActive ? " is-active" : ""),
+      });
+      link.style.paddingLeft = (8 + depth * 14) + "px";
+
+      const lhs = link.createSpan({ cls: "ws-side-lhs" });
+      if (node.children.length > 0) {
+        const chev = lhs.createSpan({ cls: "ws-folder-chev" });
+        setIcon(chev, isExpanded ? "chevron-down" : "chevron-right");
+        chev.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (isExpanded) this.state.expandedFolders.delete(node.path);
+          else this.state.expandedFolders.add(node.path);
+          this.render();
+        });
+      } else {
+        lhs.createSpan({ cls: "ws-folder-spacer" });
+      }
+      setIcon(lhs.createSpan(), "folder");
+      lhs.createSpan({ text: node.name });
+      link.createSpan({ cls: "ws-side-count", text: String(node.bookmarkCount) });
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        this.state.folderFilter = node.path;
+        this.render();
+      });
+
+      if (isExpanded) {
+        for (const child of node.children) renderNode(child, depth + 1);
+      }
+    };
+
+    for (const child of tree.children) renderNode(child, 0);
   }
 
   renderHeader(head) {
@@ -1363,7 +1632,11 @@ class WellspringView extends ItemView {
     const addBtn = head.createEl("button", { cls: "ws-btn", attr: { "aria-label": "Add bookmark" } });
     setIcon(addBtn.createSpan(), "plus");
     addBtn.createSpan({ text: "Add" });
-    addBtn.addEventListener("click", () => new AddBookmarkModal(this.app, this.plugin).open());
+    addBtn.addEventListener("click", () => {
+      const opts = {};
+      if (this.state.folderFilter) opts.folder = this.state.folderFilter;
+      new AddBookmarkModal(this.app, this.plugin, opts).open();
+    });
   }
 
   renderToolbar(tools) {
@@ -1741,7 +2014,9 @@ class WellspringView extends ItemView {
       const add = head.createEl("button", { cls: "ws-board-col-add", attr: { "aria-label": "Add" } });
       setIcon(add, "plus");
       add.addEventListener("click", () => {
-        new AddBookmarkModal(this.app, this.plugin, { status: s }).open();
+        const opts = { status: s };
+        if (this.state.folderFilter) opts.folder = this.state.folderFilter;
+        new AddBookmarkModal(this.app, this.plugin, opts).open();
       });
 
       const colBody = col.createDiv({ cls: "ws-board-col-body" });
@@ -1909,6 +2184,21 @@ class WellspringView extends ItemView {
       it.setTitle("Copy link").setIcon("link").onClick(async () => {
         await navigator.clipboard.writeText(b.url);
         new Notice("URL copied");
+      }),
+    );
+    m.addItem((it) =>
+      it.setTitle("Move to folder…").setIcon("folder-input").onClick(() => {
+        new FolderPickerModal(this.app, this.plugin, {
+          current: b.folder,
+          onPick: async (target) => {
+            try {
+              await this.plugin.moveBookmark(b.file, target);
+              new Notice(`Moved to ${target || "root"}`);
+            } catch (e) {
+              new Notice(`Failed: ${e.message}`);
+            }
+          },
+        }).open();
       }),
     );
     m.addItem((it) =>
@@ -2107,11 +2397,26 @@ class WellspringPlugin extends Plugin {
     if (!/^https?:\/\//i.test(url)) throw new Error("URL must start with http(s)://");
 
     await this.ensureFolder();
+
+    // resolve target folder (supports nested via "/")
+    const targetRel = String(opts.folder || "").trim().replace(/^\/+|\/+$/g, "");
+    const targetFolderPath = targetRel
+      ? normalizePath(`${this.settings.folder}/${targetRel}`)
+      : normalizePath(this.settings.folder);
+    if (!this.app.vault.getAbstractFileByPath(targetFolderPath)) {
+      await this.app.vault.createFolder(targetFolderPath);
+    }
+
     const meta = (this.settings.fetchMetadata && !opts.skipFetch)
       ? await fetchMetadata(url) : null;
 
     const title = (meta?.title || url).replace(/\s+/g, " ").trim();
-    const path = await this.uniquePath(slugify(title));
+    const slug = slugify(title);
+    let path = `${targetFolderPath}/${slug}.md`;
+    let i = 1;
+    while (await this.app.vault.adapter.exists(path)) {
+      path = `${targetFolderPath}/${slug}-${i++}.md`;
+    }
 
     const file = await this.app.vault.create(path, "");
     await this.app.fileManager.processFrontMatter(file, (fm) => {
@@ -2141,14 +2446,16 @@ class WellspringPlugin extends Plugin {
     if (!(folder instanceof TFolder)) return [];
 
     const result = [];
-    const walk = (f) => {
+    const walk = (f, rel) => {
       for (const child of f.children) {
-        if (child instanceof TFolder) walk(child);
-        else if (child instanceof TFile && child.extension === "md") {
+        if (child instanceof TFolder) {
+          walk(child, rel ? rel + "/" + child.name : child.name);
+        } else if (child instanceof TFile && child.extension === "md") {
           const fm = this.app.metadataCache.getFileCache(child)?.frontmatter;
           if (!fm?.url) continue;
           result.push({
             file: child,
+            folder: rel,
             url: String(fm.url),
             title: String(fm.title || child.basename),
             domain: String(fm.domain || extractDomain(String(fm.url))),
@@ -2167,8 +2474,63 @@ class WellspringPlugin extends Plugin {
         }
       }
     };
-    walk(folder);
+    walk(folder, "");
     return result;
+  }
+
+  loadFolderTree() {
+    const path = normalizePath(this.settings.folder);
+    const base = this.app.vault.getAbstractFileByPath(path);
+    if (!(base instanceof TFolder)) return null;
+
+    const buildNode = (folder, relPath) => ({
+      name: folder.name,
+      path: relPath,
+      children: folder.children
+        .filter((c) => c instanceof TFolder)
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map((c) => buildNode(c, relPath ? relPath + "/" + c.name : c.name)),
+      bookmarkCount: 0,
+    });
+
+    const tree = buildNode(base, "");
+
+    const all = this.loadBookmarks();
+    const populate = (node) => {
+      node.bookmarkCount = node.path === ""
+        ? all.length
+        : all.filter((b) => b.folder === node.path || b.folder.startsWith(node.path + "/")).length;
+      node.children.forEach(populate);
+    };
+    populate(tree);
+
+    return tree;
+  }
+
+  async createSubfolder(relPath) {
+    const clean = String(relPath).trim().replace(/^\/+|\/+$/g, "");
+    if (!clean) throw new Error("Folder name required");
+    const fullPath = normalizePath(`${this.settings.folder}/${clean}`);
+    if (this.app.vault.getAbstractFileByPath(fullPath)) {
+      throw new Error("Folder already exists");
+    }
+    await this.app.vault.createFolder(fullPath);
+  }
+
+  async moveBookmark(file, targetRelPath) {
+    const target = String(targetRelPath || "").trim().replace(/^\/+|\/+$/g, "");
+    const baseFolder = this.settings.folder;
+    const targetFolderPath = target
+      ? normalizePath(`${baseFolder}/${target}`)
+      : normalizePath(baseFolder);
+
+    if (!this.app.vault.getAbstractFileByPath(targetFolderPath)) {
+      await this.app.vault.createFolder(targetFolderPath);
+    }
+
+    const newPath = normalizePath(`${targetFolderPath}/${file.name}`);
+    if (file.path === newPath) return;
+    await this.app.fileManager.renameFile(file, newPath);
   }
 
   allTagsByCount() {

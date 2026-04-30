@@ -1,9 +1,9 @@
 {
   "id": "todo-pro",
   "name": "Todo Pro",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "minAppVersion": "1.5.0",
-  "description": "A professional, keyboard-first todo manager that lives in your markdown.",
+  "description": "A professional, keyboard-first todo manager. Tasks are self-contained in the plugin and can link to vault notes via [[Note]].",
   "author": "Matt",
   "authorUrl": "",
   "isDesktopOnly": false
