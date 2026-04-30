@@ -381,10 +381,11 @@ class IconPickerModal extends Modal {
 // ============================================================
 
 class AddBookmarkModal extends Modal {
-  constructor(app, plugin) {
+  constructor(app, plugin, opts = {}) {
     super(app);
     this.plugin = plugin;
     this.url = "";
+    this.statusOverride = opts.status || null;
   }
 
   async onOpen() {
@@ -420,7 +421,10 @@ class AddBookmarkModal extends Modal {
         }
         b.setButtonText("Fetching…").setDisabled(true);
         try {
-          await this.plugin.createBookmark(this.url);
+          const file = await this.plugin.createBookmark(this.url);
+          if (this.statusOverride) {
+            await this.plugin.updateFrontmatter(file, (fm) => { fm.status = this.statusOverride; });
+          }
           new Notice("Bookmark added");
           this.close();
           await this.plugin.activateView();
@@ -680,7 +684,7 @@ class WellspringSettingTab extends PluginSettingTab {
     for (const s of STATUS_ORDER) {
       new Setting(containerEl)
         .setName(this.plugin.settings.statusLabels[s])
-        .setDesc(this.plugin.settings.statusIcons[s])
+        .setDesc((this.plugin.settings.statusIcons[s] || "").replace(/^lucide-/, ""))
         .addButton((b) => {
           b.setIcon(this.plugin.settings.statusIcons[s] || "circle");
           b.setTooltip("Click to choose icon");
@@ -720,7 +724,7 @@ class WellspringSettingTab extends PluginSettingTab {
       const cur = this.plugin.settings.tagIcons[tag] || "";
       new Setting(containerEl)
         .setName(`#${tag}`)
-        .setDesc(cur || "No icon assigned")
+        .setDesc(cur ? cur.replace(/^lucide-/, "") : "No icon assigned")
         .addButton((b) => {
           b.setIcon(cur || "tag");
           b.setTooltip(cur ? "Click to change" : "Click to choose icon");
@@ -822,10 +826,10 @@ function renderBookmarkEditor(host, plugin, b, view) {
   const headInfo = headBar.createDiv({ cls: "ws-editor-info" });
   headInfo.createDiv({ cls: "ws-editor-domain", text: b.domain });
   const ts = new Date(b.added);
-  headInfo.createDiv({
-    cls: "ws-editor-meta",
-    text: `Added ${ts.toLocaleDateString()} · ${b.readingTime ? `${b.readingTime} min read · ` : ""}status ${plugin.settings.statusLabels[b.status] || b.status}`,
-  });
+  const metaParts = [`Added ${ts.toLocaleDateString()}`];
+  if (b.readingTime) metaParts.push(`${b.readingTime} min read`);
+  metaParts.push(plugin.settings.statusLabels[b.status] || b.status);
+  headInfo.createDiv({ cls: "ws-editor-meta", text: metaParts.join(" · ") });
 
   // title (editable)
   field(host, "Title", (parent) => {
@@ -913,7 +917,8 @@ function renderBookmarkEditor(host, plugin, b, view) {
     if (b.icon) setIcon(preview, b.icon);
     const btn = wrap.createEl("button", { cls: "ws-editor-btn" });
     setIcon(btn.createSpan(), b.icon ? "edit-3" : "image-plus");
-    btn.createSpan({ text: b.icon ? `Change (${b.icon})` : "Pick an icon" });
+    const displayIcon = b.icon ? b.icon.replace(/^lucide-/, "") : "";
+    btn.createSpan({ text: b.icon ? `Change (${displayIcon})` : "Pick an icon" });
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
       new IconPickerModal(plugin.app, {
@@ -1338,14 +1343,20 @@ class WellspringView extends ItemView {
       });
     }
 
-    const settingsBtn = head.createEl("button", { cls: "ws-icon-btn", attr: { "aria-label": "Settings" } });
+    const settingsBtn = head.createEl("button", {
+      cls: "ws-icon-btn",
+      attr: { "aria-label": "Wellspring settings", title: "Settings" },
+    });
     setIcon(settingsBtn, "settings");
     settingsBtn.addEventListener("click", () => {
       this.app.setting.open();
       this.app.setting.openTabById(this.plugin.manifest.id);
     });
 
-    const importBtn = head.createEl("button", { cls: "ws-icon-btn", attr: { "aria-label": "Import" } });
+    const importBtn = head.createEl("button", {
+      cls: "ws-icon-btn",
+      attr: { "aria-label": "Import bookmarks", title: "Import bookmarks (HTML)" },
+    });
     setIcon(importBtn, "upload");
     importBtn.addEventListener("click", () => new ImportModal(this.app, this.plugin).open());
 
@@ -1448,12 +1459,37 @@ class WellspringView extends ItemView {
     b.addEventListener("click", onClick);
   }
 
+  // --- empty state (shared) ------------------------------------
+
+  renderEmpty(parent) {
+    const all = this.plugin.loadBookmarks();
+    const empty = parent.createDiv({ cls: "ws-empty" });
+    if (all.length === 0) {
+      empty.createDiv({ cls: "ws-empty-title", text: "No bookmarks yet." });
+      empty.createDiv({
+        cls: "ws-empty-sub",
+        text: "Add your first one — paste a URL, or import a Netscape HTML file.",
+      });
+      const actions = empty.createDiv({ cls: "ws-empty-actions" });
+      const addBtn = actions.createEl("button", { cls: "ws-btn" });
+      setIcon(addBtn.createSpan(), "plus");
+      addBtn.createSpan({ text: "Add bookmark" });
+      addBtn.addEventListener("click", () => new AddBookmarkModal(this.app, this.plugin).open());
+      const impBtn = actions.createEl("button", { cls: "ws-action" });
+      setIcon(impBtn.createSpan(), "upload");
+      impBtn.createSpan({ text: "Import…" });
+      impBtn.addEventListener("click", () => new ImportModal(this.app, this.plugin).open());
+    } else {
+      empty.setText("No bookmarks match your filters.");
+    }
+  }
+
   // --- list layout (the original compact list) -----------------
 
   renderListLayout(body) {
     const cols = this.visibleColumns();
     const showFav = this.plugin.settings.showFavicons !== false;
-    const gridTemplate = `28px ${showFav ? "22px " : ""}${cols.map((c) => c.width).join(" ")} 70px 26px`;
+    const gridTemplate = `28px ${showFav ? "22px " : ""}${cols.map((c) => c.width).join(" ")} 26px`;
 
     const headers = body.createDiv({ cls: "ws-col-headers" });
     headers.style.gridTemplateColumns = gridTemplate;
@@ -1477,13 +1513,12 @@ class WellspringView extends ItemView {
         this.render();
       });
     }
-    headers.createSpan({ text: "" });
     headers.createSpan();
 
     const table = body.createDiv({ cls: "ws-table" });
     const items = this.filtered();
     if (items.length === 0) {
-      table.createDiv({ cls: "ws-empty", text: "No bookmarks match your filters." });
+      this.renderEmpty(table);
       return;
     }
     for (const b of items) this.renderListRow(table, b, gridTemplate, cols, showFav);
@@ -1523,8 +1558,6 @@ class WellspringView extends ItemView {
       const cell = row.createSpan({ cls: "ws-cell ws-c-" + c.id });
       this.renderCell(cell, c.id, b, q);
     }
-
-    row.createSpan({ cls: "ws-ago", text: formatAgo(b.added) });
 
     const more = row.createSpan({ cls: "ws-more" });
     setIcon(more, isExpanded ? "chevron-down" : "more-horizontal");
@@ -1607,7 +1640,7 @@ class WellspringView extends ItemView {
   renderCardsLayout(body) {
     const items = this.filtered();
     if (items.length === 0) {
-      body.createDiv({ cls: "ws-empty", text: "No bookmarks match your filters." });
+      this.renderEmpty(body);
       return;
     }
     const grid = body.createDiv({ cls: "ws-cards" });
@@ -1707,10 +1740,8 @@ class WellspringView extends ItemView {
       head.createSpan({ cls: "ws-board-col-count", text: String(groups[s].length) });
       const add = head.createEl("button", { cls: "ws-board-col-add", attr: { "aria-label": "Add" } });
       setIcon(add, "plus");
-      add.addEventListener("click", async () => {
-        const modal = new AddBookmarkModal(this.app, this.plugin);
-        modal.onAddedStatus = s; // unused — Add modal sets inbox; we won't override here
-        modal.open();
+      add.addEventListener("click", () => {
+        new AddBookmarkModal(this.app, this.plugin, { status: s }).open();
       });
 
       const colBody = col.createDiv({ cls: "ws-board-col-body" });
@@ -1801,7 +1832,7 @@ class WellspringView extends ItemView {
     const right = body.createDiv({ cls: "ws-tree-preview" });
 
     if (items.length === 0) {
-      left.createDiv({ cls: "ws-empty", text: "No bookmarks match your filters." });
+      this.renderEmpty(left);
       right.createDiv({ cls: "ws-empty", text: "Select a bookmark to preview." });
       return;
     }
