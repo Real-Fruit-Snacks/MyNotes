@@ -58,16 +58,6 @@
             }
           },
           {
-            "id": "9eb2338c2b08d5ac",
-            "type": "leaf",
-            "state": {
-              "type": "todo-pro-view",
-              "state": {},
-              "icon": "lucide-ghost",
-              "title": "todo-pro-view"
-            }
-          },
-          {
             "id": "8bfe7a9d7ffd22e3",
             "type": "leaf",
             "state": {
@@ -78,7 +68,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -228,7 +218,7 @@
       "iconic:Open rulebook": true
     }
   },
-  "active": "30b1c0967ff74add",
+  "active": "8bfe7a9d7ffd22e3",
   "lastOpenFiles": [
     "Bookmarks/Tech",
     "Bookmarks/google.md",
