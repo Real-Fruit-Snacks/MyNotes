@@ -1528,7 +1528,7 @@ class WellspringView extends ItemView {
       }).open();
     });
 
-    // "All folders" link
+    // "All folders" link — drop target = root
     const allLink = side.createEl("a", {
       cls: "ws-side-link" + (this.state.folderFilter === null ? " is-active" : ""),
     });
@@ -1541,6 +1541,7 @@ class WellspringView extends ItemView {
       this.state.folderFilter = null;
       this.render();
     });
+    this.attachFolderDrop(allLink, "");
 
     // recursive tree render
     const renderNode = (node, depth) => {
@@ -1573,6 +1574,7 @@ class WellspringView extends ItemView {
         this.state.folderFilter = node.path;
         this.render();
       });
+      this.attachFolderDrop(link, node.path);
 
       if (isExpanded) {
         for (const child of node.children) renderNode(child, depth + 1);
@@ -1732,6 +1734,47 @@ class WellspringView extends ItemView {
     b.addEventListener("click", onClick);
   }
 
+  // --- drag & drop helpers -------------------------------------
+
+  makeDraggable(el, filePath) {
+    el.setAttribute("draggable", "true");
+    el.addEventListener("dragstart", (e) => {
+      e.dataTransfer.setData("text/plain", filePath);
+      e.dataTransfer.setData("application/x-wellspring-bookmark", filePath);
+      e.dataTransfer.effectAllowed = "move";
+      el.addClass("is-dragging");
+    });
+    el.addEventListener("dragend", () => el.removeClass("is-dragging"));
+  }
+
+  attachFolderDrop(el, folderPath) {
+    el.addEventListener("dragover", (e) => {
+      const types = e.dataTransfer?.types;
+      if (!types || !types.includes("text/plain")) return;
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "move";
+      el.addClass("is-drop");
+    });
+    el.addEventListener("dragleave", (e) => {
+      // only clear when leaving the element itself, not bubbling out from a child
+      if (!el.contains(e.relatedTarget)) el.removeClass("is-drop");
+    });
+    el.addEventListener("drop", async (e) => {
+      e.preventDefault();
+      el.removeClass("is-drop");
+      const path = e.dataTransfer.getData("text/plain");
+      if (!path) return;
+      const f = this.app.vault.getAbstractFileByPath(path);
+      if (!(f instanceof TFile)) return;
+      try {
+        await this.plugin.moveBookmark(f, folderPath);
+        new Notice(`Moved to ${folderPath || "root"}`);
+      } catch (err) {
+        new Notice(`Failed: ${err.message}`);
+      }
+    });
+  }
+
   // --- empty state (shared) ------------------------------------
 
   renderEmpty(parent) {
@@ -1811,6 +1854,7 @@ class WellspringView extends ItemView {
         (b.status === "broken" ? " is-broken" : ""),
     });
     row.style.gridTemplateColumns = gridTemplate;
+    this.makeDraggable(row, id);
 
     const check = row.createSpan({ cls: "ws-check" });
     if (isSelected) setIcon(check, "check");
@@ -1928,6 +1972,7 @@ class WellspringView extends ItemView {
     const card = grid.createDiv({
       cls: "ws-card" + (isSelected ? " is-selected" : "") + (isFocused ? " is-focused" : ""),
     });
+    this.makeDraggable(card, id);
 
     // hero
     const hero = card.createDiv({ cls: "ws-card-hero" });
@@ -2118,6 +2163,7 @@ class WellspringView extends ItemView {
       const item = left.createDiv({
         cls: "ws-tree-item" + (id === previewPath ? " is-active" : ""),
       });
+      this.makeDraggable(item, id);
       const fav = item.createSpan({ cls: "ws-tree-fav" });
       paintFavicon(fav, this.plugin, b, 16);
       const info = item.createDiv({ cls: "ws-tree-info" });

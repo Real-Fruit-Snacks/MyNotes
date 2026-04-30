@@ -817,6 +817,19 @@
 }
 .ws-import-fetch label { color: var(--text-muted); font-size: 12px; }
 
+/* ============== drag & drop ============== */
+.ws-row.is-dragging,
+.ws-card.is-dragging,
+.ws-tree-item.is-dragging,
+.ws-board-card.is-dragging {
+  opacity: 0.45;
+}
+.ws-side-link.is-drop {
+  background: hsla(var(--interactive-accent-hsl), 0.18) !important;
+  box-shadow: inset 0 0 0 1px var(--interactive-accent);
+  color: var(--interactive-accent) !important;
+}
+
 /* ============== folder tree (sidebar) ============== */
 .ws-folder-link {
   /* indentation set inline via padding-left */

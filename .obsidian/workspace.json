@@ -56,6 +56,16 @@
               "icon": "bookmark",
               "title": "Wellspring"
             }
+          },
+          {
+            "id": "7efe8d40cd50aab4",
+            "type": "leaf",
+            "state": {
+              "type": "todo-pro-view",
+              "state": {},
+              "icon": "check-circle",
+              "title": "Todo Pro"
+            }
           }
         ],
         "currentTab": 3
@@ -209,6 +219,7 @@
   },
   "active": "30b1c0967ff74add",
   "lastOpenFiles": [
+    "Bookmarks/Tech",
     "Bookmarks/google.md",
     "Bookmarks",
     "docs/Labs/HackSmarter/BuildingMagic/Machine Walkthrough.tmp",
@@ -243,7 +254,6 @@
     "Windows/File Transfer.md",
     "Labs/HackSmarter/ShareThePain/Machine Walkthrough.md",
     "Labs/HackSmarter/ShareThePain/Scope.md",
-    "Tools/Listener/Flux.md",
-    "Labs/HackSmarter/BuildingMagic/Machine Walkthrough.md"
+    "Tools/Listener/Flux.md"
   ]
 }
