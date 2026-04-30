@@ -20,7 +20,7 @@ const {
 //  Constants
 // ============================================================
 
-const VIEW_TYPE = "bookmark-manager-view";
+const VIEW_TYPE = "wellspring-view";
 
 const STATUS_ORDER = ["inbox", "reading", "done", "archive", "broken"];
 
@@ -56,6 +56,7 @@ const DEFAULT_SETTINGS = {
     broken: "Broken",
   },
   fetchMetadata: true,
+  showFavicons: true,
 };
 
 // ============================================================
@@ -229,7 +230,7 @@ class AddBookmarkModal extends Modal {
 //  Settings tab
 // ============================================================
 
-class BookmarkSettingTab extends PluginSettingTab {
+class WellspringSettingTab extends PluginSettingTab {
   constructor(app, plugin) {
     super(app, plugin);
     this.plugin = plugin;
@@ -258,6 +259,16 @@ class BookmarkSettingTab extends PluginSettingTab {
       .addToggle((t) =>
         t.setValue(this.plugin.settings.fetchMetadata).onChange(async (v) => {
           this.plugin.settings.fetchMetadata = v;
+          await this.plugin.saveSettings();
+        }),
+      );
+
+    new Setting(containerEl)
+      .setName("Show favicons")
+      .setDesc("Display the site favicon in each row.")
+      .addToggle((t) =>
+        t.setValue(this.plugin.settings.showFavicons !== false).onChange(async (v) => {
+          this.plugin.settings.showFavicons = v;
           await this.plugin.saveSettings();
         }),
       );
@@ -342,7 +353,7 @@ class BookmarkSettingTab extends PluginSettingTab {
 //  View
 // ============================================================
 
-class BookmarkView extends ItemView {
+class WellspringView extends ItemView {
   constructor(leaf, plugin) {
     super(leaf);
     this.plugin = plugin;
@@ -360,11 +371,11 @@ class BookmarkView extends ItemView {
   }
 
   getViewType() { return VIEW_TYPE; }
-  getDisplayText() { return "Bookmarks"; }
+  getDisplayText() { return "Wellspring"; }
   getIcon() { return "bookmark"; }
 
   async onOpen() {
-    this.containerEl.children[1].addClass("bm-root");
+    this.containerEl.children[1].addClass("ws-root");
     this.render();
   }
 
@@ -443,17 +454,18 @@ class BookmarkView extends ItemView {
     const root = this.containerEl.children[1];
     root.empty();
 
-    const app = root.createDiv({ cls: "bm-app" });
-    this.renderSidebar(app.createDiv({ cls: "bm-side" }));
-    const main = app.createDiv({ cls: "bm-main" });
-    this.renderHeader(main.createDiv({ cls: "bm-head" }));
-    this.renderToolbar(main.createDiv({ cls: "bm-tools" }));
+    const app = root.createDiv({ cls: "ws-app" });
+    this.renderSidebar(app.createDiv({ cls: "ws-side" }));
+    const main = app.createDiv({ cls: "ws-main" });
+    this.renderHeader(main.createDiv({ cls: "ws-head" }));
+    this.renderToolbar(main.createDiv({ cls: "ws-tools" }));
 
     const cols = this.visibleColumns();
-    const gridTemplate = `28px 22px ${cols.map((c) => c.width).join(" ")} 70px 26px`;
+    const showFav = this.plugin.settings.showFavicons !== false;
+    const gridTemplate = `28px ${showFav ? "22px " : ""}${cols.map((c) => c.width).join(" ")} 70px 26px`;
 
-    this.renderColHeaders(main.createDiv({ cls: "bm-col-headers" }), gridTemplate, cols);
-    this.renderRows(main.createDiv({ cls: "bm-table" }), gridTemplate, cols);
+    this.renderColHeaders(main.createDiv({ cls: "ws-col-headers" }), gridTemplate, cols, showFav);
+    this.renderRows(main.createDiv({ cls: "ws-table" }), gridTemplate, cols, showFav);
   }
 
   renderSidebar(side) {
@@ -461,10 +473,10 @@ class BookmarkView extends ItemView {
     const tags = this.allTagsByCount();
     const { settings } = this.plugin;
 
-    const h1 = side.createEl("h3", { cls: "bm-side-h" });
+    const h1 = side.createEl("h3", { cls: "ws-side-h" });
     h1.createSpan({ text: "Status" });
     const gear = h1.createSpan({
-      cls: "bm-side-gear",
+      cls: "ws-side-gear",
       attr: { "aria-label": "Customize status icons" },
     });
     setIcon(gear, "settings");
@@ -474,12 +486,12 @@ class BookmarkView extends ItemView {
     });
 
     const allLink = side.createEl("a", {
-      cls: "bm-side-link" + (this.state.statusFilter === "all" ? " is-active" : ""),
+      cls: "ws-side-link" + (this.state.statusFilter === "all" ? " is-active" : ""),
     });
-    const allLhs = allLink.createSpan({ cls: "bm-side-lhs" });
+    const allLhs = allLink.createSpan({ cls: "ws-side-lhs" });
     setIcon(allLhs.createSpan(), "list");
     allLhs.createSpan({ text: "All" });
-    allLink.createSpan({ cls: "bm-side-count", text: String(counts.all) });
+    allLink.createSpan({ cls: "ws-side-count", text: String(counts.all) });
     allLink.addEventListener("click", (e) => {
       e.preventDefault();
       this.state.statusFilter = "all";
@@ -489,12 +501,12 @@ class BookmarkView extends ItemView {
     for (const s of STATUS_ORDER) {
       if (s === "broken" && counts[s] === 0) continue;
       const link = side.createEl("a", {
-        cls: "bm-side-link bm-status-" + s + (this.state.statusFilter === s ? " is-active" : ""),
+        cls: "ws-side-link ws-status-" + s + (this.state.statusFilter === s ? " is-active" : ""),
       });
-      const lhs = link.createSpan({ cls: "bm-side-lhs" });
+      const lhs = link.createSpan({ cls: "ws-side-lhs" });
       setIcon(lhs.createSpan(), settings.statusIcons[s] || "circle");
       lhs.createSpan({ text: settings.statusLabels[s] });
-      link.createSpan({ cls: "bm-side-count", text: String(counts[s]) });
+      link.createSpan({ cls: "ws-side-count", text: String(counts[s]) });
       link.addEventListener("click", (e) => {
         e.preventDefault();
         this.state.statusFilter = s;
@@ -503,16 +515,16 @@ class BookmarkView extends ItemView {
     }
 
     if (tags.length > 0) {
-      side.createEl("h3", { cls: "bm-side-h", text: "Tags" });
+      side.createEl("h3", { cls: "ws-side-h", text: "Tags" });
       for (const { tag, count } of tags) {
         const active = this.state.tagFilters.has(tag);
         const link = side.createEl("a", {
-          cls: "bm-side-link" + (active ? " is-active" : ""),
+          cls: "ws-side-link" + (active ? " is-active" : ""),
         });
-        const lhs = link.createSpan({ cls: "bm-side-lhs" });
-        lhs.createSpan({ cls: "bm-tag-hash", text: "#" });
+        const lhs = link.createSpan({ cls: "ws-side-lhs" });
+        lhs.createSpan({ cls: "ws-tag-hash", text: "#" });
         lhs.createSpan({ text: tag });
-        link.createSpan({ cls: "bm-side-count", text: String(count) });
+        link.createSpan({ cls: "ws-side-count", text: String(count) });
         link.addEventListener("click", (e) => {
           e.preventDefault();
           if (active) this.state.tagFilters.delete(tag);
@@ -524,9 +536,9 @@ class BookmarkView extends ItemView {
   }
 
   renderHeader(head) {
-    head.createEl("h1", { cls: "bm-title", text: "Bookmarks" });
+    head.createEl("h1", { cls: "ws-title", text: "Bookmarks" });
 
-    const search = head.createDiv({ cls: "bm-search" });
+    const search = head.createDiv({ cls: "ws-search" });
     setIcon(search.createSpan(), "search");
     const input = search.createEl("input", {
       type: "search",
@@ -543,10 +555,10 @@ class BookmarkView extends ItemView {
       }, 120, true),
     );
 
-    const switcher = head.createDiv({ cls: "bm-switcher" });
+    const switcher = head.createDiv({ cls: "ws-switcher" });
     const mkSw = (icon, label, active = false, disabled = false) => {
       const b = switcher.createEl("button", {
-        cls: "bm-sw" + (active ? " is-active" : "") + (disabled ? " is-disabled" : ""),
+        cls: "ws-sw" + (active ? " is-active" : "") + (disabled ? " is-disabled" : ""),
         attr: {
           "aria-label": label,
           title: disabled ? `${label} (coming in v2)` : label,
@@ -561,7 +573,7 @@ class BookmarkView extends ItemView {
     mkSw("folder-tree", "Tree", false, true);
 
     const settingsBtn = head.createEl("button", {
-      cls: "bm-icon-btn",
+      cls: "ws-icon-btn",
       attr: { "aria-label": "Settings" },
     });
     setIcon(settingsBtn, "settings");
@@ -571,7 +583,7 @@ class BookmarkView extends ItemView {
     });
 
     const addBtn = head.createEl("button", {
-      cls: "bm-btn",
+      cls: "ws-btn",
       attr: { "aria-label": "Add bookmark" },
     });
     setIcon(addBtn.createSpan(), "plus");
@@ -582,7 +594,7 @@ class BookmarkView extends ItemView {
   renderToolbar(tools) {
     const selected = this.state.selected.size;
     if (selected > 0) {
-      tools.createSpan({ cls: "bm-selected", text: `${selected} selected` });
+      tools.createSpan({ cls: "ws-selected", text: `${selected} selected` });
       this.mkAction(tools, "tag", "Tag…", () => new Notice("Bulk tag UI not yet implemented"));
       this.mkAction(tools, "archive", "Archive", async () => {
         await this.bulkSetStatus("archive");
@@ -594,20 +606,20 @@ class BookmarkView extends ItemView {
     } else {
       const total = this.filtered().length;
       tools.createSpan({
-        cls: "bm-tool-meta",
+        cls: "ws-tool-meta",
         text: `${total} bookmark${total === 1 ? "" : "s"}`,
       });
     }
 
-    tools.createSpan({ cls: "bm-sep" });
+    tools.createSpan({ cls: "ws-sep" });
 
-    const sortBtn = tools.createEl("button", { cls: "bm-tool-btn" });
+    const sortBtn = tools.createEl("button", { cls: "ws-tool-btn" });
     sortBtn.createSpan({ text: `Sort: ${this.sortLabel()}` });
     setIcon(sortBtn.createSpan(), this.state.sortDir === "desc" ? "arrow-down" : "arrow-up");
     sortBtn.addEventListener("click", (e) => this.openSortMenu(e));
 
     const colBtn = tools.createEl("button", {
-      cls: "bm-tool-btn bm-cols-trigger" + (this.state.columnsOpen ? " is-open" : ""),
+      cls: "ws-tool-btn ws-cols-trigger" + (this.state.columnsOpen ? " is-open" : ""),
     });
     setIcon(colBtn.createSpan(), "sliders-horizontal");
     colBtn.createSpan({ text: "Columns" });
@@ -622,8 +634,8 @@ class BookmarkView extends ItemView {
   }
 
   renderColumnsPopover(parent) {
-    const pop = parent.createDiv({ cls: "bm-popover" });
-    pop.createDiv({ cls: "bm-popover-h", text: "Visible columns" });
+    const pop = parent.createDiv({ cls: "ws-popover" });
+    pop.createDiv({ cls: "ws-popover-h", text: "Visible columns" });
 
     const visible = new Set(this.plugin.settings.visibleColumns);
     visible.add("title");
@@ -631,11 +643,11 @@ class BookmarkView extends ItemView {
     const renderToggle = (col) => {
       const on = visible.has(col.id);
       const row = pop.createDiv({
-        cls: "bm-col-toggle" + (on ? " is-on" : "") + (col.required ? " is-locked" : ""),
+        cls: "ws-col-toggle" + (on ? " is-on" : "") + (col.required ? " is-locked" : ""),
       });
-      const box = row.createSpan({ cls: "bm-checkbox" });
+      const box = row.createSpan({ cls: "ws-checkbox" });
       if (on) setIcon(box, "check");
-      row.createSpan({ cls: "bm-col-name", text: col.label });
+      row.createSpan({ cls: "ws-col-name", text: col.label });
       if (!col.required) {
         row.addEventListener("click", async () => {
           const cur = new Set(this.plugin.settings.visibleColumns);
@@ -649,10 +661,10 @@ class BookmarkView extends ItemView {
       }
     };
 
-    pop.createDiv({ cls: "bm-popover-section", text: "Default" });
+    pop.createDiv({ cls: "ws-popover-section", text: "Default" });
     for (const c of ALL_COLUMNS.slice(0, 5)) renderToggle(c);
     pop.createEl("hr");
-    pop.createDiv({ cls: "bm-popover-section", text: "Optional" });
+    pop.createDiv({ cls: "ws-popover-section", text: "Optional" });
     for (const c of ALL_COLUMNS.slice(5)) renderToggle(c);
 
     const closeOnOutside = (e) => {
@@ -666,16 +678,16 @@ class BookmarkView extends ItemView {
   }
 
   mkAction(parent, icon, label, onClick) {
-    const b = parent.createEl("button", { cls: "bm-action" });
+    const b = parent.createEl("button", { cls: "ws-action" });
     setIcon(b.createSpan(), icon);
     b.createSpan({ text: label });
     b.addEventListener("click", onClick);
   }
 
-  renderColHeaders(headers, gridTemplate, cols) {
+  renderColHeaders(headers, gridTemplate, cols, showFav) {
     headers.style.gridTemplateColumns = gridTemplate;
     headers.createSpan();
-    headers.createSpan();
+    if (showFav) headers.createSpan();
     for (const c of cols) {
       const cell = headers.createSpan({ text: c.label });
       cell.addEventListener("click", () => {
@@ -705,29 +717,29 @@ class BookmarkView extends ItemView {
     headers.createSpan();
   }
 
-  renderRows(table, gridTemplate, cols) {
+  renderRows(table, gridTemplate, cols, showFav) {
     const items = this.filtered();
     if (items.length === 0) {
-      table.createDiv({ cls: "bm-empty", text: "No bookmarks match your filters." });
+      table.createDiv({ cls: "ws-empty", text: "No bookmarks match your filters." });
       return;
     }
-    for (const b of items) this.renderRow(table, b, gridTemplate, cols);
+    for (const b of items) this.renderRow(table, b, gridTemplate, cols, showFav);
   }
 
-  renderRow(table, b, gridTemplate, cols) {
+  renderRow(table, b, gridTemplate, cols, showFav) {
     const id = b.file.path;
     const isSelected = this.state.selected.has(id);
     const isExpanded = this.state.expanded.has(id);
 
     const row = table.createDiv({
-      cls: "bm-row" +
+      cls: "ws-row" +
         (isSelected ? " is-selected" : "") +
         (isExpanded ? " is-expanded" : "") +
         (b.status === "broken" ? " is-broken" : ""),
     });
     row.style.gridTemplateColumns = gridTemplate;
 
-    const check = row.createSpan({ cls: "bm-check" });
+    const check = row.createSpan({ cls: "ws-check" });
     if (isSelected) setIcon(check, "check");
     check.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -736,20 +748,22 @@ class BookmarkView extends ItemView {
       this.render();
     });
 
-    const fav = row.createSpan({ cls: "bm-fav" });
-    if (b.favicon) {
-      const img = fav.createEl("img", { attr: { src: b.favicon, alt: "" } });
-      img.addEventListener("error", () => img.remove());
+    if (showFav) {
+      const fav = row.createSpan({ cls: "ws-fav" });
+      if (b.favicon) {
+        const img = fav.createEl("img", { attr: { src: b.favicon, alt: "" } });
+        img.addEventListener("error", () => img.remove());
+      }
     }
 
     for (const c of cols) {
-      const cell = row.createSpan({ cls: "bm-cell bm-c-" + c.id });
+      const cell = row.createSpan({ cls: "ws-cell ws-c-" + c.id });
       this.renderCell(cell, c.id, b);
     }
 
-    row.createSpan({ cls: "bm-ago", text: formatAgo(b.added) });
+    row.createSpan({ cls: "ws-ago", text: formatAgo(b.added) });
 
-    const more = row.createSpan({ cls: "bm-more" });
+    const more = row.createSpan({ cls: "ws-more" });
     setIcon(more, isExpanded ? "chevron-down" : "more-horizontal");
     more.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -768,14 +782,14 @@ class BookmarkView extends ItemView {
   renderCell(cell, id, b) {
     switch (id) {
       case "title":
-        cell.createSpan({ cls: "bm-title-text", text: b.title });
+        cell.createSpan({ cls: "ws-title-text", text: b.title });
         break;
       case "domain":
         cell.setText(b.domain);
         break;
       case "tags":
         for (const t of b.tags) {
-          const pill = cell.createSpan({ cls: "bm-tag", text: t });
+          const pill = cell.createSpan({ cls: "ws-tag", text: t });
           pill.addEventListener("click", (e) => {
             e.stopPropagation();
             if (this.state.tagFilters.has(t)) this.state.tagFilters.delete(t);
@@ -785,7 +799,7 @@ class BookmarkView extends ItemView {
         }
         break;
       case "status": {
-        const wrap = cell.createSpan({ cls: "bm-status bm-status-" + b.status });
+        const wrap = cell.createSpan({ cls: "ws-status ws-status-" + b.status });
         setIcon(wrap.createSpan(), this.plugin.settings.statusIcons[b.status] || "circle");
         wrap.createSpan({ text: this.plugin.settings.statusLabels[b.status] });
         wrap.addEventListener("click", (e) => {
@@ -798,7 +812,7 @@ class BookmarkView extends ItemView {
         cell.setText(formatAgo(b.added));
         break;
       case "url":
-        cell.createEl("a", { href: b.url, text: b.url, cls: "bm-url" });
+        cell.createEl("a", { href: b.url, text: b.url, cls: "ws-url" });
         break;
       case "description":
         cell.setText(b.description);
@@ -813,18 +827,18 @@ class BookmarkView extends ItemView {
   }
 
   renderRowDetail(table, b) {
-    const detail = table.createDiv({ cls: "bm-row-detail" });
+    const detail = table.createDiv({ cls: "ws-row-detail" });
 
     if (b.description) {
       detail.createEl("h4", { text: "Description" });
-      detail.createEl("p", { cls: "bm-detail-desc", text: b.description });
+      detail.createEl("p", { cls: "ws-detail-desc", text: b.description });
     }
 
     detail.createEl("h4", { text: "Notes" });
-    const notesBox = detail.createDiv({ cls: "bm-detail-notes" });
+    const notesBox = detail.createDiv({ cls: "ws-detail-notes" });
     notesBox.setText("Open the bookmark file to edit notes.");
 
-    const actions = detail.createDiv({ cls: "bm-detail-actions" });
+    const actions = detail.createDiv({ cls: "ws-detail-actions" });
     const mkBtn = (icon, label, onClick) => {
       const btn = actions.createEl("button");
       setIcon(btn.createSpan(), icon);
@@ -980,11 +994,11 @@ class BookmarkView extends ItemView {
 //  Plugin
 // ============================================================
 
-class BookmarkManagerPlugin extends Plugin {
+class WellspringPlugin extends Plugin {
   async onload() {
     await this.loadSettings();
 
-    this.registerView(VIEW_TYPE, (leaf) => new BookmarkView(leaf, this));
+    this.registerView(VIEW_TYPE, (leaf) => new WellspringView(leaf, this));
 
     this.addRibbonIcon("bookmark", "Open bookmarks", () => this.activateView());
 
@@ -999,7 +1013,7 @@ class BookmarkManagerPlugin extends Plugin {
       callback: () => new AddBookmarkModal(this.app, this).open(),
     });
 
-    this.addSettingTab(new BookmarkSettingTab(this.app, this));
+    this.addSettingTab(new WellspringSettingTab(this.app, this));
 
     const refresh = debounce(() => this.refreshViews(), 200, true);
     this.registerEvent(this.app.metadataCache.on("changed", refresh));
@@ -1031,7 +1045,7 @@ class BookmarkManagerPlugin extends Plugin {
 
   refreshViews() {
     this.app.workspace.getLeavesOfType(VIEW_TYPE).forEach((leaf) => {
-      if (leaf.view instanceof BookmarkView) leaf.view.scheduleRender();
+      if (leaf.view instanceof WellspringView) leaf.view.scheduleRender();
     });
   }
 
@@ -1134,4 +1148,4 @@ class BookmarkManagerPlugin extends Plugin {
   }
 }
 
-module.exports = BookmarkManagerPlugin;
+module.exports = WellspringPlugin;

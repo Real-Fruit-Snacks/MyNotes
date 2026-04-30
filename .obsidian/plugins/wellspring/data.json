@@ -23,5 +23,6 @@
     "archive": "Archive",
     "broken": "Broken"
   },
-  "fetchMetadata": false
+  "fetchMetadata": false,
+  "showFavicons": false
 }
