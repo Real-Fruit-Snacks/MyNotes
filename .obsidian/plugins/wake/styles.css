@@ -668,6 +668,41 @@
   }
 }
 
+/* ============================================================ */
+/*  Compact density                                              */
+/* ============================================================ */
+
+.wk-root[data-density="compact"] {
+  font-size: 12px;
+}
+.wk-root[data-density="compact"] .wk-row {
+  padding: 3px 12px;
+  gap: 8px;
+}
+.wk-root[data-density="compact"] .wk-cell-text { font-size: 12px; }
+.wk-root[data-density="compact"] .wk-cell-pri { font-size: 10px; }
+.wk-root[data-density="compact"] .wk-tag,
+.wk-root[data-density="compact"] .wk-due,
+.wk-root[data-density="compact"] .wk-ref,
+.wk-root[data-density="compact"] .wk-rec { font-size: 10px; }
+.wk-root[data-density="compact"] .wk-group-header {
+  padding: 6px 12px 3px;
+  font-size: 10px;
+}
+.wk-root[data-density="compact"] .wk-side-item {
+  padding: 3px 8px;
+  font-size: 12px;
+}
+.wk-root[data-density="compact"] .wk-side-section {
+  padding: 10px 8px 3px;
+}
+.wk-root[data-density="compact"] .wk-toolbar { padding: 5px 10px; }
+.wk-root[data-density="compact"] .wk-statusbar { padding: 4px 10px; font-size: 10px; }
+.wk-root[data-density="compact"] .wk-pill {
+  padding: 3px 8px;
+  font-size: 11px;
+}
+
 /* Toast */
 .wk-root .wk-toast-stack {
   position: absolute;
