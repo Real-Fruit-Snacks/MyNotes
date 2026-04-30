@@ -1,7 +1,9 @@
 "use strict";
 
 const {
+  Component,
   ItemView,
+  MarkdownRenderer,
   Menu,
   Modal,
   Notice,
@@ -71,6 +73,7 @@ const DEFAULT_SETTINGS = {
     broken: "Broken",
   },
   tagIcons: {},                // { [tag]: lucideName }
+  folderIcons: {},             // { [folderPath]: lucideName }
   fetchMetadata: true,
   showFavicons: true,
   showIcons: true,             // custom icons (per-bookmark / per-tag) inline next to title
@@ -420,6 +423,19 @@ class AddBookmarkModal extends Modal {
           new Notice("Enter a URL starting with http(s)://");
           return;
         }
+
+        // duplicate detection
+        const existing = this.plugin.findByUrl(this.url);
+        if (existing) {
+          const open = confirm(`This URL is already saved as "${existing.title}". Open it instead?`);
+          if (open) {
+            this.close();
+            await this.plugin.activateView();
+            await this.app.workspace.getLeaf("tab").openFile(existing.file);
+          }
+          return;
+        }
+
         b.setButtonText("Fetching…").setDisabled(true);
         try {
           const createOpts = {};
@@ -977,6 +993,52 @@ class WellspringSettingTab extends PluginSettingTab {
         });
     }
 
+    // ---- folder icons
+    new Setting(containerEl).setName("Folder icons").setHeading();
+    containerEl.createEl("p", {
+      cls: "setting-item-description",
+      text: "Override the default folder icon for any folder in your bookmarks tree.",
+    });
+    const folderKeys = new Set(Object.keys(this.plugin.settings.folderIcons));
+    const ftree = this.plugin.loadFolderTree();
+    if (ftree) {
+      const walk = (node) => {
+        if (node.path) folderKeys.add(node.path);
+        for (const c of node.children) walk(c);
+      };
+      walk(ftree);
+    }
+    const sortedFolders = [...folderKeys].sort();
+    if (sortedFolders.length === 0) {
+      containerEl.createEl("p", {
+        cls: "setting-item-description",
+        text: "No folders yet — create one from the Folders sidebar.",
+      });
+    }
+    for (const path of sortedFolders) {
+      const cur = this.plugin.settings.folderIcons[path] || "";
+      new Setting(containerEl)
+        .setName(path)
+        .setDesc(cur ? cur.replace(/^lucide-/, "") : "Default folder icon")
+        .addButton((b) => {
+          b.setIcon(cur || "folder");
+          b.setTooltip(cur ? "Click to change" : "Click to choose icon");
+          b.onClick(() => {
+            new IconPickerModal(this.app, {
+              title: `Icon for ${path}`,
+              current: cur,
+              allowClear: true,
+              onPick: async (name) => {
+                if (name) this.plugin.settings.folderIcons[path] = name;
+                else delete this.plugin.settings.folderIcons[path];
+                await this.plugin.saveSettings();
+                this.display();
+              },
+            }).open();
+          });
+        });
+    }
+
     // ---- visible columns
     new Setting(containerEl).setName("Visible columns (list view)").setHeading();
     containerEl.createEl("p", {
@@ -1062,7 +1124,21 @@ function renderBookmarkEditor(host, plugin, b, view) {
   const metaParts = [`Added ${ts.toLocaleDateString()}`];
   if (b.readingTime) metaParts.push(`${b.readingTime} min read`);
   metaParts.push(plugin.settings.statusLabels[b.status] || b.status);
+  if (b.pinned) metaParts.push("Pinned");
   headInfo.createDiv({ cls: "ws-editor-meta", text: metaParts.join(" · ") });
+
+  const pinStar = headBar.createDiv({
+    cls: "ws-editor-pin" + (b.pinned ? " is-pinned" : ""),
+    attr: { title: b.pinned ? "Unpin" : "Pin" },
+  });
+  setIcon(pinStar, "star");
+  pinStar.addEventListener("click", async (e) => {
+    e.stopPropagation();
+    await plugin.updateFrontmatter(b.file, (fm) => {
+      if (b.pinned) { delete fm.pinned; delete fm.pinnedAt; }
+      else { fm.pinned = true; fm.pinnedAt = new Date().toISOString(); }
+    });
+  });
 
   // title (editable)
   field(host, "Title", (parent) => {
@@ -1194,20 +1270,57 @@ function renderBookmarkEditor(host, plugin, b, view) {
     });
   });
 
-  // notes (file body)
+  // notes (file body) with edit / preview toggle
   field(host, "Notes", (parent) => {
-    const ta = parent.createEl("textarea", { cls: "ws-editor-textarea ws-editor-notes" });
+    const wrap = parent.createDiv({ cls: "ws-notes-wrap" });
+    const tabs = wrap.createDiv({ cls: "ws-notes-tabs" });
+    const editTab = tabs.createEl("button", { cls: "ws-notes-tab is-active" });
+    editTab.createSpan({ text: "Edit" });
+    const previewTab = tabs.createEl("button", { cls: "ws-notes-tab" });
+    previewTab.createSpan({ text: "Preview" });
+
+    const ta = wrap.createEl("textarea", { cls: "ws-editor-textarea ws-editor-notes" });
     ta.rows = 6;
     ta.placeholder = "Markdown notes — saves automatically.";
-    plugin.app.vault.read(b.file).then(() => readBody(plugin.app, b.file)).then((body) => {
-      ta.value = body || "";
-    });
+
+    const preview = wrap.createDiv({ cls: "ws-notes-preview markdown-rendered" });
+    preview.style.display = "none";
+
+    readBody(plugin.app, b.file).then((body) => { ta.value = body || ""; });
+
     const save = debounce(async () => {
       try { await writeBody(plugin.app, b.file, ta.value); }
       catch (e) { console.error("notes write failed", e); }
     }, 600, true);
     ta.addEventListener("input", save);
     ta.addEventListener("blur", save);
+
+    editTab.addEventListener("click", () => {
+      ta.style.display = "";
+      preview.style.display = "none";
+      editTab.addClass("is-active");
+      previewTab.removeClass("is-active");
+    });
+    previewTab.addEventListener("click", async () => {
+      // flush any pending save before rendering
+      try { await writeBody(plugin.app, b.file, ta.value); } catch {}
+      preview.empty();
+      preview.style.display = "";
+      ta.style.display = "none";
+      editTab.removeClass("is-active");
+      previewTab.addClass("is-active");
+      const text = ta.value.trim() || "*No notes yet.*";
+      const cmp = view instanceof Component ? view : new Component();
+      try {
+        if (typeof MarkdownRenderer.render === "function") {
+          await MarkdownRenderer.render(plugin.app, text, preview, b.file.path, cmp);
+        } else {
+          await MarkdownRenderer.renderMarkdown(text, preview, b.file.path, cmp);
+        }
+      } catch (e) {
+        preview.setText("Preview failed: " + e.message);
+      }
+    });
   });
 
   // actions row
@@ -1364,6 +1477,7 @@ class WellspringView extends ItemView {
       tagFilters: new Set(),
       folderFilter: null,       // null = all folders, "" = root only, "Tech" = that folder + subfolders
       expandedFolders: new Set(),
+      smartFilter: null,        // null | "recent" | "untagged" | "broken" | "pinned"
       sortField: plugin.settings.defaultSort,
       sortDir: plugin.settings.defaultSortDir,
       expanded: new Set(),
@@ -1448,8 +1562,9 @@ class WellspringView extends ItemView {
 
   filtered() {
     const all = this.plugin.loadBookmarks();
-    const { search, statusFilter, tagFilters, folderFilter, sortField, sortDir } = this.state;
+    const { search, statusFilter, tagFilters, folderFilter, smartFilter, sortField, sortDir } = this.state;
     const q = search.trim().toLowerCase();
+    const sevenDaysAgo = Date.now() - 7 * 86400 * 1000;
 
     let xs = all.filter((b) => {
       if (statusFilter && statusFilter !== "all" && b.status !== statusFilter) return false;
@@ -1459,6 +1574,10 @@ class WellspringView extends ItemView {
         if (folderFilter !== "" &&
             !(b.folder === folderFilter || b.folder.startsWith(folderFilter + "/"))) return false;
       }
+      if (smartFilter === "recent" && b.added < sevenDaysAgo) return false;
+      if (smartFilter === "untagged" && b.tags.length > 0) return false;
+      if (smartFilter === "broken" && b.status !== "broken") return false;
+      if (smartFilter === "pinned" && !b.pinned) return false;
       if (q) {
         const hay = [b.title, b.domain, b.description, b.url, b.tags.join(" ")]
           .join(" ").toLowerCase();
@@ -1469,6 +1588,8 @@ class WellspringView extends ItemView {
 
     const dir = sortDir === "asc" ? 1 : -1;
     xs.sort((a, b) => {
+      // pinned first regardless of sort field
+      if ((a.pinned ? 1 : 0) !== (b.pinned ? 1 : 0)) return (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0);
       const va = a[sortField] ?? "";
       const vb = b[sortField] ?? "";
       if (sortField === "added" || sortField === "opened") {
@@ -1544,8 +1665,11 @@ class WellspringView extends ItemView {
 
     for (const s of STATUS_ORDER) {
       if (s === "broken" && counts[s] === 0) continue;
+      const isEmpty = (counts[s] || 0) === 0;
       const link = side.createEl("a", {
-        cls: "ws-side-link ws-status-" + s + (this.state.statusFilter === s ? " is-active" : ""),
+        cls: "ws-side-link ws-status-" + s
+          + (this.state.statusFilter === s ? " is-active" : "")
+          + (isEmpty ? " is-empty" : ""),
       });
       const lhs = link.createSpan({ cls: "ws-side-lhs" });
       setIcon(lhs.createSpan(), settings.statusIcons[s] || "circle");
@@ -1557,6 +1681,8 @@ class WellspringView extends ItemView {
         this.render();
       });
     }
+
+    this.renderSmartFilters(side);
 
     this.renderFoldersSection(side);
 
@@ -1578,6 +1704,98 @@ class WellspringView extends ItemView {
           this.render();
         });
       }
+    }
+  }
+
+  renderBreadcrumbs(parent) {
+    const { settings } = this.plugin;
+    const crumbs = [];
+    if (this.state.statusFilter && this.state.statusFilter !== "all") {
+      crumbs.push({
+        icon: settings.statusIcons[this.state.statusFilter] || "circle",
+        text: settings.statusLabels[this.state.statusFilter] || this.state.statusFilter,
+        clear: () => { this.state.statusFilter = "all"; this.render(); },
+      });
+    }
+    if (this.state.folderFilter !== null) {
+      crumbs.push({
+        icon: settings.folderIcons[this.state.folderFilter] || (this.state.folderFilter ? "folder" : "home"),
+        text: this.state.folderFilter || "(root)",
+        clear: () => { this.state.folderFilter = null; this.render(); },
+      });
+    }
+    for (const tag of this.state.tagFilters) {
+      crumbs.push({
+        icon: settings.tagIcons[tag] || "hash",
+        text: "#" + tag,
+        clear: () => { this.state.tagFilters.delete(tag); this.render(); },
+      });
+    }
+    if (this.state.smartFilter) {
+      const labels = { recent: "Recently added", pinned: "Pinned", untagged: "Untagged", broken: "Broken" };
+      const icons = { recent: "clock", pinned: "star", untagged: "tag", broken: "alert-circle" };
+      crumbs.push({
+        icon: icons[this.state.smartFilter],
+        text: labels[this.state.smartFilter],
+        clear: () => { this.state.smartFilter = null; this.render(); },
+      });
+    }
+    if (crumbs.length === 0) return;
+
+    const wrap = parent.createDiv({ cls: "ws-crumbs" });
+    for (const c of crumbs) {
+      const pill = wrap.createSpan({ cls: "ws-crumb" });
+      setIcon(pill.createSpan({ cls: "ws-crumb-ico" }), c.icon);
+      pill.createSpan({ cls: "ws-crumb-text", text: c.text });
+      const x = pill.createSpan({ cls: "ws-crumb-x", attr: { title: "Clear filter" } });
+      setIcon(x, "x");
+      x.addEventListener("click", (e) => { e.stopPropagation(); c.clear(); });
+    }
+  }
+
+  renderSmartFilters(side) {
+    const all = this.plugin.loadBookmarks();
+    const sevenDaysAgo = Date.now() - 7 * 86400 * 1000;
+    const filters = [
+      {
+        id: "recent", label: "Recently added", icon: "clock",
+        count: all.filter((b) => b.added >= sevenDaysAgo).length,
+      },
+      {
+        id: "pinned", label: "Pinned", icon: "star",
+        count: all.filter((b) => b.pinned).length,
+      },
+      {
+        id: "untagged", label: "Untagged", icon: "tag",
+        count: all.filter((b) => b.tags.length === 0).length,
+      },
+      {
+        id: "broken", label: "Broken links", icon: "alert-circle",
+        count: all.filter((b) => b.status === "broken").length,
+      },
+    ];
+
+    const visible = filters.filter((f) => f.count > 0 || this.state.smartFilter === f.id);
+    if (visible.length === 0) return;
+
+    side.createEl("h3", { cls: "ws-side-h", text: "Smart filters" });
+    for (const f of visible) {
+      const isActive = this.state.smartFilter === f.id;
+      const isEmpty = f.count === 0;
+      const link = side.createEl("a", {
+        cls: "ws-side-link ws-smart-" + f.id
+          + (isActive ? " is-active" : "")
+          + (isEmpty ? " is-empty" : ""),
+      });
+      const lhs = link.createSpan({ cls: "ws-side-lhs" });
+      setIcon(lhs.createSpan(), f.icon);
+      lhs.createSpan({ text: f.label });
+      link.createSpan({ cls: "ws-side-count", text: String(f.count) });
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        this.state.smartFilter = isActive ? null : f.id;
+        this.render();
+      });
     }
   }
 
@@ -1641,7 +1859,8 @@ class WellspringView extends ItemView {
       } else {
         lhs.createSpan({ cls: "ws-folder-spacer" });
       }
-      setIcon(lhs.createSpan(), "folder");
+      const folderIco = this.plugin.settings.folderIcons[node.path] || "folder";
+      setIcon(lhs.createSpan(), folderIco);
       lhs.createSpan({ text: node.name });
       link.createSpan({ cls: "ws-side-count", text: String(node.bookmarkCount) });
       link.addEventListener("click", (e) => {
@@ -1664,7 +1883,9 @@ class WellspringView extends ItemView {
   }
 
   renderHeader(head) {
-    head.createEl("h1", { cls: "ws-title", text: "Bookmarks" });
+    const titleArea = head.createDiv({ cls: "ws-title-area" });
+    titleArea.createEl("h1", { cls: "ws-title", text: "Bookmarks" });
+    this.renderBreadcrumbs(titleArea);
 
     const search = head.createDiv({ cls: "ws-search" });
     setIcon(search.createSpan(), "search");
@@ -1728,6 +1949,7 @@ class WellspringView extends ItemView {
         new BulkTagModal(this.app, this.plugin, [...this.state.selected]).open();
       });
       this.mkAction(tools, "circle-dot", "Status…", (e) => this.openBulkStatusMenu(e));
+      this.mkAction(tools, "folder-input", "Move…", () => this.openBulkMove());
       this.mkAction(tools, "archive", "Archive", async () => { await this.bulkSetStatus("archive"); });
       this.mkAction(tools, "trash-2", "Delete", async () => {
         if (!confirm(`Delete ${selected} bookmark(s)? Moves files to system trash.`)) return;
@@ -1818,10 +2040,26 @@ class WellspringView extends ItemView {
   makeDraggable(el, filePath) {
     el.setAttribute("draggable", "true");
     el.addEventListener("dragstart", (e) => {
-      e.dataTransfer.setData("text/plain", filePath);
-      e.dataTransfer.setData("application/x-wellspring-bookmark", filePath);
+      let paths;
+      if (this.state.selected.has(filePath) && this.state.selected.size > 1) {
+        paths = [...this.state.selected];
+      } else {
+        paths = [filePath];
+      }
+      const payload = paths.join("\n");
+      e.dataTransfer.setData("text/plain", payload);
+      e.dataTransfer.setData("application/x-wellspring-bookmark", payload);
       e.dataTransfer.effectAllowed = "move";
       el.addClass("is-dragging");
+
+      if (paths.length > 1) {
+        const dragImg = document.createElement("div");
+        dragImg.className = "ws-drag-image";
+        dragImg.textContent = `${paths.length} bookmarks`;
+        document.body.appendChild(dragImg);
+        e.dataTransfer.setDragImage(dragImg, 12, 12);
+        setTimeout(() => dragImg.remove(), 0);
+      }
     });
     el.addEventListener("dragend", () => el.removeClass("is-dragging"));
   }
@@ -1835,21 +2073,23 @@ class WellspringView extends ItemView {
       el.addClass("is-drop");
     });
     el.addEventListener("dragleave", (e) => {
-      // only clear when leaving the element itself, not bubbling out from a child
       if (!el.contains(e.relatedTarget)) el.removeClass("is-drop");
     });
     el.addEventListener("drop", async (e) => {
       e.preventDefault();
       el.removeClass("is-drop");
-      const path = e.dataTransfer.getData("text/plain");
-      if (!path) return;
-      const f = this.app.vault.getAbstractFileByPath(path);
-      if (!(f instanceof TFile)) return;
-      try {
-        await this.plugin.moveBookmark(f, folderPath);
-        new Notice(`Moved to ${folderPath || "root"}`);
-      } catch (err) {
-        new Notice(`Failed: ${err.message}`);
+      const paths = e.dataTransfer.getData("text/plain").split("\n").filter(Boolean);
+      if (!paths.length) return;
+      let moved = 0;
+      for (const path of paths) {
+        const f = this.app.vault.getAbstractFileByPath(path);
+        if (!(f instanceof TFile)) continue;
+        try { await this.plugin.moveBookmark(f, folderPath); moved++; }
+        catch (err) { console.error("move failed", err); }
+      }
+      if (moved > 0) {
+        new Notice(`Moved ${moved} bookmark${moved === 1 ? "" : "s"} to ${folderPath || "root"}`);
+        if (paths.length > 1) this.state.selected.clear();
       }
     });
   }
@@ -1968,6 +2208,10 @@ class WellspringView extends ItemView {
       else this.state.expanded.add(id);
       this.render();
     });
+    row.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+      this.openRowMenu(e, b);
+    });
 
     if (isExpanded) {
       const detail = table.createDiv({ cls: "ws-row-detail" });
@@ -1978,6 +2222,17 @@ class WellspringView extends ItemView {
   renderCell(cell, id, b, q) {
     switch (id) {
       case "title": {
+        if (b.pinned) {
+          const pin = cell.createSpan({ cls: "ws-pin is-pinned", attr: { title: "Pinned (click to unpin)" } });
+          setIcon(pin, "star");
+          pin.addEventListener("click", async (e) => {
+            e.stopPropagation();
+            await this.plugin.updateFrontmatter(b.file, (fm) => {
+              delete fm.pinned;
+              delete fm.pinnedAt;
+            });
+          });
+        }
         appendInlineIcon(cell, this.plugin, b);
         const t = cell.createSpan({ cls: "ws-title-text" });
         renderHighlighted(t, b.title, q);
@@ -2072,6 +2327,10 @@ class WellspringView extends ItemView {
 
     const cardBody = card.createDiv({ cls: "ws-card-body" });
     const t = cardBody.createEl("h3", { cls: "ws-card-title" });
+    if (b.pinned) {
+      const pin = t.createSpan({ cls: "ws-pin is-pinned" });
+      setIcon(pin, "star");
+    }
     appendInlineIcon(t, this.plugin, b);
     const tt = t.createSpan({ cls: "ws-title-text" });
     renderHighlighted(tt, b.title, this.state.search.trim());
@@ -2153,10 +2412,18 @@ class WellspringView extends ItemView {
       colBody.addEventListener("drop", async (e) => {
         e.preventDefault();
         col.removeClass("is-drop");
-        const path = e.dataTransfer.getData("text/plain");
-        const f = this.app.vault.getAbstractFileByPath(path);
-        if (f instanceof TFile) {
-          await this.plugin.updateFrontmatter(f, (fm) => { fm.status = s; });
+        const paths = e.dataTransfer.getData("text/plain").split("\n").filter(Boolean);
+        let moved = 0;
+        for (const p of paths) {
+          const f = this.app.vault.getAbstractFileByPath(p);
+          if (f instanceof TFile) {
+            await this.plugin.updateFrontmatter(f, (fm) => { fm.status = s; });
+            moved++;
+          }
+        }
+        if (moved > 0 && paths.length > 1) {
+          new Notice(`Moved ${moved} to ${this.plugin.settings.statusLabels[s]}`);
+          this.state.selected.clear();
         }
       });
 
@@ -2191,6 +2458,10 @@ class WellspringView extends ItemView {
     head.createSpan({ cls: "ws-board-card-domain", text: b.domain });
 
     const t = card.createEl("p", { cls: "ws-board-card-title" });
+    if (b.pinned) {
+      const pin = t.createSpan({ cls: "ws-pin is-pinned" });
+      setIcon(pin, "star");
+    }
     appendInlineIcon(t, this.plugin, b);
     const tt = t.createSpan({ cls: "ws-title-text" });
     renderHighlighted(tt, b.title, this.state.search.trim());
@@ -2247,6 +2518,10 @@ class WellspringView extends ItemView {
       paintFavicon(fav, this.plugin, b, 16);
       const info = item.createDiv({ cls: "ws-tree-info" });
       const t = info.createDiv({ cls: "ws-tree-title" });
+      if (b.pinned) {
+        const pin = t.createSpan({ cls: "ws-pin is-pinned" });
+        setIcon(pin, "star");
+      }
       appendInlineIcon(t, this.plugin, b);
       const tt = t.createSpan({ cls: "ws-title-text" });
       renderHighlighted(tt, b.title, this.state.search.trim());
@@ -2257,6 +2532,10 @@ class WellspringView extends ItemView {
         this.state.previewPath = id;
         this.state.focusedPath = id;
         this.render();
+      });
+      item.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        this.openRowMenu(e, b);
       });
     }
 
@@ -2283,6 +2562,20 @@ class WellspringView extends ItemView {
     m.addItem((it) =>
       it.setTitle("Rename…").setIcon("pencil").onClick(() => {
         new RenameFolderModal(this.app, this.plugin, node).open();
+      }),
+    );
+    m.addItem((it) =>
+      it.setTitle("Set icon…").setIcon("image").onClick(() => {
+        new IconPickerModal(this.app, {
+          title: `Icon for ${node.path}`,
+          current: this.plugin.settings.folderIcons[node.path] || "",
+          allowClear: true,
+          onPick: async (name) => {
+            if (name) this.plugin.settings.folderIcons[node.path] = name;
+            else delete this.plugin.settings.folderIcons[node.path];
+            await this.plugin.saveSettings();
+          },
+        }).open();
       }),
     );
     m.addSeparator();
@@ -2351,6 +2644,15 @@ class WellspringView extends ItemView {
 
   openRowMenu(e, b) {
     const m = new Menu();
+    m.addItem((it) =>
+      it.setTitle(b.pinned ? "Unpin" : "Pin").setIcon("star").onClick(async () => {
+        await this.plugin.updateFrontmatter(b.file, (fm) => {
+          if (b.pinned) { delete fm.pinned; delete fm.pinnedAt; }
+          else { fm.pinned = true; fm.pinnedAt = new Date().toISOString(); }
+        });
+      }),
+    );
+    m.addSeparator();
     m.addItem((it) =>
       it.setTitle("Open in browser").setIcon("external-link")
         .onClick(() => window.open(b.url, "_blank")),
@@ -2464,6 +2766,25 @@ class WellspringView extends ItemView {
     }
     this.state.selected.clear();
   }
+
+  openBulkMove() {
+    const paths = [...this.state.selected];
+    if (!paths.length) return;
+    new FolderPickerModal(this.app, this.plugin, {
+      title: `Move ${paths.length} bookmark${paths.length === 1 ? "" : "s"} to folder`,
+      onPick: async (target) => {
+        let moved = 0;
+        for (const path of paths) {
+          const f = this.app.vault.getAbstractFileByPath(path);
+          if (!(f instanceof TFile)) continue;
+          try { await this.plugin.moveBookmark(f, target); moved++; }
+          catch (err) { console.error(err); }
+        }
+        new Notice(`Moved ${moved} to ${target || "root"}`);
+        this.state.selected.clear();
+      },
+    }).open();
+  }
 }
 
 // ============================================================
@@ -2571,6 +2892,15 @@ class WellspringPlugin extends Plugin {
     return path;
   }
 
+  findByUrl(url) {
+    const target = String(url).trim().toLowerCase();
+    if (!target) return null;
+    for (const b of this.loadBookmarks()) {
+      if (b.url.trim().toLowerCase() === target) return b;
+    }
+    return null;
+  }
+
   async createBookmark(rawUrl, opts = {}) {
     const url = String(rawUrl).trim();
     if (!/^https?:\/\//i.test(url)) throw new Error("URL must start with http(s)://");
@@ -2647,6 +2977,8 @@ class WellspringPlugin extends Plugin {
             cover: fm.cover ? String(fm.cover) : undefined,
             author: fm.author ? String(fm.author) : undefined,
             icon: fm.icon ? String(fm.icon) : undefined,
+            pinned: fm.pinned === true,
+            pinnedAt: fm.pinnedAt ? parseDateMs(fm.pinnedAt) : undefined,
             readingTime:
               typeof fm["reading-time"] === "number" ? fm["reading-time"] : undefined,
           });
