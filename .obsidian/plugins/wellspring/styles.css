@@ -284,7 +284,31 @@
   overflow: hidden; text-overflow: ellipsis;
   font-size: 12px; color: var(--text-muted);
 }
-.ws-c-title .ws-title-text { font-weight: 500; color: var(--text-normal); }
+.ws-c-title {
+  display: flex !important;
+  align-items: center;
+  gap: 0;
+  min-width: 0;
+}
+.ws-c-title .ws-title-text {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+  color: var(--text-normal);
+}
+
+/* shared inline icon next to titles (toggleable via showIcons) */
+.ws-inline-icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  margin-right: 6px;
+}
+.ws-inline-icon .svg-icon { width: 13px; height: 13px; }
 .ws-c-tags { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
 
 .ws-tag {
@@ -546,10 +570,20 @@
 .ws-card-title {
   font-size: 14px; font-weight: 600;
   margin: 0 0 6px;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 0;
+}
+.ws-card-title .ws-inline-icon { margin-right: 0; margin-top: 3px; }
+.ws-card-title .ws-inline-icon .svg-icon { width: 14px; height: 14px; }
+.ws-card-title .ws-title-text {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  flex: 1;
+  min-width: 0;
 }
 .ws-card-desc {
   font-size: 12px; color: var(--text-muted);
@@ -662,10 +696,20 @@
   font-size: 13px; font-weight: 500;
   margin: 0 0 8px;
   line-height: 1.35;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 0;
+}
+.ws-board-card-title .ws-inline-icon { margin-right: 0; margin-top: 2px; }
+.ws-board-card-title .ws-inline-icon .svg-icon { width: 12px; height: 12px; }
+.ws-board-card-title .ws-title-text {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  flex: 1;
+  min-width: 0;
 }
 .ws-board-card-meta {
   display: flex; align-items: center;
@@ -705,7 +749,18 @@
 .ws-tree-title {
   font-size: 13px; font-weight: 500;
   color: var(--text-normal);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.ws-tree-title .ws-inline-icon { margin-right: 0; }
+.ws-tree-title .ws-title-text {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .ws-tree-sub {
   font-size: 11px; color: var(--text-muted);

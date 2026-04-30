@@ -73,6 +73,7 @@ const DEFAULT_SETTINGS = {
   tagIcons: {},                // { [tag]: lucideName }
   fetchMetadata: true,
   showFavicons: true,
+  showIcons: true,             // custom icons (per-bookmark / per-tag) inline next to title
   linkCheckIntervalDays: 0,    // 0 = disabled
   lastLinkCheck: 0,
 };
@@ -628,9 +629,17 @@ class WellspringSettingTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName("Show favicons")
-      .setDesc("Display the site favicon in each row.")
+      .setDesc("Display the site favicon in the leftmost column / thumbnail slot.")
       .addToggle((t) => t.setValue(this.plugin.settings.showFavicons !== false).onChange(async (v) => {
         this.plugin.settings.showFavicons = v;
+        await this.plugin.saveSettings();
+      }));
+
+    new Setting(containerEl)
+      .setName("Show custom icons")
+      .setDesc("Show per-bookmark and per-tag icons inline next to the title.")
+      .addToggle((t) => t.setValue(this.plugin.settings.showIcons !== false).onChange(async (v) => {
+        this.plugin.settings.showIcons = v;
         await this.plugin.saveSettings();
       }));
 
@@ -994,6 +1003,45 @@ function field(host, label, build) {
   const f = host.createDiv({ cls: "ws-editor-field" });
   f.createDiv({ cls: "ws-editor-label", text: label });
   build(f);
+}
+
+// Returns { name, fromTag } for the custom icon to use inline, or null
+function getCustomIcon(plugin, b) {
+  if (b.icon) return { name: b.icon, fromTag: null };
+  for (const t of b.tags) {
+    if (plugin.settings.tagIcons[t]) return { name: plugin.settings.tagIcons[t], fromTag: t };
+  }
+  return null;
+}
+
+// Inline icon next to a title — toggled by settings.showIcons.
+// Returns true if it rendered something.
+function appendInlineIcon(host, plugin, b) {
+  if (plugin.settings.showIcons === false) return false;
+  const cur = getCustomIcon(plugin, b);
+  if (!cur) return false;
+  const span = host.createSpan({ cls: "ws-inline-icon" });
+  setIcon(span, cur.name);
+  if (cur.fromTag) span.style.color = colorForTag(cur.fromTag);
+  span.setAttribute("aria-label", cur.fromTag ? `tag: ${cur.fromTag}` : "custom icon");
+  return true;
+}
+
+// Favicon-only painter — used in the dedicated favicon column / thumb slots.
+function paintFavicon(host, plugin, b, sizePx) {
+  host.empty();
+  host.style.width = host.style.height = sizePx + "px";
+  if (plugin.settings.showFavicons !== false && b.favicon) {
+    host.addClass("ws-vis-fav");
+    const img = host.createEl("img", { attr: { src: b.favicon, alt: "" } });
+    img.addEventListener("error", () => {
+      host.empty();
+      host.removeClass("ws-vis-fav");
+      paintFallback(host, b, sizePx);
+    });
+    return;
+  }
+  paintFallback(host, b, sizePx);
 }
 
 // Visual painter — chooses between custom icon, tag icon, favicon, or fallback
@@ -1467,7 +1515,7 @@ class WellspringView extends ItemView {
 
     if (showFav) {
       const fav = row.createSpan({ cls: "ws-fav" });
-      paintBookmarkVisual(fav, this.plugin, b, 14);
+      paintFavicon(fav, this.plugin, b, 14);
     }
 
     const q = this.state.search.trim();
@@ -1501,6 +1549,7 @@ class WellspringView extends ItemView {
   renderCell(cell, id, b, q) {
     switch (id) {
       case "title": {
+        appendInlineIcon(cell, this.plugin, b);
         const t = cell.createSpan({ cls: "ws-title-text" });
         renderHighlighted(t, b.title, q);
         break;
@@ -1588,12 +1637,14 @@ class WellspringView extends ItemView {
 
     const dom = hero.createDiv({ cls: "ws-card-domain" });
     const fav = dom.createSpan({ cls: "ws-card-fav" });
-    paintBookmarkVisual(fav, this.plugin, b, 14);
+    paintFavicon(fav, this.plugin, b, 14);
     dom.createSpan({ text: b.domain });
 
     const cardBody = card.createDiv({ cls: "ws-card-body" });
     const t = cardBody.createEl("h3", { cls: "ws-card-title" });
-    renderHighlighted(t, b.title, this.state.search.trim());
+    appendInlineIcon(t, this.plugin, b);
+    const tt = t.createSpan({ cls: "ws-title-text" });
+    renderHighlighted(tt, b.title, this.state.search.trim());
     if (b.description) {
       const d = cardBody.createEl("p", { cls: "ws-card-desc" });
       renderHighlighted(d, b.description, this.state.search.trim());
@@ -1706,11 +1757,13 @@ class WellspringView extends ItemView {
 
     const head = card.createDiv({ cls: "ws-board-card-head" });
     const fav = head.createSpan({ cls: "ws-board-card-fav" });
-    paintBookmarkVisual(fav, this.plugin, b, 12);
+    paintFavicon(fav, this.plugin, b, 12);
     head.createSpan({ cls: "ws-board-card-domain", text: b.domain });
 
     const t = card.createEl("p", { cls: "ws-board-card-title" });
-    renderHighlighted(t, b.title, this.state.search.trim());
+    appendInlineIcon(t, this.plugin, b);
+    const tt = t.createSpan({ cls: "ws-title-text" });
+    renderHighlighted(tt, b.title, this.state.search.trim());
 
     const meta = card.createDiv({ cls: "ws-board-card-meta" });
     const tags = meta.createDiv({ cls: "ws-card-tags" });
@@ -1760,10 +1813,12 @@ class WellspringView extends ItemView {
         cls: "ws-tree-item" + (id === previewPath ? " is-active" : ""),
       });
       const fav = item.createSpan({ cls: "ws-tree-fav" });
-      paintBookmarkVisual(fav, this.plugin, b, 16);
+      paintFavicon(fav, this.plugin, b, 16);
       const info = item.createDiv({ cls: "ws-tree-info" });
       const t = info.createDiv({ cls: "ws-tree-title" });
-      renderHighlighted(t, b.title, this.state.search.trim());
+      appendInlineIcon(t, this.plugin, b);
+      const tt = t.createSpan({ cls: "ws-title-text" });
+      renderHighlighted(tt, b.title, this.state.search.trim());
       info.createDiv({ cls: "ws-tree-sub", text: `${b.domain} · ${formatAgo(b.added)}` });
       const stIco = item.createSpan({ cls: "ws-tree-status ws-status-" + b.status });
       setIcon(stIco, this.plugin.settings.statusIcons[b.status] || "circle");
