@@ -1,0 +1,10 @@
+{
+  "id": "bookmark-manager",
+  "name": "Bookmark Manager",
+  "version": "0.1.0",
+  "minAppVersion": "1.5.0",
+  "description": "A professional bookmark manager with a compact list view, customizable columns and icons, status workflow, and auto-fetched metadata.",
+  "author": "Real-Fruit-Snacks",
+  "authorUrl": "",
+  "isDesktopOnly": false
+}

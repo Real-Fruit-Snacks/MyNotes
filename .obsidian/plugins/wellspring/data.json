@@ -1,0 +1,27 @@
+{
+  "folder": "Bookmarks",
+  "defaultSort": "added",
+  "defaultSortDir": "desc",
+  "visibleColumns": [
+    "title",
+    "domain",
+    "tags",
+    "status",
+    "added"
+  ],
+  "statusIcons": {
+    "inbox": "inbox",
+    "reading": "book-open",
+    "done": "check",
+    "archive": "archive",
+    "broken": "alert-circle"
+  },
+  "statusLabels": {
+    "inbox": "Inbox",
+    "reading": "Reading",
+    "done": "Done",
+    "archive": "Archive",
+    "broken": "Broken"
+  },
+  "fetchMetadata": false
+}

@@ -32,9 +32,19 @@
               "icon": "lucide-file",
               "title": "Machine Walkthrough 2"
             }
+          },
+          {
+            "id": "df534d569c884846",
+            "type": "leaf",
+            "state": {
+              "type": "bookmark-manager-view",
+              "state": {},
+              "icon": "bookmark",
+              "title": "Bookmarks"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -178,11 +188,14 @@
       "yaml-variable-templater:YAML Variable Templater": false,
       "obsidian-git:Open Git source control": false,
       "table-editor-obsidian:Advanced Tables Toolbar": false,
-      "iconic:Open rulebook": true
+      "iconic:Open rulebook": true,
+      "bookmark-manager:Open bookmarks": false
     }
   },
-  "active": "ba62af066a906f44",
+  "active": "df534d569c884846",
   "lastOpenFiles": [
+    "Bookmarks/google.md",
+    "Bookmarks",
     "docs/Labs/HackSmarter/BuildingMagic/Machine Walkthrough.tmp",
     "docs/Labs/HackSmarter/BuildingMagic/Machine Walkthrough.md",
     "Side Note/Things to Fix.md",
@@ -200,12 +213,10 @@
     "docs/Training/HackSmarter/OSCP Path.md",
     "docs/stylesheets/catppuccin.css.tmp.20168.1777340001875",
     "Side Note/Convert to Gitlab.md",
-    "Side Note",
     "docs/Web/Shell/PHP.md",
     "docs/Web/File Uploads/Bypass Client-Side Controls.md",
     "docs/Tools/Listeners.md",
     "docs/OS/Kali.md",
-    "docs/Attachments",
     "docs/Web/File Uploads/Bypass MIME Checks.md",
     "docs/index.md",
     "docs/Web/File Uploads/Bypass Server-Side Inspection.md",
