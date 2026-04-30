@@ -77,7 +77,8 @@
               "title": "Wake"
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -227,7 +228,7 @@
       "iconic:Open rulebook": true
     }
   },
-  "active": "861a188864964bf1",
+  "active": "30b1c0967ff74add",
   "lastOpenFiles": [
     "Bookmarks/Tech",
     "Bookmarks/google.md",
