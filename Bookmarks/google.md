@@ -8,5 +8,5 @@ tags: []
 added: 2026-04-30T19:12:20.950Z
 favicon: https://www.gstatic.com/images/branding/searchlogo/ico/favicon.ico
 reading-time: 6
-icon: iron
+icon: lucide-airplay
 ---

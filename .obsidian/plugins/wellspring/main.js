@@ -11,6 +11,7 @@ const {
   TFile,
   TFolder,
   debounce,
+  getIconIds,
   normalizePath,
   requestUrl,
   setIcon,
@@ -257,6 +258,121 @@ function buildBookmarksHtml(bookmarks) {
   }
   lines.push("</DL><p>");
   return lines.join("\n");
+}
+
+// ============================================================
+//  Icon picker modal — visual grid of all Lucide icons
+// ============================================================
+
+class IconPickerModal extends Modal {
+  constructor(app, opts) {
+    super(app);
+    this.onPick = opts.onPick;
+    this.current = opts.current || "";
+    this.titleText = opts.title || "Choose an icon";
+    this.allowClear = opts.allowClear !== false;
+    this._observer = null;
+    this._allIcons = null;
+  }
+
+  onOpen() {
+    const { contentEl, titleEl, modalEl } = this;
+    titleEl.setText(this.titleText);
+    contentEl.empty();
+    contentEl.addClass("ws-icon-picker");
+    modalEl.addClass("ws-icon-picker-modal");
+
+    // search bar
+    const searchRow = contentEl.createDiv({ cls: "ws-ip-search" });
+    setIcon(searchRow.createSpan({ cls: "ws-ip-search-ico" }), "search");
+    const input = searchRow.createEl("input", {
+      attr: { type: "search", placeholder: "Filter icons by name…" },
+    });
+
+    // toolbar (clear + count)
+    const toolRow = contentEl.createDiv({ cls: "ws-ip-tools" });
+    const count = toolRow.createSpan({ cls: "ws-ip-count" });
+    if (this.allowClear) {
+      const clearBtn = toolRow.createEl("button", { cls: "ws-ip-clear" });
+      setIcon(clearBtn.createSpan(), "x");
+      clearBtn.createSpan({ text: "No icon" });
+      clearBtn.addEventListener("click", () => {
+        this.onPick("");
+        this.close();
+      });
+    }
+
+    const grid = contentEl.createDiv({ cls: "ws-ip-grid" });
+
+    // load all icon ids (lazily — once)
+    try {
+      this._allIcons = (typeof getIconIds === "function" ? getIconIds() : [])
+        .filter((id) => typeof id === "string" && id.length > 0)
+        .sort();
+    } catch {
+      this._allIcons = [];
+    }
+    if (this._allIcons.length === 0) {
+      grid.createDiv({ cls: "ws-ip-empty", text: "No icons available in this Obsidian build." });
+      return;
+    }
+
+    const renderGrid = (filter) => {
+      // tear down previous observer
+      if (this._observer) { this._observer.disconnect(); this._observer = null; }
+      grid.empty();
+
+      const q = filter.trim().toLowerCase();
+      const matches = q
+        ? this._allIcons.filter((id) => id.toLowerCase().includes(q))
+        : this._allIcons;
+
+      count.setText(`${matches.length} icon${matches.length === 1 ? "" : "s"}`);
+
+      if (matches.length === 0) {
+        grid.createDiv({ cls: "ws-ip-empty", text: "No icons match — try a different filter." });
+        return;
+      }
+
+      // IntersectionObserver to setIcon only when visible (perf for thousands)
+      this._observer = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          const el = e.target;
+          const name = el.dataset.icon;
+          const ico = el.querySelector(".ws-ip-ico");
+          if (ico && name && !ico.firstElementChild) setIcon(ico, name);
+          this._observer.unobserve(el);
+        }
+      }, { root: grid, rootMargin: "120px" });
+
+      for (const id of matches) {
+        const btn = grid.createEl("button", {
+          cls: "ws-ip-item" + (id === this.current ? " is-active" : ""),
+          attr: { "data-icon": id, title: id },
+        });
+        btn.createSpan({ cls: "ws-ip-ico" });
+        btn.createSpan({ cls: "ws-ip-name", text: id });
+        btn.addEventListener("click", () => {
+          this.onPick(id);
+          this.close();
+        });
+        this._observer.observe(btn);
+      }
+    };
+
+    renderGrid("");
+    input.addEventListener(
+      "input",
+      debounce(() => renderGrid(input.value), 80, true),
+    );
+    setTimeout(() => input.focus(), 50);
+  }
+
+  onClose() {
+    if (this._observer) { this._observer.disconnect(); this._observer = null; }
+    this.contentEl.empty();
+  }
 }
 
 // ============================================================
@@ -555,17 +671,22 @@ class WellspringSettingTab extends PluginSettingTab {
     for (const s of STATUS_ORDER) {
       new Setting(containerEl)
         .setName(this.plugin.settings.statusLabels[s])
-        .addText((t) => {
-          t.setValue(this.plugin.settings.statusIcons[s])
-            .setPlaceholder(DEFAULT_SETTINGS.statusIcons[s])
-            .onChange(async (v) => {
-              this.plugin.settings.statusIcons[s] = v.trim() || DEFAULT_SETTINGS.statusIcons[s];
-              await this.plugin.saveSettings();
-            });
-        })
-        .addExtraButton((b) => {
+        .setDesc(this.plugin.settings.statusIcons[s])
+        .addButton((b) => {
           b.setIcon(this.plugin.settings.statusIcons[s] || "circle");
-          b.setTooltip("Preview");
+          b.setTooltip("Click to choose icon");
+          b.onClick(() => {
+            new IconPickerModal(this.app, {
+              title: `Icon for ${this.plugin.settings.statusLabels[s]}`,
+              current: this.plugin.settings.statusIcons[s],
+              allowClear: false,
+              onPick: async (name) => {
+                this.plugin.settings.statusIcons[s] = name || DEFAULT_SETTINGS.statusIcons[s];
+                await this.plugin.saveSettings();
+                this.display();
+              },
+            }).open();
+          });
         });
     }
 
@@ -587,17 +708,26 @@ class WellspringSettingTab extends PluginSettingTab {
       });
     }
     for (const tag of sortedTags) {
+      const cur = this.plugin.settings.tagIcons[tag] || "";
       new Setting(containerEl)
         .setName(`#${tag}`)
-        .addText((t) => {
-          t.setValue(this.plugin.settings.tagIcons[tag] || "")
-            .setPlaceholder("Lucide icon name")
-            .onChange(async (v) => {
-              const trimmed = v.trim();
-              if (trimmed) this.plugin.settings.tagIcons[tag] = trimmed;
-              else delete this.plugin.settings.tagIcons[tag];
-              await this.plugin.saveSettings();
-            });
+        .setDesc(cur || "No icon assigned")
+        .addButton((b) => {
+          b.setIcon(cur || "tag");
+          b.setTooltip(cur ? "Click to change" : "Click to choose icon");
+          b.onClick(() => {
+            new IconPickerModal(this.app, {
+              title: `Icon for #${tag}`,
+              current: cur,
+              allowClear: true,
+              onPick: async (name) => {
+                if (name) this.plugin.settings.tagIcons[tag] = name;
+                else delete this.plugin.settings.tagIcons[tag];
+                await this.plugin.saveSettings();
+                this.display();
+              },
+            }).open();
+          });
         });
     }
 
@@ -772,20 +902,22 @@ function renderBookmarkEditor(host, plugin, b, view) {
     const wrap = parent.createDiv({ cls: "ws-icon-edit" });
     const preview = wrap.createSpan({ cls: "ws-icon-preview" });
     if (b.icon) setIcon(preview, b.icon);
-    const ip = wrap.createEl("input", {
-      cls: "ws-editor-input",
-      attr: { type: "text", value: b.icon || "", placeholder: "Lucide icon name (e.g. graduation-cap)" },
-    });
-    ip.addEventListener("input", () => {
-      preview.empty();
-      if (ip.value.trim()) setIcon(preview, ip.value.trim());
-    });
-    ip.addEventListener("change", async () => {
-      await plugin.updateFrontmatter(b.file, (fm) => {
-        const v = ip.value.trim();
-        if (v) fm.icon = v;
-        else delete fm.icon;
-      });
+    const btn = wrap.createEl("button", { cls: "ws-editor-btn" });
+    setIcon(btn.createSpan(), b.icon ? "edit-3" : "image-plus");
+    btn.createSpan({ text: b.icon ? `Change (${b.icon})` : "Pick an icon" });
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      new IconPickerModal(plugin.app, {
+        title: "Choose icon for this bookmark",
+        current: b.icon || "",
+        allowClear: true,
+        onPick: async (name) => {
+          await plugin.updateFrontmatter(b.file, (fm) => {
+            if (name) fm.icon = name;
+            else delete fm.icon;
+          });
+        },
+      }).open();
     });
   });
 
