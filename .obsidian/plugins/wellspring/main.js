@@ -23,7 +23,7 @@ const {
 //  Constants
 // ============================================================
 
-const VIEW_TYPE = "wellspring-view";
+const VIEW_TYPE = "cove-view";
 
 const STATUS_ORDER = ["inbox", "reading", "done", "archive", "broken"];
 
@@ -283,21 +283,21 @@ class IconPickerModal extends Modal {
     const { contentEl, titleEl, modalEl } = this;
     titleEl.setText(this.titleText);
     contentEl.empty();
-    contentEl.addClass("ws-icon-picker");
-    modalEl.addClass("ws-icon-picker-modal");
+    contentEl.addClass("cv-icon-picker");
+    modalEl.addClass("cv-icon-picker-modal");
 
     // search bar
-    const searchRow = contentEl.createDiv({ cls: "ws-ip-search" });
-    setIcon(searchRow.createSpan({ cls: "ws-ip-search-ico" }), "search");
+    const searchRow = contentEl.createDiv({ cls: "cv-ip-search" });
+    setIcon(searchRow.createSpan({ cls: "cv-ip-search-ico" }), "search");
     const input = searchRow.createEl("input", {
       attr: { type: "search", placeholder: "Filter icons by name…" },
     });
 
     // toolbar (clear + count)
-    const toolRow = contentEl.createDiv({ cls: "ws-ip-tools" });
-    const count = toolRow.createSpan({ cls: "ws-ip-count" });
+    const toolRow = contentEl.createDiv({ cls: "cv-ip-tools" });
+    const count = toolRow.createSpan({ cls: "cv-ip-count" });
     if (this.allowClear) {
-      const clearBtn = toolRow.createEl("button", { cls: "ws-ip-clear" });
+      const clearBtn = toolRow.createEl("button", { cls: "cv-ip-clear" });
       setIcon(clearBtn.createSpan(), "x");
       clearBtn.createSpan({ text: "No icon" });
       clearBtn.addEventListener("click", () => {
@@ -306,7 +306,7 @@ class IconPickerModal extends Modal {
       });
     }
 
-    const grid = contentEl.createDiv({ cls: "ws-ip-grid" });
+    const grid = contentEl.createDiv({ cls: "cv-ip-grid" });
 
     // load all icon ids (lazily — once)
     try {
@@ -317,7 +317,7 @@ class IconPickerModal extends Modal {
       this._allIcons = [];
     }
     if (this._allIcons.length === 0) {
-      grid.createDiv({ cls: "ws-ip-empty", text: "No icons available in this Obsidian build." });
+      grid.createDiv({ cls: "cv-ip-empty", text: "No icons available in this Obsidian build." });
       return;
     }
 
@@ -334,7 +334,7 @@ class IconPickerModal extends Modal {
       count.setText(`${matches.length} icon${matches.length === 1 ? "" : "s"}`);
 
       if (matches.length === 0) {
-        grid.createDiv({ cls: "ws-ip-empty", text: "No icons match — try a different filter." });
+        grid.createDiv({ cls: "cv-ip-empty", text: "No icons match — try a different filter." });
         return;
       }
 
@@ -344,7 +344,7 @@ class IconPickerModal extends Modal {
           if (!e.isIntersecting) continue;
           const el = e.target;
           const name = el.dataset.icon;
-          const ico = el.querySelector(".ws-ip-ico");
+          const ico = el.querySelector(".cv-ip-ico");
           if (ico && name && !ico.firstElementChild) setIcon(ico, name);
           this._observer.unobserve(el);
         }
@@ -352,11 +352,11 @@ class IconPickerModal extends Modal {
 
       for (const id of matches) {
         const btn = grid.createEl("button", {
-          cls: "ws-ip-item" + (id === this.current ? " is-active" : ""),
+          cls: "cv-ip-item" + (id === this.current ? " is-active" : ""),
           attr: { "data-icon": id, title: id },
         });
-        btn.createSpan({ cls: "ws-ip-ico" });
-        btn.createSpan({ cls: "ws-ip-name", text: id });
+        btn.createSpan({ cls: "cv-ip-ico" });
+        btn.createSpan({ cls: "cv-ip-name", text: id });
         btn.addEventListener("click", () => {
           this.onPick(id);
           this.close();
@@ -485,7 +485,7 @@ class ImportModal extends Modal {
       cls: "setting-item-description",
     });
 
-    const ta = contentEl.createEl("textarea", { cls: "ws-import-ta" });
+    const ta = contentEl.createEl("textarea", { cls: "cv-import-ta" });
     ta.placeholder = "<!DOCTYPE NETSCAPE-Bookmark-file-1>...";
     ta.rows = 12;
     ta.style.width = "100%";
@@ -499,17 +499,17 @@ class ImportModal extends Modal {
       if (f) ta.value = await f.text();
     });
 
-    const fetchToggle = contentEl.createDiv({ cls: "ws-import-fetch" });
+    const fetchToggle = contentEl.createDiv({ cls: "cv-import-fetch" });
     const cb = fetchToggle.createEl("input", { type: "checkbox" });
     cb.checked = false;
-    cb.id = "ws-import-fetch-cb";
+    cb.id = "cv-import-fetch-cb";
     fetchToggle.createEl("label", {
       text: " Auto-fetch metadata for each (slow — leave off for large imports)",
-      attr: { for: "ws-import-fetch-cb" },
+      attr: { for: "cv-import-fetch-cb" },
     });
     fetchToggle.style.marginTop = "10px";
 
-    const status = contentEl.createDiv({ cls: "ws-import-status" });
+    const status = contentEl.createDiv({ cls: "cv-import-status" });
     status.style.marginTop = "10px";
     status.style.color = "var(--text-muted)";
     status.style.fontSize = "12px";
@@ -701,16 +701,16 @@ class FolderPickerModal extends Modal {
     const { contentEl, titleEl, modalEl } = this;
     titleEl.setText(this.titleText);
     contentEl.empty();
-    contentEl.addClass("ws-folder-picker");
-    modalEl.addClass("ws-folder-picker-modal");
+    contentEl.addClass("cv-folder-picker");
+    modalEl.addClass("cv-folder-picker-modal");
 
-    const searchRow = contentEl.createDiv({ cls: "ws-fp-search" });
-    setIcon(searchRow.createSpan({ cls: "ws-fp-search-ico" }), "search");
+    const searchRow = contentEl.createDiv({ cls: "cv-fp-search" });
+    setIcon(searchRow.createSpan({ cls: "cv-fp-search-ico" }), "search");
     const input = searchRow.createEl("input", {
       attr: { type: "search", placeholder: "Filter or type a new folder path…" },
     });
 
-    const listEl = contentEl.createDiv({ cls: "ws-fp-list" });
+    const listEl = contentEl.createDiv({ cls: "cv-fp-list" });
 
     const items = [{ path: "", display: "(root)" }];
     const tree = this.plugin.loadFolderTree();
@@ -736,7 +736,7 @@ class FolderPickerModal extends Modal {
       const exact = items.some((i) => i.display.toLowerCase() === ql);
       if (q && !exact) {
         const norm = q.replace(/^\/+|\/+$/g, "");
-        const createBtn = listEl.createDiv({ cls: "ws-fp-item ws-fp-create" });
+        const createBtn = listEl.createDiv({ cls: "cv-fp-item cv-fp-create" });
         setIcon(createBtn.createSpan(), "folder-plus");
         createBtn.createSpan({ text: `Create folder "${norm}"` });
         createBtn.addEventListener("click", async () => {
@@ -752,7 +752,7 @@ class FolderPickerModal extends Modal {
 
       for (const item of matches) {
         const btn = listEl.createDiv({
-          cls: "ws-fp-item" + (item.path === this.current ? " is-active" : ""),
+          cls: "cv-fp-item" + (item.path === this.current ? " is-active" : ""),
         });
         setIcon(btn.createSpan(), item.path === "" ? "home" : "folder");
         btn.createSpan({ text: item.display });
@@ -772,7 +772,7 @@ class FolderPickerModal extends Modal {
       if (e.key === "Enter" && !e.isComposing) {
         e.preventDefault();
         // pick the first visible item if there's one; else create
-        const first = listEl.querySelector(".ws-fp-item");
+        const first = listEl.querySelector(".cv-fp-item");
         if (first) first.click();
       }
     });
@@ -840,7 +840,7 @@ class BulkTagModal extends Modal {
 //  Settings tab
 // ============================================================
 
-class WellspringSettingTab extends PluginSettingTab {
+class CoveSettingTab extends PluginSettingTab {
   constructor(app, plugin) {
     super(app, plugin);
     this.plugin = plugin;
@@ -1112,23 +1112,23 @@ class WellspringSettingTab extends PluginSettingTab {
 
 function renderBookmarkEditor(host, plugin, b, view) {
   host.empty();
-  host.addClass("ws-editor");
+  host.addClass("cv-editor");
 
   // header row: refetch + open + favicon-or-icon preview
-  const headBar = host.createDiv({ cls: "ws-editor-head" });
-  const visual = headBar.createDiv({ cls: "ws-editor-visual" });
+  const headBar = host.createDiv({ cls: "cv-editor-head" });
+  const visual = headBar.createDiv({ cls: "cv-editor-visual" });
   paintBookmarkVisual(visual, plugin, b, 32);
-  const headInfo = headBar.createDiv({ cls: "ws-editor-info" });
-  headInfo.createDiv({ cls: "ws-editor-domain", text: b.domain });
+  const headInfo = headBar.createDiv({ cls: "cv-editor-info" });
+  headInfo.createDiv({ cls: "cv-editor-domain", text: b.domain });
   const ts = new Date(b.added);
   const metaParts = [`Added ${ts.toLocaleDateString()}`];
   if (b.readingTime) metaParts.push(`${b.readingTime} min read`);
   metaParts.push(plugin.settings.statusLabels[b.status] || b.status);
   if (b.pinned) metaParts.push("Pinned");
-  headInfo.createDiv({ cls: "ws-editor-meta", text: metaParts.join(" · ") });
+  headInfo.createDiv({ cls: "cv-editor-meta", text: metaParts.join(" · ") });
 
   const pinStar = headBar.createDiv({
-    cls: "ws-editor-pin" + (b.pinned ? " is-pinned" : ""),
+    cls: "cv-editor-pin" + (b.pinned ? " is-pinned" : ""),
     attr: { title: b.pinned ? "Unpin" : "Pin" },
   });
   setIcon(pinStar, "star");
@@ -1142,7 +1142,7 @@ function renderBookmarkEditor(host, plugin, b, view) {
 
   // title (editable)
   field(host, "Title", (parent) => {
-    const ip = parent.createEl("input", { cls: "ws-editor-input", attr: { type: "text", value: b.title } });
+    const ip = parent.createEl("input", { cls: "cv-editor-input", attr: { type: "text", value: b.title } });
     ip.addEventListener("change", async () => {
       await plugin.updateFrontmatter(b.file, (fm) => { fm.title = ip.value; });
     });
@@ -1150,7 +1150,7 @@ function renderBookmarkEditor(host, plugin, b, view) {
 
   // url (editable)
   field(host, "URL", (parent) => {
-    const ip = parent.createEl("input", { cls: "ws-editor-input", attr: { type: "url", value: b.url } });
+    const ip = parent.createEl("input", { cls: "cv-editor-input", attr: { type: "url", value: b.url } });
     ip.addEventListener("change", async () => {
       const v = ip.value.trim();
       if (!/^https?:\/\//i.test(v)) { new Notice("URL must start with http(s)://"); ip.value = b.url; return; }
@@ -1163,7 +1163,7 @@ function renderBookmarkEditor(host, plugin, b, view) {
 
   // description (editable)
   field(host, "Description", (parent) => {
-    const ta = parent.createEl("textarea", { cls: "ws-editor-textarea" });
+    const ta = parent.createEl("textarea", { cls: "cv-editor-textarea" });
     ta.value = b.description || "";
     ta.rows = 2;
     ta.addEventListener("blur", async () => {
@@ -1173,12 +1173,15 @@ function renderBookmarkEditor(host, plugin, b, view) {
 
   // status (clickable to cycle)
   field(host, "Status", (parent) => {
-    const wrap = parent.createDiv({ cls: "ws-status-segments" });
+    const wrap = parent.createDiv({ cls: "cv-status-segments" });
     for (const s of ["inbox", "reading", "done", "archive"]) {
-      const seg = wrap.createDiv({ cls: "ws-status-seg ws-status-" + s + (b.status === s ? " is-active" : "") });
+      const seg = wrap.createDiv({
+        cls: "cv-status-seg cv-status-" + s + (b.status === s ? " is-active" : ""),
+        attr: { title: plugin.settings.statusLabels[s] },
+      });
       const ic = seg.createSpan();
       setIcon(ic, plugin.settings.statusIcons[s] || "circle");
-      seg.createSpan({ text: plugin.settings.statusLabels[s] });
+      seg.createSpan({ cls: "cv-status-seg-label", text: plugin.settings.statusLabels[s] });
       seg.addEventListener("click", async () => {
         await plugin.updateFrontmatter(b.file, (fm) => { fm.status = s; });
       });
@@ -1187,20 +1190,20 @@ function renderBookmarkEditor(host, plugin, b, view) {
 
   // tags (pill editor with autocomplete)
   field(host, "Tags", (parent) => {
-    const tagBox = parent.createDiv({ cls: "ws-tags-edit" });
+    const tagBox = parent.createDiv({ cls: "cv-tags-edit" });
     for (const t of b.tags) {
-      const pill = tagBox.createSpan({ cls: "ws-tag-pill" });
+      const pill = tagBox.createSpan({ cls: "cv-tag-pill" });
       pill.createSpan({ text: t });
-      const x = pill.createSpan({ cls: "ws-tag-x", text: "×" });
+      const x = pill.createSpan({ cls: "cv-tag-x", text: "×" });
       x.addEventListener("click", async () => {
         await plugin.updateFrontmatter(b.file, (fm) => {
           fm.tags = (Array.isArray(fm.tags) ? fm.tags.map(String) : []).filter((x) => x !== t);
         });
       });
     }
-    const listId = "ws-tag-list-" + b.file.path.replace(/[^\w]/g, "_");
+    const listId = "cv-tag-list-" + b.file.path.replace(/[^\w]/g, "_");
     const addInput = tagBox.createEl("input", {
-      cls: "ws-tag-input",
+      cls: "cv-tag-input",
       attr: { placeholder: "+ tag", list: listId },
     });
     const dl = tagBox.createEl("datalist", { attr: { id: listId } });
@@ -1221,11 +1224,11 @@ function renderBookmarkEditor(host, plugin, b, view) {
 
   // folder
   field(host, "Folder", (parent) => {
-    const wrap = parent.createDiv({ cls: "ws-folder-edit" });
-    const display = wrap.createSpan({ cls: "ws-folder-current" });
-    setIcon(display.createSpan({ cls: "ws-folder-current-ico" }), b.folder ? "folder" : "home");
+    const wrap = parent.createDiv({ cls: "cv-folder-edit" });
+    const display = wrap.createSpan({ cls: "cv-folder-current" });
+    setIcon(display.createSpan({ cls: "cv-folder-current-ico" }), b.folder ? "folder" : "home");
     display.createSpan({ text: b.folder || "(root)" });
-    const btn = wrap.createEl("button", { cls: "ws-editor-btn" });
+    const btn = wrap.createEl("button", { cls: "cv-editor-btn" });
     setIcon(btn.createSpan(), "folder-input");
     btn.createSpan({ text: "Move…" });
     btn.addEventListener("click", (e) => {
@@ -1247,10 +1250,10 @@ function renderBookmarkEditor(host, plugin, b, view) {
 
   // custom icon
   field(host, "Custom icon", (parent) => {
-    const wrap = parent.createDiv({ cls: "ws-icon-edit" });
-    const preview = wrap.createSpan({ cls: "ws-icon-preview" });
+    const wrap = parent.createDiv({ cls: "cv-icon-edit" });
+    const preview = wrap.createSpan({ cls: "cv-icon-preview" });
     if (b.icon) setIcon(preview, b.icon);
-    const btn = wrap.createEl("button", { cls: "ws-editor-btn" });
+    const btn = wrap.createEl("button", { cls: "cv-editor-btn" });
     setIcon(btn.createSpan(), b.icon ? "edit-3" : "image-plus");
     const displayIcon = b.icon ? b.icon.replace(/^lucide-/, "") : "";
     btn.createSpan({ text: b.icon ? `Change (${displayIcon})` : "Pick an icon" });
@@ -1272,18 +1275,18 @@ function renderBookmarkEditor(host, plugin, b, view) {
 
   // notes (file body) with edit / preview toggle
   field(host, "Notes", (parent) => {
-    const wrap = parent.createDiv({ cls: "ws-notes-wrap" });
-    const tabs = wrap.createDiv({ cls: "ws-notes-tabs" });
-    const editTab = tabs.createEl("button", { cls: "ws-notes-tab is-active" });
+    const wrap = parent.createDiv({ cls: "cv-notes-wrap" });
+    const tabs = wrap.createDiv({ cls: "cv-notes-tabs" });
+    const editTab = tabs.createEl("button", { cls: "cv-notes-tab is-active" });
     editTab.createSpan({ text: "Edit" });
-    const previewTab = tabs.createEl("button", { cls: "ws-notes-tab" });
+    const previewTab = tabs.createEl("button", { cls: "cv-notes-tab" });
     previewTab.createSpan({ text: "Preview" });
 
-    const ta = wrap.createEl("textarea", { cls: "ws-editor-textarea ws-editor-notes" });
+    const ta = wrap.createEl("textarea", { cls: "cv-editor-textarea cv-editor-notes" });
     ta.rows = 6;
     ta.placeholder = "Markdown notes — saves automatically.";
 
-    const preview = wrap.createDiv({ cls: "ws-notes-preview markdown-rendered" });
+    const preview = wrap.createDiv({ cls: "cv-notes-preview markdown-rendered" });
     preview.style.display = "none";
 
     readBody(plugin.app, b.file).then((body) => { ta.value = body || ""; });
@@ -1324,9 +1327,9 @@ function renderBookmarkEditor(host, plugin, b, view) {
   });
 
   // actions row
-  const actions = host.createDiv({ cls: "ws-editor-actions" });
+  const actions = host.createDiv({ cls: "cv-editor-actions" });
   const mkBtn = (icon, label, onClick) => {
-    const btn = actions.createEl("button", { cls: "ws-editor-btn" });
+    const btn = actions.createEl("button", { cls: "cv-editor-btn" });
     setIcon(btn.createSpan(), icon);
     btn.createSpan({ text: label });
     btn.addEventListener("click", (e) => { e.stopPropagation(); onClick(e, btn); });
@@ -1377,8 +1380,8 @@ function renderBookmarkEditor(host, plugin, b, view) {
 }
 
 function field(host, label, build) {
-  const f = host.createDiv({ cls: "ws-editor-field" });
-  f.createDiv({ cls: "ws-editor-label", text: label });
+  const f = host.createDiv({ cls: "cv-editor-field" });
+  f.createDiv({ cls: "cv-editor-label", text: label });
   build(f);
 }
 
@@ -1397,7 +1400,7 @@ function appendInlineIcon(host, plugin, b) {
   if (plugin.settings.showIcons === false) return false;
   const cur = getCustomIcon(plugin, b);
   if (!cur) return false;
-  const span = host.createSpan({ cls: "ws-inline-icon" });
+  const span = host.createSpan({ cls: "cv-inline-icon" });
   setIcon(span, cur.name);
   if (cur.fromTag) span.style.color = colorForTag(cur.fromTag);
   span.setAttribute("aria-label", cur.fromTag ? `tag: ${cur.fromTag}` : "custom icon");
@@ -1409,11 +1412,11 @@ function paintFavicon(host, plugin, b, sizePx) {
   host.empty();
   host.style.width = host.style.height = sizePx + "px";
   if (plugin.settings.showFavicons !== false && b.favicon) {
-    host.addClass("ws-vis-fav");
+    host.addClass("cv-vis-fav");
     const img = host.createEl("img", { attr: { src: b.favicon, alt: "" } });
     img.addEventListener("error", () => {
       host.empty();
-      host.removeClass("ws-vis-fav");
+      host.removeClass("cv-vis-fav");
       paintFallback(host, b, sizePx);
     });
     return;
@@ -1430,12 +1433,12 @@ function paintBookmarkVisual(host, plugin, b, sizePx) {
   const tagIcon = b.tags.map((t) => plugin.settings.tagIcons[t]).find(Boolean);
 
   if (customIcon) {
-    host.addClass("ws-vis-icon");
+    host.addClass("cv-vis-icon");
     setIcon(host, customIcon);
     return;
   }
   if (tagIcon) {
-    host.addClass("ws-vis-icon");
+    host.addClass("cv-vis-icon");
     setIcon(host, tagIcon);
     if (b.tags.length) {
       host.style.color = colorForTag(b.tags.find((t) => plugin.settings.tagIcons[t]) || b.tags[0]);
@@ -1443,11 +1446,11 @@ function paintBookmarkVisual(host, plugin, b, sizePx) {
     return;
   }
   if (plugin.settings.showFavicons !== false && b.favicon) {
-    host.addClass("ws-vis-fav");
+    host.addClass("cv-vis-fav");
     const img = host.createEl("img", { attr: { src: b.favicon, alt: "" } });
     img.addEventListener("error", () => {
       host.empty();
-      host.removeClass("ws-vis-fav");
+      host.removeClass("cv-vis-fav");
       paintFallback(host, b, sizePx);
     });
     return;
@@ -1456,7 +1459,7 @@ function paintBookmarkVisual(host, plugin, b, sizePx) {
 }
 
 function paintFallback(host, b, sizePx) {
-  host.addClass("ws-vis-fallback");
+  host.addClass("cv-vis-fallback");
   host.style.background = b.tags.length ? colorForTag(b.tags[0]) : "var(--background-modifier-border)";
   host.style.fontSize = Math.max(8, Math.floor(sizePx * 0.55)) + "px";
   host.setText((b.title || "?").trim().charAt(0).toUpperCase());
@@ -1466,7 +1469,7 @@ function paintFallback(host, b, sizePx) {
 //  View
 // ============================================================
 
-class WellspringView extends ItemView {
+class CoveView extends ItemView {
   constructor(leaf, plugin) {
     super(leaf);
     this.plugin = plugin;
@@ -1490,11 +1493,11 @@ class WellspringView extends ItemView {
   }
 
   getViewType() { return VIEW_TYPE; }
-  getDisplayText() { return "Wellspring"; }
+  getDisplayText() { return "Cove"; }
   getIcon() { return "bookmark"; }
 
   async onOpen() {
-    this.containerEl.children[1].addClass("ws-root");
+    this.containerEl.children[1].addClass("cv-root");
     this.installKeyboardHandler();
     this.render();
   }
@@ -1522,7 +1525,7 @@ class WellspringView extends ItemView {
         const next = items[(curIdx + delta + items.length) % items.length];
         this.state.focusedPath = next.file.path;
         this.render();
-        this.containerEl.querySelector(".ws-row.is-focused, .ws-card.is-focused, .ws-board-card.is-focused")
+        this.containerEl.querySelector(".cv-row.is-focused, .cv-card.is-focused, .cv-board-card.is-focused")
           ?.scrollIntoView({ block: "nearest" });
       };
       if (e.key === "j" || e.key === "ArrowDown") { e.preventDefault(); move(1); }
@@ -1548,7 +1551,7 @@ class WellspringView extends ItemView {
         }
       } else if (e.key === "/") {
         e.preventDefault();
-        this.containerEl.querySelector(".ws-search input")?.focus();
+        this.containerEl.querySelector(".cv-search input")?.focus();
       } else if (e.key === "Escape") {
         if (this.state.selected.size > 0) {
           this.state.selected.clear();
@@ -1625,13 +1628,13 @@ class WellspringView extends ItemView {
     const root = this.containerEl.children[1];
     root.empty();
 
-    const app = root.createDiv({ cls: "ws-app ws-layout-" + this.state.layout });
-    this.renderSidebar(app.createDiv({ cls: "ws-side" }));
-    const main = app.createDiv({ cls: "ws-main" });
-    this.renderHeader(main.createDiv({ cls: "ws-head" }));
-    this.renderToolbar(main.createDiv({ cls: "ws-tools" }));
+    const app = root.createDiv({ cls: "cv-app cv-layout-" + this.state.layout });
+    this.renderSidebar(app.createDiv({ cls: "cv-side" }));
+    const main = app.createDiv({ cls: "cv-main" });
+    this.renderHeader(main.createDiv({ cls: "cv-head" }));
+    this.renderToolbar(main.createDiv({ cls: "cv-tools" }));
 
-    const body = main.createDiv({ cls: "ws-body" });
+    const body = main.createDiv({ cls: "cv-body" });
     if (this.state.layout === "list") this.renderListLayout(body);
     else if (this.state.layout === "cards") this.renderCardsLayout(body);
     else if (this.state.layout === "board") this.renderBoardLayout(body);
@@ -1643,20 +1646,20 @@ class WellspringView extends ItemView {
     const tags = this.allTagsByCount();
     const { settings } = this.plugin;
 
-    const h1 = side.createEl("h3", { cls: "ws-side-h" });
+    const h1 = side.createEl("h3", { cls: "cv-side-h" });
     h1.createSpan({ text: "Status" });
-    const gear = h1.createSpan({ cls: "ws-side-gear", attr: { "aria-label": "Customize status icons" } });
+    const gear = h1.createSpan({ cls: "cv-side-gear", attr: { "aria-label": "Customize status icons" } });
     setIcon(gear, "settings");
     gear.addEventListener("click", () => {
       this.app.setting.open();
       this.app.setting.openTabById(this.plugin.manifest.id);
     });
 
-    const allLink = side.createEl("a", { cls: "ws-side-link" + (this.state.statusFilter === "all" ? " is-active" : "") });
-    const allLhs = allLink.createSpan({ cls: "ws-side-lhs" });
+    const allLink = side.createEl("a", { cls: "cv-side-link" + (this.state.statusFilter === "all" ? " is-active" : "") });
+    const allLhs = allLink.createSpan({ cls: "cv-side-lhs" });
     setIcon(allLhs.createSpan(), "list");
     allLhs.createSpan({ text: "All" });
-    allLink.createSpan({ cls: "ws-side-count", text: String(counts.all) });
+    allLink.createSpan({ cls: "cv-side-count", text: String(counts.all) });
     allLink.addEventListener("click", (e) => {
       e.preventDefault();
       this.state.statusFilter = "all";
@@ -1667,14 +1670,14 @@ class WellspringView extends ItemView {
       if (s === "broken" && counts[s] === 0) continue;
       const isEmpty = (counts[s] || 0) === 0;
       const link = side.createEl("a", {
-        cls: "ws-side-link ws-status-" + s
+        cls: "cv-side-link cv-status-" + s
           + (this.state.statusFilter === s ? " is-active" : "")
           + (isEmpty ? " is-empty" : ""),
       });
-      const lhs = link.createSpan({ cls: "ws-side-lhs" });
+      const lhs = link.createSpan({ cls: "cv-side-lhs" });
       setIcon(lhs.createSpan(), settings.statusIcons[s] || "circle");
       lhs.createSpan({ text: settings.statusLabels[s] });
-      link.createSpan({ cls: "ws-side-count", text: String(counts[s] || 0) });
+      link.createSpan({ cls: "cv-side-count", text: String(counts[s] || 0) });
       link.addEventListener("click", (e) => {
         e.preventDefault();
         this.state.statusFilter = s;
@@ -1687,16 +1690,16 @@ class WellspringView extends ItemView {
     this.renderFoldersSection(side);
 
     if (tags.length > 0) {
-      side.createEl("h3", { cls: "ws-side-h", text: "Tags" });
+      side.createEl("h3", { cls: "cv-side-h", text: "Tags" });
       for (const { tag, count } of tags) {
         const active = this.state.tagFilters.has(tag);
-        const link = side.createEl("a", { cls: "ws-side-link" + (active ? " is-active" : "") });
-        const lhs = link.createSpan({ cls: "ws-side-lhs" });
+        const link = side.createEl("a", { cls: "cv-side-link" + (active ? " is-active" : "") });
+        const lhs = link.createSpan({ cls: "cv-side-lhs" });
         const icoName = settings.tagIcons[tag];
-        if (icoName) setIcon(lhs.createSpan({ cls: "ws-tag-ico" }), icoName);
-        else lhs.createSpan({ cls: "ws-tag-hash", text: "#" });
+        if (icoName) setIcon(lhs.createSpan({ cls: "cv-tag-ico" }), icoName);
+        else lhs.createSpan({ cls: "cv-tag-hash", text: "#" });
         lhs.createSpan({ text: tag });
-        link.createSpan({ cls: "ws-side-count", text: String(count) });
+        link.createSpan({ cls: "cv-side-count", text: String(count) });
         link.addEventListener("click", (e) => {
           e.preventDefault();
           if (active) this.state.tagFilters.delete(tag);
@@ -1742,12 +1745,12 @@ class WellspringView extends ItemView {
     }
     if (crumbs.length === 0) return;
 
-    const wrap = parent.createDiv({ cls: "ws-crumbs" });
+    const wrap = parent.createDiv({ cls: "cv-crumbs" });
     for (const c of crumbs) {
-      const pill = wrap.createSpan({ cls: "ws-crumb" });
-      setIcon(pill.createSpan({ cls: "ws-crumb-ico" }), c.icon);
-      pill.createSpan({ cls: "ws-crumb-text", text: c.text });
-      const x = pill.createSpan({ cls: "ws-crumb-x", attr: { title: "Clear filter" } });
+      const pill = wrap.createSpan({ cls: "cv-crumb" });
+      setIcon(pill.createSpan({ cls: "cv-crumb-ico" }), c.icon);
+      pill.createSpan({ cls: "cv-crumb-text", text: c.text });
+      const x = pill.createSpan({ cls: "cv-crumb-x", attr: { title: "Clear filter" } });
       setIcon(x, "x");
       x.addEventListener("click", (e) => { e.stopPropagation(); c.clear(); });
     }
@@ -1778,19 +1781,19 @@ class WellspringView extends ItemView {
     const visible = filters.filter((f) => f.count > 0 || this.state.smartFilter === f.id);
     if (visible.length === 0) return;
 
-    side.createEl("h3", { cls: "ws-side-h", text: "Smart filters" });
+    side.createEl("h3", { cls: "cv-side-h", text: "Smart filters" });
     for (const f of visible) {
       const isActive = this.state.smartFilter === f.id;
       const isEmpty = f.count === 0;
       const link = side.createEl("a", {
-        cls: "ws-side-link ws-smart-" + f.id
+        cls: "cv-side-link cv-smart-" + f.id
           + (isActive ? " is-active" : "")
           + (isEmpty ? " is-empty" : ""),
       });
-      const lhs = link.createSpan({ cls: "ws-side-lhs" });
+      const lhs = link.createSpan({ cls: "cv-side-lhs" });
       setIcon(lhs.createSpan(), f.icon);
       lhs.createSpan({ text: f.label });
-      link.createSpan({ cls: "ws-side-count", text: String(f.count) });
+      link.createSpan({ cls: "cv-side-count", text: String(f.count) });
       link.addEventListener("click", (e) => {
         e.preventDefault();
         this.state.smartFilter = isActive ? null : f.id;
@@ -1803,10 +1806,10 @@ class WellspringView extends ItemView {
     const tree = this.plugin.loadFolderTree();
     if (!tree) return;
 
-    const header = side.createEl("h3", { cls: "ws-side-h" });
+    const header = side.createEl("h3", { cls: "cv-side-h" });
     header.createSpan({ text: "Folders" });
     const addBtn = header.createSpan({
-      cls: "ws-side-gear ws-side-add-folder",
+      cls: "cv-side-gear cv-side-add-folder",
       attr: { "aria-label": "New folder", title: "New folder" },
     });
     setIcon(addBtn, "folder-plus");
@@ -1823,12 +1826,12 @@ class WellspringView extends ItemView {
 
     // "All folders" link — drop target = root
     const allLink = side.createEl("a", {
-      cls: "ws-side-link" + (this.state.folderFilter === null ? " is-active" : ""),
+      cls: "cv-side-link" + (this.state.folderFilter === null ? " is-active" : ""),
     });
-    const allLhs = allLink.createSpan({ cls: "ws-side-lhs" });
+    const allLhs = allLink.createSpan({ cls: "cv-side-lhs" });
     setIcon(allLhs.createSpan(), "folders");
     allLhs.createSpan({ text: "All folders" });
-    allLink.createSpan({ cls: "ws-side-count", text: String(tree.bookmarkCount) });
+    allLink.createSpan({ cls: "cv-side-count", text: String(tree.bookmarkCount) });
     allLink.addEventListener("click", (e) => {
       e.preventDefault();
       this.state.folderFilter = null;
@@ -1841,13 +1844,13 @@ class WellspringView extends ItemView {
       const isActive = this.state.folderFilter === node.path;
       const isExpanded = this.state.expandedFolders.has(node.path);
       const link = side.createEl("a", {
-        cls: "ws-side-link ws-folder-link" + (isActive ? " is-active" : ""),
+        cls: "cv-side-link cv-folder-link" + (isActive ? " is-active" : ""),
       });
       link.style.paddingLeft = (8 + depth * 14) + "px";
 
-      const lhs = link.createSpan({ cls: "ws-side-lhs" });
+      const lhs = link.createSpan({ cls: "cv-side-lhs" });
       if (node.children.length > 0) {
-        const chev = lhs.createSpan({ cls: "ws-folder-chev" });
+        const chev = lhs.createSpan({ cls: "cv-folder-chev" });
         setIcon(chev, isExpanded ? "chevron-down" : "chevron-right");
         chev.addEventListener("click", (e) => {
           e.preventDefault();
@@ -1857,12 +1860,12 @@ class WellspringView extends ItemView {
           this.render();
         });
       } else {
-        lhs.createSpan({ cls: "ws-folder-spacer" });
+        lhs.createSpan({ cls: "cv-folder-spacer" });
       }
       const folderIco = this.plugin.settings.folderIcons[node.path] || "folder";
       setIcon(lhs.createSpan(), folderIco);
       lhs.createSpan({ text: node.name });
-      link.createSpan({ cls: "ws-side-count", text: String(node.bookmarkCount) });
+      link.createSpan({ cls: "cv-side-count", text: String(node.bookmarkCount) });
       link.addEventListener("click", (e) => {
         e.preventDefault();
         this.state.folderFilter = node.path;
@@ -1883,11 +1886,11 @@ class WellspringView extends ItemView {
   }
 
   renderHeader(head) {
-    const titleArea = head.createDiv({ cls: "ws-title-area" });
-    titleArea.createEl("h1", { cls: "ws-title", text: "Bookmarks" });
+    const titleArea = head.createDiv({ cls: "cv-title-area" });
+    titleArea.createEl("h1", { cls: "cv-title", text: "Bookmarks" });
     this.renderBreadcrumbs(titleArea);
 
-    const search = head.createDiv({ cls: "ws-search" });
+    const search = head.createDiv({ cls: "cv-search" });
     setIcon(search.createSpan(), "search");
     const input = search.createEl("input", {
       attr: {
@@ -1901,10 +1904,10 @@ class WellspringView extends ItemView {
       debounce(() => { this.state.search = input.value; this.render(); }, 120, true),
     );
 
-    const switcher = head.createDiv({ cls: "ws-switcher" });
+    const switcher = head.createDiv({ cls: "cv-switcher" });
     for (const l of LAYOUT_DEFS) {
       const b = switcher.createEl("button", {
-        cls: "ws-sw" + (this.state.layout === l.id ? " is-active" : ""),
+        cls: "cv-sw" + (this.state.layout === l.id ? " is-active" : ""),
         attr: { "aria-label": l.label, title: l.label },
       });
       setIcon(b, l.icon);
@@ -1915,8 +1918,8 @@ class WellspringView extends ItemView {
     }
 
     const settingsBtn = head.createEl("button", {
-      cls: "ws-icon-btn",
-      attr: { "aria-label": "Wellspring settings", title: "Settings" },
+      cls: "cv-icon-btn",
+      attr: { "aria-label": "Cove settings", title: "Settings" },
     });
     setIcon(settingsBtn, "settings");
     settingsBtn.addEventListener("click", () => {
@@ -1925,13 +1928,13 @@ class WellspringView extends ItemView {
     });
 
     const importBtn = head.createEl("button", {
-      cls: "ws-icon-btn",
+      cls: "cv-icon-btn",
       attr: { "aria-label": "Import bookmarks", title: "Import bookmarks (HTML)" },
     });
     setIcon(importBtn, "upload");
     importBtn.addEventListener("click", () => new ImportModal(this.app, this.plugin).open());
 
-    const addBtn = head.createEl("button", { cls: "ws-btn", attr: { "aria-label": "Add bookmark" } });
+    const addBtn = head.createEl("button", { cls: "cv-btn", attr: { "aria-label": "Add bookmark" } });
     setIcon(addBtn.createSpan(), "plus");
     addBtn.createSpan({ text: "Add" });
     addBtn.addEventListener("click", () => {
@@ -1944,7 +1947,7 @@ class WellspringView extends ItemView {
   renderToolbar(tools) {
     const selected = this.state.selected.size;
     if (selected > 0) {
-      tools.createSpan({ cls: "ws-selected", text: `${selected} selected` });
+      tools.createSpan({ cls: "cv-selected", text: `${selected} selected` });
       this.mkAction(tools, "tag", "Tag…", () => {
         new BulkTagModal(this.app, this.plugin, [...this.state.selected]).open();
       });
@@ -1958,19 +1961,19 @@ class WellspringView extends ItemView {
       this.mkAction(tools, "x", "Clear", () => { this.state.selected.clear(); this.render(); });
     } else {
       const total = this.filtered().length;
-      tools.createSpan({ cls: "ws-tool-meta", text: `${total} bookmark${total === 1 ? "" : "s"}` });
+      tools.createSpan({ cls: "cv-tool-meta", text: `${total} bookmark${total === 1 ? "" : "s"}` });
     }
 
-    tools.createSpan({ cls: "ws-sep" });
+    tools.createSpan({ cls: "cv-sep" });
 
-    const sortBtn = tools.createEl("button", { cls: "ws-tool-btn" });
+    const sortBtn = tools.createEl("button", { cls: "cv-tool-btn" });
     sortBtn.createSpan({ text: `Sort: ${this.sortLabel()}` });
     setIcon(sortBtn.createSpan(), this.state.sortDir === "desc" ? "arrow-down" : "arrow-up");
     sortBtn.addEventListener("click", (e) => this.openSortMenu(e));
 
     if (this.state.layout === "list") {
       const colBtn = tools.createEl("button", {
-        cls: "ws-tool-btn ws-cols-trigger" + (this.state.columnsOpen ? " is-open" : ""),
+        cls: "cv-tool-btn cv-cols-trigger" + (this.state.columnsOpen ? " is-open" : ""),
       });
       setIcon(colBtn.createSpan(), "sliders-horizontal");
       colBtn.createSpan({ text: "Columns" });
@@ -1985,8 +1988,8 @@ class WellspringView extends ItemView {
   }
 
   renderColumnsPopover(parent) {
-    const pop = parent.createDiv({ cls: "ws-popover" });
-    pop.createDiv({ cls: "ws-popover-h", text: "Visible columns" });
+    const pop = parent.createDiv({ cls: "cv-popover" });
+    pop.createDiv({ cls: "cv-popover-h", text: "Visible columns" });
 
     const visible = new Set(this.plugin.settings.visibleColumns);
     visible.add("title");
@@ -1994,11 +1997,11 @@ class WellspringView extends ItemView {
     const renderToggle = (col) => {
       const on = visible.has(col.id);
       const row = pop.createDiv({
-        cls: "ws-col-toggle" + (on ? " is-on" : "") + (col.required ? " is-locked" : ""),
+        cls: "cv-col-toggle" + (on ? " is-on" : "") + (col.required ? " is-locked" : ""),
       });
-      const box = row.createSpan({ cls: "ws-checkbox" });
+      const box = row.createSpan({ cls: "cv-checkbox" });
       if (on) setIcon(box, "check");
-      row.createSpan({ cls: "ws-col-name", text: col.label });
+      row.createSpan({ cls: "cv-col-name", text: col.label });
       if (!col.required) {
         row.addEventListener("click", async () => {
           const cur = new Set(this.plugin.settings.visibleColumns);
@@ -2012,10 +2015,10 @@ class WellspringView extends ItemView {
       }
     };
 
-    pop.createDiv({ cls: "ws-popover-section", text: "Default" });
+    pop.createDiv({ cls: "cv-popover-section", text: "Default" });
     for (const c of ALL_COLUMNS.slice(0, 5)) renderToggle(c);
     pop.createEl("hr");
-    pop.createDiv({ cls: "ws-popover-section", text: "Optional" });
+    pop.createDiv({ cls: "cv-popover-section", text: "Optional" });
     for (const c of ALL_COLUMNS.slice(5)) renderToggle(c);
 
     const closeOnOutside = (e) => {
@@ -2029,7 +2032,7 @@ class WellspringView extends ItemView {
   }
 
   mkAction(parent, icon, label, onClick) {
-    const b = parent.createEl("button", { cls: "ws-action" });
+    const b = parent.createEl("button", { cls: "cv-action" });
     setIcon(b.createSpan(), icon);
     b.createSpan({ text: label });
     b.addEventListener("click", onClick);
@@ -2048,13 +2051,13 @@ class WellspringView extends ItemView {
       }
       const payload = paths.join("\n");
       e.dataTransfer.setData("text/plain", payload);
-      e.dataTransfer.setData("application/x-wellspring-bookmark", payload);
+      e.dataTransfer.setData("application/x-cove-bookmark", payload);
       e.dataTransfer.effectAllowed = "move";
       el.addClass("is-dragging");
 
       if (paths.length > 1) {
         const dragImg = document.createElement("div");
-        dragImg.className = "ws-drag-image";
+        dragImg.className = "cv-drag-image";
         dragImg.textContent = `${paths.length} bookmarks`;
         document.body.appendChild(dragImg);
         e.dataTransfer.setDragImage(dragImg, 12, 12);
@@ -2098,19 +2101,19 @@ class WellspringView extends ItemView {
 
   renderEmpty(parent) {
     const all = this.plugin.loadBookmarks();
-    const empty = parent.createDiv({ cls: "ws-empty" });
+    const empty = parent.createDiv({ cls: "cv-empty" });
     if (all.length === 0) {
-      empty.createDiv({ cls: "ws-empty-title", text: "No bookmarks yet." });
+      empty.createDiv({ cls: "cv-empty-title", text: "No bookmarks yet." });
       empty.createDiv({
-        cls: "ws-empty-sub",
+        cls: "cv-empty-sub",
         text: "Add your first one — paste a URL, or import a Netscape HTML file.",
       });
-      const actions = empty.createDiv({ cls: "ws-empty-actions" });
-      const addBtn = actions.createEl("button", { cls: "ws-btn" });
+      const actions = empty.createDiv({ cls: "cv-empty-actions" });
+      const addBtn = actions.createEl("button", { cls: "cv-btn" });
       setIcon(addBtn.createSpan(), "plus");
       addBtn.createSpan({ text: "Add bookmark" });
       addBtn.addEventListener("click", () => new AddBookmarkModal(this.app, this.plugin).open());
-      const impBtn = actions.createEl("button", { cls: "ws-action" });
+      const impBtn = actions.createEl("button", { cls: "cv-action" });
       setIcon(impBtn.createSpan(), "upload");
       impBtn.createSpan({ text: "Import…" });
       impBtn.addEventListener("click", () => new ImportModal(this.app, this.plugin).open());
@@ -2126,7 +2129,7 @@ class WellspringView extends ItemView {
     const showFav = this.plugin.settings.showFavicons !== false;
     const gridTemplate = `28px ${showFav ? "22px " : ""}${cols.map((c) => c.width).join(" ")} 26px`;
 
-    const headers = body.createDiv({ cls: "ws-col-headers" });
+    const headers = body.createDiv({ cls: "cv-col-headers" });
     headers.style.gridTemplateColumns = gridTemplate;
     headers.createSpan();
     if (showFav) headers.createSpan();
@@ -2150,7 +2153,7 @@ class WellspringView extends ItemView {
     }
     headers.createSpan();
 
-    const table = body.createDiv({ cls: "ws-table" });
+    const table = body.createDiv({ cls: "cv-table" });
     const items = this.filtered();
     if (items.length === 0) {
       this.renderEmpty(table);
@@ -2166,7 +2169,7 @@ class WellspringView extends ItemView {
     const isFocused = this.state.focusedPath === id;
 
     const row = table.createDiv({
-      cls: "ws-row" +
+      cls: "cv-row" +
         (isSelected ? " is-selected" : "") +
         (isExpanded ? " is-expanded" : "") +
         (isFocused ? " is-focused" : "") +
@@ -2175,7 +2178,7 @@ class WellspringView extends ItemView {
     row.style.gridTemplateColumns = gridTemplate;
     this.makeDraggable(row, id);
 
-    const check = row.createSpan({ cls: "ws-check" });
+    const check = row.createSpan({ cls: "cv-check" });
     if (isSelected) setIcon(check, "check");
     check.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -2185,17 +2188,17 @@ class WellspringView extends ItemView {
     });
 
     if (showFav) {
-      const fav = row.createSpan({ cls: "ws-fav" });
+      const fav = row.createSpan({ cls: "cv-fav" });
       paintFavicon(fav, this.plugin, b, 14);
     }
 
     const q = this.state.search.trim();
     for (const c of cols) {
-      const cell = row.createSpan({ cls: "ws-cell ws-c-" + c.id });
+      const cell = row.createSpan({ cls: "cv-cell cv-c-" + c.id });
       this.renderCell(cell, c.id, b, q);
     }
 
-    const more = row.createSpan({ cls: "ws-more" });
+    const more = row.createSpan({ cls: "cv-more" });
     setIcon(more, isExpanded ? "chevron-down" : "more-horizontal");
     more.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -2214,7 +2217,7 @@ class WellspringView extends ItemView {
     });
 
     if (isExpanded) {
-      const detail = table.createDiv({ cls: "ws-row-detail" });
+      const detail = table.createDiv({ cls: "cv-row-detail" });
       renderBookmarkEditor(detail, this.plugin, b, this);
     }
   }
@@ -2223,7 +2226,7 @@ class WellspringView extends ItemView {
     switch (id) {
       case "title": {
         if (b.pinned) {
-          const pin = cell.createSpan({ cls: "ws-pin is-pinned", attr: { title: "Pinned (click to unpin)" } });
+          const pin = cell.createSpan({ cls: "cv-pin is-pinned", attr: { title: "Pinned (click to unpin)" } });
           setIcon(pin, "star");
           pin.addEventListener("click", async (e) => {
             e.stopPropagation();
@@ -2234,7 +2237,7 @@ class WellspringView extends ItemView {
           });
         }
         appendInlineIcon(cell, this.plugin, b);
-        const t = cell.createSpan({ cls: "ws-title-text" });
+        const t = cell.createSpan({ cls: "cv-title-text" });
         renderHighlighted(t, b.title, q);
         break;
       }
@@ -2243,10 +2246,10 @@ class WellspringView extends ItemView {
         break;
       case "tags":
         for (const t of b.tags) {
-          const pill = cell.createSpan({ cls: "ws-tag" });
+          const pill = cell.createSpan({ cls: "cv-tag" });
           const ic = this.plugin.settings.tagIcons[t];
           if (ic) {
-            const i = pill.createSpan({ cls: "ws-tag-ico" });
+            const i = pill.createSpan({ cls: "cv-tag-ico" });
             setIcon(i, ic);
           }
           pill.createSpan({ text: t });
@@ -2259,7 +2262,7 @@ class WellspringView extends ItemView {
         }
         break;
       case "status": {
-        const wrap = cell.createSpan({ cls: "ws-status ws-status-" + b.status });
+        const wrap = cell.createSpan({ cls: "cv-status cv-status-" + b.status });
         setIcon(wrap.createSpan(), this.plugin.settings.statusIcons[b.status] || "circle");
         wrap.createSpan({ text: this.plugin.settings.statusLabels[b.status] });
         wrap.addEventListener("click", (e) => {
@@ -2272,7 +2275,7 @@ class WellspringView extends ItemView {
         cell.setText(formatAgo(b.added));
         break;
       case "url":
-        cell.createEl("a", { href: b.url, text: b.url, cls: "ws-url" });
+        cell.createEl("a", { href: b.url, text: b.url, cls: "cv-url" });
         break;
       case "description":
         renderHighlighted(cell, b.description, q);
@@ -2294,7 +2297,7 @@ class WellspringView extends ItemView {
       this.renderEmpty(body);
       return;
     }
-    const grid = body.createDiv({ cls: "ws-cards" });
+    const grid = body.createDiv({ cls: "cv-cards" });
     for (const b of items) this.renderCard(grid, b);
   }
 
@@ -2304,52 +2307,52 @@ class WellspringView extends ItemView {
     const isFocused = this.state.focusedPath === id;
     const isExpanded = this.state.expanded.has(id);
     const card = grid.createDiv({
-      cls: "ws-card" + (isSelected ? " is-selected" : "") + (isFocused ? " is-focused" : ""),
+      cls: "cv-card" + (isSelected ? " is-selected" : "") + (isFocused ? " is-focused" : ""),
     });
     this.makeDraggable(card, id);
 
     // hero
-    const hero = card.createDiv({ cls: "ws-card-hero" });
+    const hero = card.createDiv({ cls: "cv-card-hero" });
     if (b.cover) {
       hero.style.backgroundImage = `url(${JSON.stringify(b.cover)})`;
       hero.addClass("has-cover");
     } else {
       hero.style.background = `linear-gradient(135deg, ${colorForTag(b.tags[0] || b.domain)} 0%, ${colorForTag(b.tags[1] || b.tags[0] || b.title)} 100%)`;
     }
-    const status = hero.createSpan({ cls: "ws-card-status ws-status-" + b.status });
+    const status = hero.createSpan({ cls: "cv-card-status cv-status-" + b.status });
     setIcon(status.createSpan(), this.plugin.settings.statusIcons[b.status] || "circle");
     status.createSpan({ text: this.plugin.settings.statusLabels[b.status] });
 
-    const dom = hero.createDiv({ cls: "ws-card-domain" });
-    const fav = dom.createSpan({ cls: "ws-card-fav" });
+    const dom = hero.createDiv({ cls: "cv-card-domain" });
+    const fav = dom.createSpan({ cls: "cv-card-fav" });
     paintFavicon(fav, this.plugin, b, 14);
     dom.createSpan({ text: b.domain });
 
-    const cardBody = card.createDiv({ cls: "ws-card-body" });
-    const t = cardBody.createEl("h3", { cls: "ws-card-title" });
+    const cardBody = card.createDiv({ cls: "cv-card-body" });
+    const t = cardBody.createEl("h3", { cls: "cv-card-title" });
     if (b.pinned) {
-      const pin = t.createSpan({ cls: "ws-pin is-pinned" });
+      const pin = t.createSpan({ cls: "cv-pin is-pinned" });
       setIcon(pin, "star");
     }
     appendInlineIcon(t, this.plugin, b);
-    const tt = t.createSpan({ cls: "ws-title-text" });
+    const tt = t.createSpan({ cls: "cv-title-text" });
     renderHighlighted(tt, b.title, this.state.search.trim());
     if (b.description) {
-      const d = cardBody.createEl("p", { cls: "ws-card-desc" });
+      const d = cardBody.createEl("p", { cls: "cv-card-desc" });
       renderHighlighted(d, b.description, this.state.search.trim());
     }
-    const meta = cardBody.createDiv({ cls: "ws-card-meta" });
-    const tags = meta.createDiv({ cls: "ws-card-tags" });
+    const meta = cardBody.createDiv({ cls: "cv-card-meta" });
+    const tags = meta.createDiv({ cls: "cv-card-tags" });
     for (const tg of b.tags.slice(0, 3)) {
-      const pill = tags.createSpan({ cls: "ws-tag" });
+      const pill = tags.createSpan({ cls: "cv-tag" });
       const ic = this.plugin.settings.tagIcons[tg];
-      if (ic) setIcon(pill.createSpan({ cls: "ws-tag-ico" }), ic);
+      if (ic) setIcon(pill.createSpan({ cls: "cv-tag-ico" }), ic);
       pill.createSpan({ text: tg });
     }
-    meta.createSpan({ cls: "ws-card-ago", text: formatAgo(b.added) });
+    meta.createSpan({ cls: "cv-card-ago", text: formatAgo(b.added) });
 
     // checkbox overlay
-    const check = card.createSpan({ cls: "ws-card-check" + (isSelected ? " is-on" : "") });
+    const check = card.createSpan({ cls: "cv-card-check" + (isSelected ? " is-on" : "") });
     if (isSelected) setIcon(check, "check");
     check.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -2371,7 +2374,7 @@ class WellspringView extends ItemView {
 
     if (isExpanded) {
       // span the editor full-width below the card row
-      const editor = grid.createDiv({ cls: "ws-card-editor" });
+      const editor = grid.createDiv({ cls: "cv-card-editor" });
       renderBookmarkEditor(editor, this.plugin, b, this);
     }
   }
@@ -2380,7 +2383,7 @@ class WellspringView extends ItemView {
 
   renderBoardLayout(body) {
     const items = this.filtered();
-    const board = body.createDiv({ cls: "ws-board" });
+    const board = body.createDiv({ cls: "cv-board" });
     const groups = {};
     for (const s of ["inbox", "reading", "done", "archive"]) groups[s] = [];
     for (const b of items) {
@@ -2388,13 +2391,13 @@ class WellspringView extends ItemView {
       if (groups[s]) groups[s].push(b);
     }
     for (const s of ["inbox", "reading", "done", "archive"]) {
-      const col = board.createDiv({ cls: "ws-board-col ws-col-" + s });
-      const head = col.createDiv({ cls: "ws-board-col-head" });
-      const ico = head.createSpan({ cls: "ws-board-col-ico ws-status-" + s });
+      const col = board.createDiv({ cls: "cv-board-col cv-col-" + s });
+      const head = col.createDiv({ cls: "cv-board-col-head" });
+      const ico = head.createSpan({ cls: "cv-board-col-ico cv-status-" + s });
       setIcon(ico, this.plugin.settings.statusIcons[s] || "circle");
-      head.createSpan({ cls: "ws-board-col-label", text: this.plugin.settings.statusLabels[s] });
-      head.createSpan({ cls: "ws-board-col-count", text: String(groups[s].length) });
-      const add = head.createEl("button", { cls: "ws-board-col-add", attr: { "aria-label": "Add" } });
+      head.createSpan({ cls: "cv-board-col-label", text: this.plugin.settings.statusLabels[s] });
+      head.createSpan({ cls: "cv-board-col-count", text: String(groups[s].length) });
+      const add = head.createEl("button", { cls: "cv-board-col-add", attr: { "aria-label": "Add" } });
       setIcon(add, "plus");
       add.addEventListener("click", () => {
         const opts = { status: s };
@@ -2402,7 +2405,7 @@ class WellspringView extends ItemView {
         new AddBookmarkModal(this.app, this.plugin, opts).open();
       });
 
-      const colBody = col.createDiv({ cls: "ws-board-col-body" });
+      const colBody = col.createDiv({ cls: "cv-board-col-body" });
 
       colBody.addEventListener("dragover", (e) => {
         e.preventDefault();
@@ -2436,7 +2439,7 @@ class WellspringView extends ItemView {
     const isFocused = this.state.focusedPath === id;
     const isExpanded = this.state.expanded.has(id);
     const card = parent.createDiv({
-      cls: "ws-board-card" + (isFocused ? " is-focused" : ""),
+      cls: "cv-board-card" + (isFocused ? " is-focused" : ""),
       attr: { draggable: "true" },
     });
 
@@ -2447,34 +2450,34 @@ class WellspringView extends ItemView {
     });
     card.addEventListener("dragend", () => card.removeClass("is-dragging"));
 
-    const accent = card.createDiv({ cls: "ws-board-accent" });
+    const accent = card.createDiv({ cls: "cv-board-accent" });
     accent.style.background = b.tags.length
       ? `linear-gradient(90deg, ${colorForTag(b.tags[0])}, ${colorForTag(b.tags[b.tags.length - 1])})`
       : "var(--background-modifier-border)";
 
-    const head = card.createDiv({ cls: "ws-board-card-head" });
-    const fav = head.createSpan({ cls: "ws-board-card-fav" });
+    const head = card.createDiv({ cls: "cv-board-card-head" });
+    const fav = head.createSpan({ cls: "cv-board-card-fav" });
     paintFavicon(fav, this.plugin, b, 12);
-    head.createSpan({ cls: "ws-board-card-domain", text: b.domain });
+    head.createSpan({ cls: "cv-board-card-domain", text: b.domain });
 
-    const t = card.createEl("p", { cls: "ws-board-card-title" });
+    const t = card.createEl("p", { cls: "cv-board-card-title" });
     if (b.pinned) {
-      const pin = t.createSpan({ cls: "ws-pin is-pinned" });
+      const pin = t.createSpan({ cls: "cv-pin is-pinned" });
       setIcon(pin, "star");
     }
     appendInlineIcon(t, this.plugin, b);
-    const tt = t.createSpan({ cls: "ws-title-text" });
+    const tt = t.createSpan({ cls: "cv-title-text" });
     renderHighlighted(tt, b.title, this.state.search.trim());
 
-    const meta = card.createDiv({ cls: "ws-board-card-meta" });
-    const tags = meta.createDiv({ cls: "ws-card-tags" });
+    const meta = card.createDiv({ cls: "cv-board-card-meta" });
+    const tags = meta.createDiv({ cls: "cv-card-tags" });
     for (const tg of b.tags.slice(0, 2)) {
-      const pill = tags.createSpan({ cls: "ws-tag" });
+      const pill = tags.createSpan({ cls: "cv-tag" });
       const ic = this.plugin.settings.tagIcons[tg];
-      if (ic) setIcon(pill.createSpan({ cls: "ws-tag-ico" }), ic);
+      if (ic) setIcon(pill.createSpan({ cls: "cv-tag-ico" }), ic);
       pill.createSpan({ text: tg });
     }
-    meta.createSpan({ cls: "ws-card-ago", text: formatAgo(b.added) });
+    meta.createSpan({ cls: "cv-card-ago", text: formatAgo(b.added) });
 
     card.addEventListener("click", () => {
       this.state.focusedPath = id;
@@ -2488,7 +2491,7 @@ class WellspringView extends ItemView {
     });
 
     if (isExpanded) {
-      const editor = parent.createDiv({ cls: "ws-board-editor" });
+      const editor = parent.createDiv({ cls: "cv-board-editor" });
       renderBookmarkEditor(editor, this.plugin, b, this);
     }
   }
@@ -2496,14 +2499,14 @@ class WellspringView extends ItemView {
   // --- tree layout ---------------------------------------------
 
   renderTreeLayout(body) {
-    body.addClass("ws-tree-body");
+    body.addClass("cv-tree-body");
     const items = this.filtered();
-    const left = body.createDiv({ cls: "ws-tree-list" });
-    const right = body.createDiv({ cls: "ws-tree-preview" });
+    const left = body.createDiv({ cls: "cv-tree-list" });
+    const right = body.createDiv({ cls: "cv-tree-preview" });
 
     if (items.length === 0) {
       this.renderEmpty(left);
-      right.createDiv({ cls: "ws-empty", text: "Select a bookmark to preview." });
+      right.createDiv({ cls: "cv-empty", text: "Select a bookmark to preview." });
       return;
     }
 
@@ -2511,22 +2514,22 @@ class WellspringView extends ItemView {
     for (const b of items) {
       const id = b.file.path;
       const item = left.createDiv({
-        cls: "ws-tree-item" + (id === previewPath ? " is-active" : ""),
+        cls: "cv-tree-item" + (id === previewPath ? " is-active" : ""),
       });
       this.makeDraggable(item, id);
-      const fav = item.createSpan({ cls: "ws-tree-fav" });
+      const fav = item.createSpan({ cls: "cv-tree-fav" });
       paintFavicon(fav, this.plugin, b, 16);
-      const info = item.createDiv({ cls: "ws-tree-info" });
-      const t = info.createDiv({ cls: "ws-tree-title" });
+      const info = item.createDiv({ cls: "cv-tree-info" });
+      const t = info.createDiv({ cls: "cv-tree-title" });
       if (b.pinned) {
-        const pin = t.createSpan({ cls: "ws-pin is-pinned" });
+        const pin = t.createSpan({ cls: "cv-pin is-pinned" });
         setIcon(pin, "star");
       }
       appendInlineIcon(t, this.plugin, b);
-      const tt = t.createSpan({ cls: "ws-title-text" });
+      const tt = t.createSpan({ cls: "cv-title-text" });
       renderHighlighted(tt, b.title, this.state.search.trim());
-      info.createDiv({ cls: "ws-tree-sub", text: `${b.domain} · ${formatAgo(b.added)}` });
-      const stIco = item.createSpan({ cls: "ws-tree-status ws-status-" + b.status });
+      info.createDiv({ cls: "cv-tree-sub", text: `${b.domain} · ${formatAgo(b.added)}` });
+      const stIco = item.createSpan({ cls: "cv-tree-status cv-status-" + b.status });
       setIcon(stIco, this.plugin.settings.statusIcons[b.status] || "circle");
       item.addEventListener("click", () => {
         this.state.previewPath = id;
@@ -2791,17 +2794,17 @@ class WellspringView extends ItemView {
 //  Plugin
 // ============================================================
 
-class WellspringPlugin extends Plugin {
+class CovePlugin extends Plugin {
   async onload() {
     await this.loadSettings();
 
-    this.registerView(VIEW_TYPE, (leaf) => new WellspringView(leaf, this));
+    this.registerView(VIEW_TYPE, (leaf) => new CoveView(leaf, this));
 
-    this.addRibbonIcon("bookmark", "Open Wellspring", () => this.activateView());
+    this.addRibbonIcon("bookmark", "Open Cove", () => this.activateView());
 
     this.addCommand({
       id: "open-view",
-      name: "Open Wellspring",
+      name: "Open Cove",
       callback: () => this.activateView(),
     });
     this.addCommand({
@@ -2828,7 +2831,7 @@ class WellspringPlugin extends Plugin {
       },
     });
 
-    this.addSettingTab(new WellspringSettingTab(this.app, this));
+    this.addSettingTab(new CoveSettingTab(this.app, this));
 
     const refresh = debounce(() => this.refreshViews(), 200, true);
     this.registerEvent(this.app.metadataCache.on("changed", refresh));
@@ -2857,7 +2860,7 @@ class WellspringPlugin extends Plugin {
 
   refreshViews() {
     this.app.workspace.getLeavesOfType(VIEW_TYPE).forEach((leaf) => {
-      if (leaf.view instanceof WellspringView) leaf.view.scheduleRender();
+      if (leaf.view instanceof CoveView) leaf.view.scheduleRender();
     });
   }
 
@@ -3064,7 +3067,7 @@ class WellspringPlugin extends Plugin {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "wellspring-bookmarks.html";
+    a.download = "cove-bookmarks.html";
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -3097,9 +3100,9 @@ class WellspringPlugin extends Plugin {
     }
     this.settings.lastLinkCheck = Date.now();
     await this.saveData(this.settings);
-    if (verbose) console.log(`Wellspring link check: ${items.length} total, ${broken} broken`);
+    if (verbose) console.log(`Cove link check: ${items.length} total, ${broken} broken`);
     return { total: items.length, broken };
   }
 }
 
-module.exports = WellspringPlugin;
+module.exports = CovePlugin;

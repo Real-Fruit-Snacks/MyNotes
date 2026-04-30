@@ -1,10 +1,10 @@
 {
-  "id": "wellspring",
-  "name": "Wellspring",
+  "id": "cove",
+  "name": "Cove",
   "version": "0.1.0",
   "minAppVersion": "1.5.0",
-  "description": "A bookmark manager with a compact list view, customizable columns and icons, status workflow, and auto-fetched metadata.",
+  "description": "Bookmark manager with four switchable layouts. Each bookmark is a Markdown file with YAML frontmatter — no proprietary database, no lock-in.",
   "author": "Real-Fruit-Snacks",
-  "authorUrl": "",
+  "authorUrl": "https://github.com/Real-Fruit-Snacks",
   "isDesktopOnly": false
 }

@@ -6,6 +6,7 @@
       {
         "id": "e9ded116c615bdae",
         "type": "tabs",
+        "dimension": 66.40759930915371,
         "children": [
           {
             "id": "861a188864964bf1",
@@ -46,17 +47,15 @@
               "icon": "lucide-file",
               "title": "google"
             }
-          },
-          {
-            "id": "30b1c0967ff74add",
-            "type": "leaf",
-            "state": {
-              "type": "wellspring-view",
-              "state": {},
-              "icon": "bookmark",
-              "title": "Wellspring"
-            }
-          },
+          }
+        ],
+        "currentTab": 2
+      },
+      {
+        "id": "f27920b79ec12134",
+        "type": "tabs",
+        "dimension": 33.59240069084628,
+        "children": [
           {
             "id": "8bfe7a9d7ffd22e3",
             "type": "leaf",
@@ -66,9 +65,19 @@
               "icon": "check-circle",
               "title": "Wake"
             }
+          },
+          {
+            "id": "f3f42aa9e649991a",
+            "type": "leaf",
+            "state": {
+              "type": "cove-view",
+              "state": {},
+              "icon": "bookmark",
+              "title": "Cove"
+            }
           }
         ],
-        "currentTab": 4
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -206,7 +215,6 @@
   "left-ribbon": {
     "hiddenItems": {
       "wake:Open Wake": false,
-      "wellspring:Open Wellspring": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
       "templates:Insert template": false,
@@ -215,10 +223,11 @@
       "yaml-variable-templater:YAML Variable Templater": false,
       "obsidian-git:Open Git source control": false,
       "table-editor-obsidian:Advanced Tables Toolbar": false,
-      "iconic:Open rulebook": true
+      "iconic:Open rulebook": true,
+      "cove:Open Cove": false
     }
   },
-  "active": "8bfe7a9d7ffd22e3",
+  "active": "f3f42aa9e649991a",
   "lastOpenFiles": [
     "Bookmarks/Tech",
     "Bookmarks/google.md",
