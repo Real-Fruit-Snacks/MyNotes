@@ -54,12 +54,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Methodology/1. Enumeration/0. Initial Recon/1. Initial Recon/Initial Recon.md",
+                "file": "docs/Training/HackSmarter/OSCP Path.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Initial Recon"
+              "title": "OSCP Path"
             }
           }
         ],
@@ -90,8 +90,7 @@
               "title": "Cove"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -241,10 +240,10 @@
       "cove:Open Cove": false
     }
   },
-  "active": "c9a13e23d7321195",
+  "active": "8bfe7a9d7ffd22e3",
   "lastOpenFiles": [
-    "Methodology/2. Privilege Escalation/Windows Privesc/Active Directory Methdology/Active Directory Methdology.md",
     "Methodology/1. Enumeration/0. Initial Recon/1. Initial Recon/Initial Recon.md",
+    "Methodology/2. Privilege Escalation/Windows Privesc/Active Directory Methdology/Active Directory Methdology.md",
     "docs/Labs/HackSmarter/ShareThePain/Scope 2.md",
     "Methodology/0. Start Here/Methdology.md",
     "docs/Attachments/Methodology/1. Enumeration/0. Initial Recon/3. General methodology/Content Discovery/Automation workflow/Automation Scripts and Oneliners/XSS automation/XSS Cookie Theft",
