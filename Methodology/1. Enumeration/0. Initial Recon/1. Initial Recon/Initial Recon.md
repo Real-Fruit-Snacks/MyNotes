@@ -1,25 +1,25 @@
 ### **Network Scanning:**
-```
+```bash
 nmap -p- -Pn $target -v --min-rate 1000 --max-rtt-timeout 1000ms --max-retries 5 -oN nmap_ports.txt && sleep 5 && nmap -Pn $target -sV -sC -v -oN nmap_sVsC.txt && sleep 5 && nmap -T5 -Pn $target -v --script vuln -oN nmap_vuln.txt 
 
 rustscan --ulimit 5000 -a $target -- -sC -sV -Pn -oN nmap_full
 ```
 ### **Web Content Discovery:** 
 ## Directories:
-```
+```bash
 ffuf -u http://$target/FUZZ -w /usr/share/seclists/Discovery/Web-Content/raft-large-directories.txt -recursion -recursion-depth 1 -o dirs
 ffuf -u http://$target/FUZZ -w /usr/share/seclists/Discovery/Web-Content/big.txt -recursion -recursion-depth 1
 ffuf -u http://$target/FUZZ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -recursion -recursion-depth 1
 ffuf -u http://$target/FUZZ -w /usr/share/seclists/Discovery/Web-Content/raft-large-words.txt -recursion -recursion-depth 1
 ```
 ## Files:
-```
+```bash
 ffuf -u http://$target/FUZZ -w /usr/share/seclists/Discovery/Web-Content/big.txt -e .php,.html -o files
 ffuf -u http://$target/FUZZ -w /usr/share/seclists/Discovery/Web-Content/common.txt -t 50 -e .php,.asp,.aspx,.jsp,.html,.txt,.json
 ffuf -u http://$target/FUZZ -w /usr/share/seclists/Discovery/Web-Content/raft-large-words.txt -t 50 -e .php,.asp,.aspx,.jsp,.html,.txt,.json
 ```
 ## Parse ffuf output:
-```
+```bash
 cat dirs | jq -r '.results[] | [.status, .url] | @tsv' | sort
 cat files | jq -r '.results[] | [.status, .url] | @tsv' | sort
 ```
