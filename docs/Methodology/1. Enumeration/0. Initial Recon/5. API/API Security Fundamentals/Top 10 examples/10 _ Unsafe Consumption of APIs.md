@@ -1,3 +1,0 @@
-
-
-![unnamed_538078a0b04544b68e7cbbb55c3ba90c](unnamed_538078a0b04544b68e7cbbb55c3ba90c.png)

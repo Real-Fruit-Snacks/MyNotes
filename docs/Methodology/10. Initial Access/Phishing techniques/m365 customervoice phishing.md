@@ -1,3 +1,0 @@
-ecv.microsoft.com/dzyOyfROjd
-
-![unnamed_1c18b9e484164cf0bc0c7e353bad9735](unnamed_1c18b9e484164cf0bc0c7e353bad9735.png)

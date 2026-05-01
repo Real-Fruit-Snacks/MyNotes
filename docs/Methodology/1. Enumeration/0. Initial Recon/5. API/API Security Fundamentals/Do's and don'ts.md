@@ -1,1 +1,0 @@
-![unnamed_962bf8507cd244648b1a8c2bdeb0c828](unnamed_962bf8507cd244648b1a8c2bdeb0c828.png)

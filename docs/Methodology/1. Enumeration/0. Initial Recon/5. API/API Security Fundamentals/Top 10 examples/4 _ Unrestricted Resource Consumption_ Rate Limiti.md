@@ -1,3 +1,0 @@
-
-
-![unnamed_cc9b186493db4df994b53a5eb65b4fb5](unnamed_cc9b186493db4df994b53a5eb65b4fb5.png)

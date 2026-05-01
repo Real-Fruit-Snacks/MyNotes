@@ -1,0 +1,3 @@
+<https://www.youtube.com/watch?v=_Zr84AeHECA&t=201s>
+![unnamed_39060c76c4864846bc4c749caaf098d1](docs/Attachments/Methodology/1.%20Enumeration/0.%20Initial%20Recon/4.%20Common%20Web%20Attack%20Techniques/Type%20Confusion/PHP%20Type%20Juggling/{{notename}}-202605011506.png)
+### If you can change the request type to json, you can make the application interpret the password as an integer, and not a string. And due to type confusoin in php (still an issue), and if the developers haven't thought of this, it's possible to make this evaluate to true, and therefore bypassing authentification.

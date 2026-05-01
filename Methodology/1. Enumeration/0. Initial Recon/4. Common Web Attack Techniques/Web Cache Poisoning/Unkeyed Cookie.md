@@ -1,0 +1,5 @@
+Test on the made up endpoint, and we can see the cookie value is reflected back in the js. After getting a hit on x-cache, we can change the endpoint to rootdir and send request enough to re-cache. If this works, all new users visiting this page will have our injection js execute on their page
+
+BAM![unnamed_f9d4c4c2259842e5a7e0bcee24f65285](docs/Attachments/Methodology/1.%20Enumeration/0.%20Initial%20Recon/4.%20Common%20Web%20Attack%20Techniques/Web%20Cache%20Poisoning/Unkeyed%20Cookie/{{notename}}-202605011506.png)
+![unnamed_6020d465af2c4a22be0e58c72f9df9aa](docs/Attachments/Methodology/1.%20Enumeration/0.%20Initial%20Recon/4.%20Common%20Web%20Attack%20Techniques/Web%20Cache%20Poisoning/Unkeyed%20Cookie/{{notename}}-202605011506-1.png)
+![unnamed_4873fca1308e4c20b26ae33069032cb8](docs/Attachments/Methodology/1.%20Enumeration/0.%20Initial%20Recon/4.%20Common%20Web%20Attack%20Techniques/Web%20Cache%20Poisoning/Unkeyed%20Cookie/{{notename}}-202605011506-2.png)

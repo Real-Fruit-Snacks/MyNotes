@@ -1,0 +1,3 @@
+
+![unnamed_a76870b078654bf1996f7a0b8c00eb7d](docs/Attachments/Methodology/1.%20Enumeration/0.%20Initial%20Recon/4.%20Common%20Web%20Attack%20Techniques/Web%20Cache%20Poisoning/Multiple%20Headers/{{notename}}-202605011506.png)
+![unnamed_badabaa31312479cbe29dcb09b387139](docs/Attachments/Methodology/1.%20Enumeration/0.%20Initial%20Recon/4.%20Common%20Web%20Attack%20Techniques/Web%20Cache%20Poisoning/Multiple%20Headers/{{notename}}-202605011506-1.png)
