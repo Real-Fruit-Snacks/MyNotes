@@ -2,9 +2,9 @@
   "folder": "Bookmarks",
   "defaultSort": "added",
   "defaultSortDir": "desc",
+  "defaultLayout": "list",
   "visibleColumns": [
     "title",
-    "domain",
     "tags",
     "status",
     "added"
@@ -23,6 +23,11 @@
     "archive": "Archive",
     "broken": "Broken"
   },
+  "tagIcons": {},
+  "folderIcons": {},
   "fetchMetadata": false,
-  "showFavicons": false
+  "showFavicons": false,
+  "showIcons": true,
+  "linkCheckIntervalDays": 0,
+  "lastLinkCheck": 0
 }

@@ -1,0 +1,1 @@
+![unnamed_bac2a5b3eeb14f3c97f47b3acd665f76](docs/Attachments/_Methodology/1.%20Enumeration/0.%20Initial%20Recon/5.%20API/API%20Security%20Fundamentals/Top%2010%20examples/9%20_%20Improper%20Inventory%20Management/{{notename}}-202605011742.png)

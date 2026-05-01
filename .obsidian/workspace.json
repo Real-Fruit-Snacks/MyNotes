@@ -4,90 +4,77 @@
     "type": "split",
     "children": [
       {
-        "id": "e9ded116c615bdae",
+        "id": "9c91980d6488d1f6",
         "type": "tabs",
-        "dimension": 66.62348877374784,
         "children": [
           {
-            "id": "861a188864964bf1",
+            "id": "cbc814bde52a77fb",
             "type": "leaf",
             "pinned": true,
             "state": {
-              "type": "empty",
-              "state": {},
-              "pinned": true,
-              "icon": "lucide-file",
-              "title": "New tab"
-            }
-          },
-          {
-            "id": "ba62af066a906f44",
-            "type": "leaf",
-            "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/Labs/HackSmarter/ShareThePain/Machine Walkthrough 2.md",
+                "file": "_Methodology/1. Enumeration/0. Initial Recon/1. Initial Recon/Initial Recon.md",
                 "mode": "source",
                 "source": false
               },
+              "pinned": true,
               "icon": "lucide-file",
-              "title": "Machine Walkthrough 2"
+              "title": "Initial Recon"
+            }
+          }
+        ]
+      },
+      {
+        "id": "f9e3f1bb2e2a2084",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6ed41d9d9166e480",
+            "type": "leaf",
+            "pinned": true,
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Methodology/0. Setup/1. Local Machine Setup.md",
+                "mode": "source",
+                "source": false
+              },
+              "pinned": true,
+              "icon": "lucide-file",
+              "title": "1. Local Machine Setup"
+            }
+          },
+          {
+            "id": "5c5005f87d42a729",
+            "type": "leaf",
+            "pinned": true,
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Methodology/1. Enumeration/1. Network Scanning.md",
+                "mode": "source",
+                "source": false
+              },
+              "pinned": true,
+              "icon": "lucide-file",
+              "title": "1. Network Scanning"
             }
           },
           {
             "id": "62708c4cc5fc0cdd",
             "type": "leaf",
+            "pinned": true,
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Bookmarks/google.md",
+                "file": "Methodology/1. Enumeration/2. Web Content Discovery.md",
                 "mode": "source",
                 "source": false
               },
+              "pinned": true,
               "icon": "lucide-file",
-              "title": "google"
-            }
-          },
-          {
-            "id": "c9a13e23d7321195",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/Training/HackSmarter/OSCP Path.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "OSCP Path"
-            }
-          }
-        ],
-        "currentTab": 3
-      },
-      {
-        "id": "f27920b79ec12134",
-        "type": "tabs",
-        "dimension": 33.37651122625216,
-        "children": [
-          {
-            "id": "8bfe7a9d7ffd22e3",
-            "type": "leaf",
-            "state": {
-              "type": "wake-view",
-              "state": {},
-              "icon": "check-circle",
-              "title": "Wake"
-            }
-          },
-          {
-            "id": "f3f42aa9e649991a",
-            "type": "leaf",
-            "state": {
-              "type": "cove-view",
-              "state": {},
-              "icon": "bookmark",
-              "title": "Cove"
+              "title": "2. Web Content Discovery"
             }
           }
         ]
@@ -240,43 +227,43 @@
       "cove:Open Cove": false
     }
   },
-  "active": "8bfe7a9d7ffd22e3",
+  "active": "6ed41d9d9166e480",
   "lastOpenFiles": [
-    "Methodology/1. Enumeration/0. Initial Recon/1. Initial Recon/Initial Recon.md",
-    "Methodology/2. Privilege Escalation/Windows Privesc/Active Directory Methdology/Active Directory Methdology.md",
+    "Methodology/1. Enumeration/1. Network Scanning.md",
+    "Methodology/0. Setup/1. Local Machine Setup.md",
+    "Methodology 1/1. Enumeration/2. Web Content Discovery.md",
+    "Methodology 1/1. Enumeration/1. Network Scanning.md",
+    "Methodology 1/0. Setup/1. Local Machine Setup.md",
+    "Methodology 1/1. Enumeration",
+    "Methodology 1/0. Setup",
+    "Methodology 1",
+    "Methodology/1. Enumeration/2. Web Content Discovery.md",
+    "Methodology/0. Setup",
+    "_Methodology/1. Enumeration/0. Initial Recon/1. Initial Recon/Initial Recon.md",
+    "docs/Labs/HackSmarter/ShareThePain/Machine Walkthrough 2.md",
+    "Methodology/1. Enumeration/Untitled",
+    "Methodology/1. Enumeration",
+    "docs/Attachments/_Methodology/1. Enumeration/0. Initial Recon/3. General methodology/Content Discovery/Automation workflow/Automation Scripts and Oneliners/XSS automation/XSS Cookie Theft",
+    "docs/Attachments/_Methodology/1. Enumeration/0. Initial Recon/3. General methodology/Content Discovery/Automation workflow/Automation Scripts and Oneliners/XSS automation",
+    "docs/Attachments/_Methodology/1. Enumeration/0. Initial Recon/3. General methodology/Content Discovery/Automation workflow/Automation Scripts and Oneliners",
+    "docs/Attachments/_Methodology/1. Enumeration/0. Initial Recon/3. General methodology/Content Discovery/Automation workflow",
+    "_Methodology/1. Enumeration/0. Initial Recon/2. Checklist/! Checklists Overview/Checklist.md",
+    "_Methodology/1. Enumeration/0. Initial Recon/2. Checklist/Standalones/! Standalones Checklist/Standalones Checklist.md",
+    "docs/index.md",
+    "Bookmarks/google.md",
+    "docs/Training/HackSmarter/OSCP Path.md",
+    "_Methodology/2. Privilege Escalation/Windows Privesc/Active Directory Methdology/Active Directory Methdology.md",
     "docs/Labs/HackSmarter/ShareThePain/Scope 2.md",
     "Methodology/0. Start Here/Methdology.md",
-    "docs/Attachments/Methodology/1. Enumeration/0. Initial Recon/3. General methodology/Content Discovery/Automation workflow/Automation Scripts and Oneliners/XSS automation/XSS Cookie Theft",
-    "docs/Attachments/Methodology/1. Enumeration/0. Initial Recon/3. General methodology/Content Discovery/Automation workflow/Automation Scripts and Oneliners/XSS automation",
-    "docs/Attachments/Methodology/1. Enumeration/0. Initial Recon/3. General methodology/Content Discovery/Automation workflow/Automation Scripts and Oneliners",
-    "docs/Attachments/Methodology/1. Enumeration/0. Initial Recon/3. General methodology/Content Discovery/Automation workflow",
-    "docs/Attachments/Methodology/2. Privilege Escalation/Windows Privesc/Windows Methodology/Attacks/UAC Bypass/GUI based UAC bypass/msconfig",
-    "docs/Attachments/Methodology/2. Privilege Escalation/Windows Privesc/Windows Methodology/Attacks/UAC Bypass/GUI based UAC bypass/azman.msc",
-    "docs/Attachments/Methodology/2. Privilege Escalation/Windows Privesc/Windows Methodology/Attacks/UAC Bypass/GUI based UAC bypass",
-    "docs/Attachments/Methodology/2. Privilege Escalation/Windows Privesc/Windows Methodology/Attacks/UAC Bypass",
-    "docs/Attachments/Methodology/2. Privilege Escalation/Windows Privesc/Windows Methodology/Attacks/Privileges & groups/SeImpersonatePrivilege/PrintSpoofer",
-    "docs/Attachments/Methodology/2. Privilege Escalation/Windows Privesc/Windows Methodology/Attacks/Privileges & groups/SeImpersonatePrivilege/JuicyPotato",
     "Side Note/Convert to Gitlab.md",
     "Side Note/Things to Fix.md",
-    "Bookmarks/google.md",
     "docs/Labs/HackSmarter/BuildingMagic/Machine Walkthrough.md",
-    "docs/Labs/HackSmarter/ShareThePain/Machine Walkthrough 2.md",
     "docs/Windows/File Transfer.md",
     "docs/Labs/HackSmarter/BuildingMagic/Scope.md",
-    "docs/Training/HackSmarter/OSCP Path.md",
     "docs/Web/Shell/PHP.md",
     "docs/Web/File Uploads/Bypass Client-Side Controls.md",
     "docs/Tools/Listeners.md",
     "docs/OS/Kali.md",
-    "docs/Web/File Uploads/Bypass MIME Checks.md",
-    "docs/index.md",
-    "docs/Web/File Uploads/Bypass Server-Side Inspection.md",
-    "Web/File Uploads/Bypass Client-Side Controls.md",
-    "Web/File Uploads/Bypass MIME Checks.md",
-    "Web/File Uploads/Bypass Server-Side Inspection.md",
-    "Web/Shell/PHP.md",
-    "Notes.md",
-    "Windows/File Transfer.md",
-    "Labs/HackSmarter/ShareThePain/Machine Walkthrough.md"
+    "docs/Web/File Uploads/Bypass MIME Checks.md"
   ]
 }

@@ -1,0 +1,2 @@
+<https://www.youtube.com/watch?v=sBhKUFcpDTA>
+![unnamed_6ca8e652ee2644f499424fb7f39f1559](docs/Attachments/_Methodology/10.%20Initial%20Access/Phishing%20techniques/Phishing%20Infrastructure/{{notename}}-202605011742.png)

@@ -1,7 +1,6 @@
 ---
 title: Home
 ---
-
 # My Notes
 
 Welcome.
