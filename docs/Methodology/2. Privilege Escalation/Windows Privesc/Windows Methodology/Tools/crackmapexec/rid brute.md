@@ -1,0 +1,2 @@
+After getting your first credentials on the domain, this will brute force sid and rid to optain initial user and group information. 
+crackmapexec smb 10.10.253.194 -u 'twilliams' -p 'roastpotatoes' e | tee crackmapexec-rid-brute

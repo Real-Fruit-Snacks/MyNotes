@@ -1,0 +1,1 @@
+<https://github.com/trufflesecurity/trufflehog> (truffleHog, finds leaked keys and credentials across github)

@@ -1,0 +1,1 @@
+Just send a post request and fuzz the password. Look at the fuzzing history and look for different response header sizes to find what you're looking for.

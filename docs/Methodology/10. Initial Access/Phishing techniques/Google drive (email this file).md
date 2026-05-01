@@ -1,0 +1,1 @@
+<https://mrd0x.com/abusing-google-drives-email-file-functionality/>

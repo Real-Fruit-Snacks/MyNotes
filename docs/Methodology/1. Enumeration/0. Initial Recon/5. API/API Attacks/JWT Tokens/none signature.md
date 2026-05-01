@@ -1,0 +1,1 @@
+Sometimes developers does not check the signature so you can literally just alter “alg” to "none". And remove the signature value entirely in the JWT except the trailing dot. 

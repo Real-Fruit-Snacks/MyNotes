@@ -1,0 +1,1 @@
+<https://github.com/nahamsec/lazys3> (find s3 buckets)

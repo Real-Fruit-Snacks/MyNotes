@@ -1,0 +1,1 @@
+crunch 5 5 > pass.txt
