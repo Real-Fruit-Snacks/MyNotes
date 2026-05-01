@@ -48,8 +48,7 @@
               "title": "google"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       },
       {
         "id": "f27920b79ec12134",
@@ -76,8 +75,7 @@
               "title": "Cove"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -227,7 +225,7 @@
       "cove:Open Cove": false
     }
   },
-  "active": "f3f42aa9e649991a",
+  "active": "8bfe7a9d7ffd22e3",
   "lastOpenFiles": [
     "Bookmarks/Tech",
     "Bookmarks/google.md",
