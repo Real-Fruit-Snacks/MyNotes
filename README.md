@@ -1,9 +1,7 @@
-<div align="center">
-
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Real-Fruit-Snacks/MyNotes/main/docs/assets/logo-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Real-Fruit-Snacks/MyNotes/main/docs/assets/logo-light.svg">
-  <img alt="MyNotes" src="https://raw.githubusercontent.com/Real-Fruit-Snacks/MyNotes/main/docs/assets/logo-dark.svg" width="520">
+  <img alt="MyNotes" src="https://raw.githubusercontent.com/Real-Fruit-Snacks/MyNotes/main/docs/assets/logo-dark.svg" width="100%">
 </picture>
 
 ![MkDocs](https://img.shields.io/badge/built%20with-MkDocs%20Material-cba6f7?style=flat-square&labelColor=1e1e2e)
@@ -16,8 +14,6 @@
 A living knowledge base for offensive security work: methodology, command cheat-sheets,
 tool snippets, and field-tested workflows. Built with MkDocs Material, themed in
 Catppuccin Mocha, deployed to GitHub Pages on every push to `main`.
-
-</div>
 
 ---
 
