@@ -216,14 +216,23 @@
               "icon": "git-pull-request",
               "title": "Source Control"
             }
+          },
+          {
+            "id": "133c58748b456565",
+            "type": "leaf",
+            "state": {
+              "type": "wake-view",
+              "state": {},
+              "icon": "check-circle",
+              "title": "Wake"
+            }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
-    "width": 467.5,
-    "collapsed": true
+    "width": 962.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -240,7 +249,7 @@
       "cove:Open Cove": false
     }
   },
-  "active": "f2ced3885d58d59f",
+  "active": "133c58748b456565",
   "lastOpenFiles": [
     "docs/Labs/HackSmarter/ShareThePain/Machine Walkthrough.md",
     "Methodology/1. Enumeration/2. Web Content Discovery.md",
