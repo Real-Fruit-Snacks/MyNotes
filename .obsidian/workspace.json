@@ -232,7 +232,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 962.5
+    "width": 872.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -249,10 +249,11 @@
       "cove:Open Cove": false
     }
   },
-  "active": "133c58748b456565",
+  "active": "5015dfe0da6f10d7",
   "lastOpenFiles": [
-    "docs/Labs/HackSmarter/ShareThePain/Machine Walkthrough.md",
     "Methodology/1. Enumeration/2. Web Content Discovery.md",
+    "docs/Labs/HackSmarter/BuildingMagic/Machine Walkthrough.md",
+    "docs/Labs/HackSmarter/ShareThePain/Machine Walkthrough.md",
     "_Methodology/1. Enumeration/0. Initial Recon/3. General methodology/Checking for CVE's and misconfigrations/Checking for CVE's and misconfigrations.md",
     "_Methodology/1. Enumeration/0. Initial Recon/3. General methodology/Burp Suite/Extensions.md",
     "_Methodology/1. Enumeration/0. Initial Recon/3. General methodology/Burp Suite/Burp Suite.md",
@@ -274,7 +275,6 @@
     "Methodology 1/0. Setup",
     "Methodology 1",
     "Methodology/0. Setup",
-    "docs/Labs/HackSmarter/BuildingMagic/Machine Walkthrough.md",
     "Methodology/1. Enumeration/Untitled",
     "Methodology/1. Enumeration",
     "docs/Attachments/_Methodology/1. Enumeration/0. Initial Recon/3. General methodology/Content Discovery/Automation workflow/Automation Scripts and Oneliners/XSS automation/XSS Cookie Theft",
